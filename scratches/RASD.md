@@ -6,17 +6,23 @@ We need to develop a software management system to support an electric car-shari
 
 -We think that users should be able to park the car they are using in every public parking area of the city
 
+#### Current company situation
+
+The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
+They also have an information system which provides channels for costumer care and databases that can be used to store informations about clients and service usage.
+The company also has an efficient internal communication system that will be used in our system to be through the provide APIs.
+
 ### Goals
 
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
-- [G1] Allows the clients to find an available car around his or a specified location within a radius that he can choose.
+- [G1] Allows the clients to find an available car within a selected radius around his or a specified location.
 - [G2] Allows the clients to book a car and pick it up.
 - [G3] Monitoring the usage of the car and charge the client with the right fare.
 - [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
 - [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
 - [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
-- [G7]
+- [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
 
 
 //[G1] Allows the clients to register, providing the driving license number and a payment method, and log in through the mobile application providing them a   password.
@@ -44,7 +50,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
 The system will rely on PayPal as a payment system.
 The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t be worried about the effective fulfillment of the maintenance task.
-The system won’t be able to check if a car is parked in a safe area or not, but
+The system will be able to check if a car is parked in a safe area but won’t be able to check if the car is correctly parked according to laws, anyway data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
 
 
 ### Domain properties and assumptions
@@ -56,4 +62,48 @@ The system won’t be able to check if a car is parked in a safe area or not, bu
 - [D5] The plugs availability is correctly communicated to the system by the recharging station.
 - [D6] User’s mobile phones are equipped with a GPS system and a camera and they are always working properly.
 - [D7] The measure of the percentage of battery charge left and the estimation of the Km/% of charge ratio are correct.
-- [D8] Domain assumption the internet connection of the cars is always working.
+- [D8] The internet connection of the cars is always working.
+- [D9] Condizioni d'uso
+# Glossary
+
+1. Valid credential: Name, surname, birth date, driving licence, paypal account.
+2. Current car details: Remaining battery, License plate number, an estimation of the remaining autonomy expressed in kilometers (calculated at average speed of 50 km/h in city traffic), the name and an picture of the car model.
+
+# Text assumptions
+
+==safe areas==
+
+==specify difference between operator and on the road operator==
+
+### Actors identifying
+
+We have three main actors:
+
+Client: is a person who has dowloaded our application and is registered to the service.
+
+Operator: is an employee who has access to an interface that allows him to monitor the state of cars and station and eventually send assistance.
+
+There are also secondary actors (such as third party service providers).
+
+## Requirements
+- [G0] Users must be able to access to the system
+
+  - [R0.1] User must sign up with valid credential
+  - [R0.2] System must generates a password for the user
+  - [R0.3] User must be able to visualize and modify all his personal informations
+
+- [G1] Allows the clients to find an available car within a selected radius around his or a specified location.
+
+  - [R1.1] The system must retrieve the location of the user
+  - [R1.2] The user must be able to specify the radius (in km) around the selected location for the car research
+  - [R1.3] The system must return to the user a map with the location of all the available cars around the chosen position
+  - [R1.4] Upon the selection of a car the system must retrieve an informative screen with current car details.
+
+- [G2] Allows the clients to book a car and pick it up.
+  - [R2.1] 
+
+- [G3] Monitoring the usage of the car and charge the client with the right fare.
+- [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+- [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
+- [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
+- [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
