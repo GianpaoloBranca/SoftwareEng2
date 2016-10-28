@@ -1,3 +1,15 @@
+# Requirements Analysis and Specification Document
+
+
+** Authors: **
+
+  - Gianpaolo Branca
+  - Luca Butera
+  - Andrea Cini
+
+ ******
+
+
 ## Introduction
 
 ### Description of the given problem
@@ -6,13 +18,13 @@ We need to develop a software management system to support an electric car-shari
 
 -We think that users should be able to park the car they are using in every public parking area of the city
 
-#### Current company situation
+### Current company situation
 
 The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
 They also have an information system which provides channels for costumer care and databases that can be used to store informations about clients and service usage.
 The company also has an efficient internal communication system that will be used in our system to be through the provide APIs.
 
-### Goals
+## Goals
 
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
@@ -23,27 +35,6 @@ We divide the goals in two sections, the first one which contains the goals achi
 - [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
 - [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
 - [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
-
-
-//[G1] Allows the clients to register, providing the driving license number and a payment method, and log in through the mobile application providing them a   password.
-[G2] Allows users to locate a car within a certain distance in a map using their current location or a given address.
-[G3]Allows users to reserve only a car at a time and shows the remaining time to pick the car up.
-[G4] One hour after a reservation, if the car hasn’t been picked up yet, notifies the client, through a push notification, that the timeout expired and he was charged a fee of 1 Euro.
-[G5] Allows the user to unlock the car via mobile application.//
-
-#### Car system:
-
-- [G6] Know when the engine starts to charge the user
-- [G7] Uses the car navigator for helping the user and show the position of the recharge stations and safe parking areas
-- [G8] Calculates the cost of the trip and show it to the user
-- [G9] Allows user to identify themselves scanning a QR code on the car screen
-
-#### Operators:
-
-- [G10] Allows to add and remove safe parking areas and recharge stations in the map
-- [G11] Allows to see the status of each car (battery, need for maintenance, last use), highlighting the ones that needs to be picked up
-
-
 
 ### Boundaries of the system
 
@@ -63,17 +54,22 @@ The system will be able to check if a car is parked in a safe area but won’t b
 - [D6] User’s mobile phones are equipped with a GPS system and a camera and they are always working properly.
 - [D7] The measure of the percentage of battery charge left and the estimation of the Km/% of charge ratio are correct.
 - [D8] The internet connection of the cars is always working.
-- [D9] Condizioni d'uso
-# Glossary
+- [D9] The user has accepted the terms of use of the application.
+- [D10] Every car is equipped with a display.
 
-1. Valid credential: Name, surname, birth date, driving licence, paypal account.
+### Glossary
+
+1. Valid credential: Name, surname, birth date, driving licence, PayPal account.
 2. Current car details: Remaining battery, License plate number, an estimation of the remaining autonomy expressed in kilometers (calculated at average speed of 50 km/h in city traffic), the name and an picture of the car model.
+3. Money saving option: An option that if on will provide the user with the information to find a suitable recharging station according to his the destination, the availability of plugs and uniform distribution of cars among the stations.
+4. Safe area: area flagged by the management system as suitable for leaving the car and ending the ride.
+5. Operator: in this document we refer as operator to the employees in charge of monitoring the state of the car in from dedicated terminals of the company.
 
-# Text assumptions
+### Text assumptions
 
-==safe areas==
 
-==specify difference between operator and on the road operator==
+1. Discounts and penalties will be applied only in the case of ride not shorter than 2km, so that the system will not punish users for not using poorly charged cars for short rides and will not encourage users to use fully charged cars less to get the discount.
+2. Discounts and penalties percentage values can be customized by the management system.
 
 ### Actors identifying
 
@@ -92,6 +88,7 @@ There are also secondary actors (such as third party service providers).
   - [R0.2] System must generates a password for the user
   - [R0.3] User must be able to visualize and modify all his personal informations
 
+
 - [G1] Allows the clients to find an available car within a selected radius around his or a specified location.
 
   - [R1.1] The system must retrieve the location of the user
@@ -99,11 +96,49 @@ There are also secondary actors (such as third party service providers).
   - [R1.3] The system must return to the user a map with the location of all the available cars around the chosen position
   - [R1.4] Upon the selection of a car the system must retrieve an informative screen with current car details.
 
+
 - [G2] Allows the clients to book a car and pick it up.
-  - [R2.1] 
+
+ - [R2.1] A client must be able to choose one of the available cars and, if PayPal ensures that he can pay, book it.
+ - [R2.2] Once a car has been booked no others reservation can be performed by the same client until the first one is pending.
+ - [R2.3] After the reservation has been confirmed to the client, he has a maximum of 1 hour to reach the car, unlock it and start the engine. If the timeout expires the reservation is cancelled and the fee is applied.
+ - [R2.4] The client is able to unlock a booked car trough the app at any time after the reservation, however he has a maximum of 15 minutes to turn it on after the unlocking. If this timeout expires, the reservation is cancelled the fee is applied.
+
 
 - [G3] Monitoring the usage of the car and charge the client with the right fare.
-- [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+
+ - [R3.1] As soon as the engine starts the system must start charging the user with a fixed amount for minute and show the current price of the ride in the display of the car.
+ - [R3.2] The system must allow client to finish the ride only when it detects that the car is parked in a safe area and the engine is turned off.
+ - [R3.3] A car can be parked in a place not marked as safe with a time limit of 2 hours, during this time since the battery is not being used the management may configure a different fare. When the timeout expires if the car hasn't been picked up yet the client will the charge with the price of the ride up to that point plus a fine for improper use of the service. The situation will be notified to the operators that will be able to decide if the car needs to be picked or not.
+ - [R3.4] Discounts and penalties must be applied correctly and only if the requirements are matched.
+
+
+- [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.4)
+
+  - [R4.1] The system will show in the display of the car a QR code that must be scanned by the user, using the application, to check in. If 2 or more users check in, in addition to the driver, a discount will be applied to the ride.
+  - [R4.2]  The system will apply a discount in the case a car is left with more the 50% of the battery capacity available.
+  - [R5.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount to the ride. If the car is left in the recharging station but not plugged the discount will not be applied. \\da riguardare
+  - [R4.4] The system will detect when a car is about to be left more than 3km away from the nearest recharging station and with 20% or less battery available, will warn the client and if the client procedes to leave the car will apply a penalty to the price of the ride.
+  - R[4.5] The client will be able to select a money saving option so that the system will provide him trough the GPS navigator of the car informations to reach the available recharging station which is more suitable according to the client destination and the need of the system to distribute car uniformly among the recharging stations.
+
+
 - [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
+
+  - [R5.1] The system will help operators (in the case there's no need for an on place recharge) and users with the money saving option on to choose the station in which cars should be charged and left so that cars are reasonably distributed among the different stations in the city.
+  - [R5.2] The amount of plugs available should be monitored and the presence of non working ones detected.
+
+
+
 - [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
-- [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
+
+  - [R6.1] The system will provide operators of the company with an interface to check the state of the cars.
+  - [R6.2] Push notifications will notify when a car is need for assistance.
+  - [R6.3] Cars with low battery level which are not likely to be used anymore will be flagged.
+  - [R6.4] The system must provide APIs to be used to the old system that will manage the assistance action.
+
+
+- [G7] Allows management system to set up and modify parameters of the system. // controllare
+
+ - [G7.1] The system will provide an interface to select areas to mark as safe areas for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
+ - [G7.2] The system will provide an interface to select the price for minute of the rides.
+ - [G7.3] The system will provide and interface to customize the percentage of discount and penalty for the cases highlighted in the G.4 scope.
