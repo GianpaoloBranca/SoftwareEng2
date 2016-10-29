@@ -35,6 +35,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 - [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
 - [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
 - [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
+- [G8] Provides a real time, interactive, pleasant and transparent user experience.
 
 ### Boundaries of the system
 
@@ -59,11 +60,12 @@ The system will be able to check if a car is parked in a safe area but won’t b
 
 ### Glossary
 
-1. Valid credential: Name, surname, birth date, driving licence, PayPal account.
+1. Valid credential: Name, surname, birth date, driving license, PayPal account, valid e-mail address.
 2. Current car details: Remaining battery, License plate number, an estimation of the remaining autonomy expressed in kilometers (calculated at average speed of 50 km/h in city traffic), the name and an picture of the car model.
 3. Money saving option: An option that if on will provide the user with the information to find a suitable recharging station according to his the destination, the availability of plugs and uniform distribution of cars among the stations.
 4. Safe area: area flagged by the management system as suitable for leaving the car and ending the ride.
 5. Operator: in this document we refer as operator to the employees in charge of monitoring the state of the car in from dedicated terminals of the company.
+6. On screen notification: is a notification which is displayed on the screen located inside the vehicle.
 
 ### Text assumptions
 
@@ -117,8 +119,8 @@ There are also secondary actors (such as third party service providers).
 
   - [R4.1] The system will show in the display of the car a QR code that must be scanned by the user, using the application, to check in. If 2 or more users check in, in addition to the driver, a discount will be applied to the ride.
   - [R4.2]  The system will apply a discount in the case a car is left with more the 50% of the battery capacity available.
-  - [R5.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount to the ride. If the car is left in the recharging station but not plugged the discount will not be applied. \\da riguardare
-  - [R4.4] The system will detect when a car is about to be left more than 3km away from the nearest recharging station and with 20% or less battery available, will warn the client and if the client procedes to leave the car will apply a penalty to the price of the ride.
+  - [R4.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount to the ride. If the car is left in the recharging station but not plugged the discount will not be applied. \\da riguardare
+  - [R4.4] The system will detect when a car is about to be left more than 3km away from the nearest recharging station and with 20% or less battery available, will warn the client and if the client proceeds to leave the car will apply a penalty to the price of the ride.
   - R[4.5] The client will be able to select a money saving option so that the system will provide him trough the GPS navigator of the car informations to reach the available recharging station which is more suitable according to the client destination and the need of the system to distribute car uniformly among the recharging stations.
 
 
@@ -126,7 +128,6 @@ There are also secondary actors (such as third party service providers).
 
   - [R5.1] The system will help operators (in the case there's no need for an on place recharge) and users with the money saving option on to choose the station in which cars should be charged and left so that cars are reasonably distributed among the different stations in the city.
   - [R5.2] The amount of plugs available should be monitored and the presence of non working ones detected.
-
 
 
 - [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
@@ -139,6 +140,12 @@ There are also secondary actors (such as third party service providers).
 
 - [G7] Allows management system to set up and modify parameters of the system. // controllare
 
- - [G7.1] The system will provide an interface to select areas to mark as safe areas for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
- - [G7.2] The system will provide an interface to select the price for minute of the rides.
- - [G7.3] The system will provide and interface to customize the percentage of discount and penalty for the cases highlighted in the G.4 scope.
+ - [R7.1] The system will provide an interface to select areas to mark as safe areas for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
+ - [R7.2] The system will provide an interface to select the price for minute of the rides.
+ - [R7.3] The system will provide and interface to customize the percentage of discount and penalty for the cases highlighted in the G.4 scope.
+
+
+- [G8] Provides a real time, interactive, pleasant and transparent user experience.
+ - [R8.1] At the end of each ride the system must notify the user with all the informations concerning the last usage, among which the total amount charged and details about eventual discounts or penalties.
+ - [R8.2] If at the beginning of a ride the client is suitable for the discount of which at [R4.1], the system notifies the correct detection with an on screen notification.
+ - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification. **To check**
