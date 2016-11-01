@@ -1,22 +1,17 @@
 # Requirements Analysis and Specification Document
-
-
-** Authors: **
+**Authors:**
 
   - Gianpaolo Branca
   - Luca Butera
   - Andrea Cini
 
- ******
-
+******
 
 ## Introduction
 
 ### Description of the given problem
 
-We need to develop a software management system to support an electric car-sharing service, which is accessible via mobile application both on iOS and android. The main target of the application are the costumers.
-
--We think that users should be able to park the car they are using in every public parking area of the city
+We need to develop a system to support an electric car-sharing service, which is accessible via mobile application both on iOS and android.
 
 ### Current company situation
 
@@ -39,10 +34,11 @@ We divide the goals in two sections, the first one which contains the goals achi
 
 ### Boundaries of the system
 
-The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
-The system will rely on PayPal as a payment system.
-The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t be worried about the effective fulfillment of the maintenance task.
-The system will be able to check if a car is parked in a safe area but won’t be able to check if the car is correctly parked according to laws, anyway data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
+- The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
+- The system will rely on PayPal as a payment system.
+- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t be worried about the effective fulfillment of the maintenance task.
+- The system will be able to check if a car is parked in a safe area but won’t be able to check if the car is correctly parked according to laws, anyway data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
+- The system will detect and notify the operators when an illegal usage of the system occurs, but will not alert the police force itself.
 
 
 ### Domain properties and assumptions
@@ -66,6 +62,8 @@ The system will be able to check if a car is parked in a safe area but won’t b
 4. Safe area: area flagged by the management system as suitable for leaving the car and ending the ride.
 5. Operator: in this document we refer as operator to the employees in charge of monitoring the state of the car in from dedicated terminals of the company.
 6. On screen notification: is a notification which is displayed on the screen located inside the vehicle.
+7. Plugged: a car is considered plugged when a sensor in the recharging station detects that the specific car has been connected to the recharging system.
+8. Busy: a car is marked as busy when left parked by a client but kept booked.
 
 ### Text assumptions
 
@@ -75,7 +73,7 @@ The system will be able to check if a car is parked in a safe area but won’t b
 
 ### Actors identifying
 
-We have three main actors:
+We have two main actors:
 
 Client: is a person who has dowloaded our application and is registered to the service.
 
@@ -84,6 +82,11 @@ Operator: is an employee who has access to an interface that allows him to monit
 There are also secondary actors (such as third party service providers).
 
 ## Requirements
+
+#### Functional Requirements
+
+In the following section we are going to identify the requirements that our system will have to fulfill to meet reach the goals.
+
 - [G0] Users must be able to access to the system
 
   - [R0.1] User must sign up with valid credential
@@ -110,16 +113,19 @@ There are also secondary actors (such as third party service providers).
 - [G3] Monitoring the usage of the car and charge the client with the right fare.
 
  - [R3.1] As soon as the engine starts the system must start charging the user with a fixed amount for minute and show the current price of the ride in the display of the car.
- - [R3.2] The system must allow client to finish the ride only when it detects that the car is parked in a safe area and the engine is turned off.
- - [R3.3] A car can be parked in a place not marked as safe with a time limit of 2 hours, during this time since the battery is not being used the management may configure a different fare. When the timeout expires if the car hasn't been picked up yet the client will the charge with the price of the ride up to that point plus a fine for improper use of the service. The situation will be notified to the operators that will be able to decide if the car needs to be picked or not.
- - [R3.4] Discounts and penalties must be applied correctly and only if the requirements are matched.
+ - [R3.2] When a car is parked in a safe area and the engine is turned off the system will ask the user through the display of the car if he wants to keep the car busy for at maximum 2h, if the user select 'NO' or does nothing and leaves the car the ride is considered as ended. If the user selects 'YES' the car is marked as busy.
+ - [R3.3] A user can leave the car but keep it busy with a time limit of 2 hours, during this time since the battery is not being used the management may configure a different fare. When the timeout expires if the car hasn't been picked up yet the client will be charged with the price of the ride up to that point.
+ - [R3.4] A car parked in a place not marked as safe will be considered as busy, but if the client breaks the 2 hours timeout he will get fine for improper use of the service (plus the regular price for the ride). The situation will be notified to the operators that will be able to decide if the car needs to be picked or not.
+ - [R3.5] If the user drives outside the boundaries of the area of the service, the system must detect it, notify it to the user at first and apply an additional time fare as a penalty. After 30 minutes an operator will be notified of the situation.
+ - [R3.6] If the signal of a car is lost for more than 10 minutes, an operator will be notified with the last known position.
+ - [R3.7] After the end of the ride the user is charged with the right amount.
 
 
 - [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.4)
 
   - [R4.1] The system will show in the display of the car a QR code that must be scanned by the user, using the application, to check in. If 2 or more users check in, in addition to the driver, a discount will be applied to the ride.
   - [R4.2]  The system will apply a discount in the case a car is left with more the 50% of the battery capacity available.
-  - [R4.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount to the ride. If the car is left in the recharging station but not plugged the discount will not be applied. \\da riguardare
+  - [R4.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount . If the car is left in the recharging station but not plugged within 5 minutes the discount will not be applied.
   - [R4.4] The system will detect when a car is about to be left more than 3km away from the nearest recharging station and with 20% or less battery available, will warn the client and if the client proceeds to leave the car will apply a penalty to the price of the ride.
   - R[4.5] The client will be able to select a money saving option so that the system will provide him trough the GPS navigator of the car informations to reach the available recharging station which is more suitable according to the client destination and the need of the system to distribute car uniformly among the recharging stations.
 
@@ -138,14 +144,21 @@ There are also secondary actors (such as third party service providers).
   - [R6.4] The system must provide APIs to be used to the old system that will manage the assistance action.
 
 
-- [G7] Allows management system to set up and modify parameters of the system. // controllare
+- [G7] Allows management system to set up and modify parameters of the system.
 
  - [R7.1] The system will provide an interface to select areas to mark as safe areas for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
- - [R7.2] The system will provide an interface to select the price for minute of the rides.
+ - [R7.2] The system will provide an interface to select the price for minute of the rides and during the busy state.
  - [R7.3] The system will provide and interface to customize the percentage of discount and penalty for the cases highlighted in the G.4 scope.
 
 
 - [G8] Provides a real time, interactive, pleasant and transparent user experience.
+
  - [R8.1] At the end of each ride the system must notify the user with all the informations concerning the last usage, among which the total amount charged and details about eventual discounts or penalties.
  - [R8.2] If at the beginning of a ride the client is suitable for the discount of which at [R4.1], the system notifies the correct detection with an on screen notification.
  - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification. **To check**
+
+#### Non-functional Requirements
+
+ - The mobile application must work on all the android with version 4.3 or newer and iOS 7 or newer.
+ - The system must optimize bandwidth usage to guarantee a responsive service and to know the position of a car real time.
+ - For communication, secure protocols must be used.
