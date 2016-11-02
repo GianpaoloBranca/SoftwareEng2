@@ -17,7 +17,7 @@ We need to develop a system to support an electric car-sharing service, which is
 
 The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
 They also have an information system which provides channels for costumer care and databases that can be used to store informations about clients and service usage.
-The company also has an efficient internal communication system that will be used in our system to be through the provide APIs.
+The company also has an efficient internal communication system that will be used in our system to be through the provided APIs.
 
 ## Goals
 
@@ -43,7 +43,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 
 ### Domain properties and assumptions
 
-- [D1] The users are allowed to park the car they are using in every public parking area in the boundaries of the city (urban area) and at the company’s recharging stations.
+- [D1] The users are allowed to park the car they are using in every safe area and at the company’s recharging stations.
 - [D2] The GPS service is always available and provides always the right position.
 - [D3] The system cannot prevent theft.
 - [D4] Operators are properly trained by the company to use the system and correctly mark cars under maintenance as unavailable.
@@ -155,7 +155,8 @@ In the following section we are going to identify the requirements that our syst
 
  - [R8.1] At the end of each ride the system must notify the user with all the informations concerning the last usage, among which the total amount charged and details about eventual discounts or penalties.
  - [R8.2] If at the beginning of a ride the client is suitable for the discount of which at [R4.1], the system notifies the correct detection with an on screen notification.
- - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification. **To check**
+ - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification.
+ - [R8.4] The system eventually notifies the user with every update regarding the service, including changes in the terms and conditions document which will always have to be accepted again.
 
 #### Non-functional Requirements
 
