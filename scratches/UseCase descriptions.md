@@ -74,10 +74,10 @@ In this section are listed some common or significant use cases derivable from t
 - The user is redirected to the reservation details screen.
 - The user touches the "Unlock" button.
 - The system unlocks the car.
-- The user is redirected to the QR code scanner.
 - The user enters the car.
+- The user clicks on the QR scanner button.
 - The user scans the QR code on the car screen.
-- The user powers the engine **Via method yet to be decided**.
+- The user powers the engine by pressing the physical button inside the car.
 - The user clicks the "Money saving" button.
 - The user is redirected to the destination insertion screen.
 - The user inserts his destination and hits the "Confirm" button.
