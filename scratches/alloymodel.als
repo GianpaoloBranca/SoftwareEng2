@@ -14,7 +14,7 @@ abstract sig BLevel{}
 one sig LowL extends BLevel{}
 one sig OkL extends BLevel{}
 
-abstract sig Position{}{}
+abstract sig Position{}
 sig SafeP extends Position{}
 sig UnsafeP extends Position{}
 sig OutsideCity extends UnsafeP{}
@@ -34,15 +34,19 @@ sig Car{
 	plugged: one Bool,
 	position: one Position
 }{
-	position in UnsafeP and status!=Busy implies flagged=True	
+	(position in UnsafeP and status!=Busy) implies flagged=True	
 	position in OutsideCity implies flagged=True
 }
 
 sig User{
 	riding: lone Car 
-}{riding!=none implies riding.status=Busy}
+}
 
-abstract sig Operator{}
+fact{
+	all u:User | u.riding!=none implies u.riding.status=Busy 
+}
+
+sig Operator{}
 
 sig AssistanceRequest{
 	supervisor: one Operator,
@@ -62,10 +66,8 @@ sig Ride{
 	startP: one Position,
 	endP: one Position,
 	legal: one Bool
-	//aggiugnere posizione
 }{
-	price>0
-	#passengers<=3
+	(price>0)&&(#passengers<=3)
 }
 
 sig Booking{
@@ -87,15 +89,21 @@ fact assistanceRequestProperties{
 	all disj a1,a2: AssistanceRequest | a1.car!=a2.car
 }
 
-fact bookingProperties{
-	//unique bookings
+//Booking facts
+
+fact outsidecityNonBookable{
+	all b: Booking | (b.car.position not in OutsideCity)
+}
+
+fact bookedCarAreBusy{
+	all b: Booking | (b.car.status=Busy)
+}
+
+fact bookedCarsNotUsed{
+	all b: Booking | (b.client not in riding.Car) && (b.car not in User.riding)
+}
+fact uniqueBooking{
 	all disj b1,b2: Booking | b1.client!=b2.client && b1.car!=b2.car
-	//cars booked are busy
-	all b: Booking | (b.car.status=Busy
-	//cars booked are not moving and users are not riding another car
-	&& (b.client not in Car[riding])
-	&& (b.car not in User.riding)
-	&&(b.car.position not in OutsideCity))
 }
 
 fact rideProperties{
@@ -115,15 +123,21 @@ fact legalEndPosition{
 	all r: Ride | r.endP not in SafeP <=> r.legal=False
 }
 
-fact carsProperties{
- 	all c : Car |
-	//cars not in use are not busy
-	(notInUse[c] implies c.status!=Busy)
-	//cars with a mechanical problems are put under maintence if they not busy
-	&&(c.mechProbSensor=True => ( c.status!=Busy => c.status=UnderMaintance))
-	//cars have unique positions
-	&&(all c1,c2: Car | c1!=c2 implies c1.position!=c2.position)
-	&&(c.plugged=True implies c.position in RechArea)
+fact carsPluggedInRechArea{
+ 	all c : Car | (c.plugged=True implies c.position in RechArea)
+}
+
+fact carHaveUniquePosition{
+	all disj c1,c2: Car | c1.position!=c2.position
+}
+
+fact carNotInUseAreNotBusy{
+	all c:Car | notInUse[c] implies c.status!=Busy
+}
+
+//cars with a mechanical problems are put under maintence if they not busy
+fact mechProblem{
+	all c:Car | c.mechProbSensor=True => ( c not in User.riding => c.status=UnderMaintance)
 }
 
 pred notInUse[c: Car]{
@@ -131,7 +145,7 @@ pred notInUse[c: Car]{
 }
 
 fact onlyOneDriver{
-	all u1,u2: User | u1!=u2 implies u1.riding!=u2.riding
+	all disj u1,u2: riding.Car | u1.riding!=u2.riding
 }
 
 fact flagPolicy{
@@ -152,10 +166,6 @@ assert noTwoRide{
 	all u:User, disj r1,r2:Ride | r1.driver=u&&r2.driver=u implies r1.timecode!=r2.timecode 
 }
 
-assert onlyOneBooking{
-	all b:Booking | #(Car.(b.car->b.client))=1
-}
-
 assert busyStatus{
 	all c: Car | c.status=Busy =>(c in (Booking.car + User.riding))
 }
@@ -168,13 +178,14 @@ assert noPassisDriver{
 	all r:Ride | r.driver not in r.passengers
 }
 
-//fact{#User.riding>0#Booking>0 && #Ride.passengers>1 && some disj x1,x2:Ride | x1.timecode=x2.timecode&&#AssistanceRequest=2&& some c: Car | c.status=Available} // testing purpose
+fact{#Booking>1} // testing purpose
 
 //PREDS
-pred show{}
-run show for 5
+pred show{
+
+}
+run show for 10 
 check notAvailableCarWithMechProblem 
-check onlyOneBooking
 check noTwoRide
 check carUnderAssistanceNotInUse
 check busyStatus
