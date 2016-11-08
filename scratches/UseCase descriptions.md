@@ -5,6 +5,7 @@ In this section are listed some common or significant use cases derivable from t
 #### User logs in
 
 **Name:** User logs in  
+**Goals:** G8  
 **Actors:** Non authenticated user  
 **Entry conditions:** The user must be registered but hasn't logged on yet.  
 **Flow of events:**
@@ -19,6 +20,7 @@ In this section are listed some common or significant use cases derivable from t
 ####  User registers
 
 **Name:** User registers  
+**Goals:** G8  
 **Actors:** Non authenticated user  
 **Entry conditions:** The user is not registered to the service yet.  
 **Flow of events:**  
@@ -47,6 +49,7 @@ In this section are listed some common or significant use cases derivable from t
 #### User searches and reserves a car
 
 **Name:** User searches and reserves a car  
+**Goals:** G1, G2  
 **Actors:** User  
 **Entry conditions:** The user is logged into the mobile application.  
 **Flow of events:**  
@@ -65,6 +68,7 @@ In this section are listed some common or significant use cases derivable from t
 #### User does a full ride with money saving option
 
 **Name:** User does a full ride with money saving option  
+**Goals:** G2, G3, G4, G5   
 **Actors:** User  
 **Entry conditions:** The user made a reservation for the car he's about to ride.  
 **Flow of events:**  
@@ -102,6 +106,7 @@ In this section are listed some common or significant use cases derivable from t
 #### The user parks and keeps the car as busy
 
 **Name:** The user parks and keeps the car as busy  
+**Goals:** G2  
 **Actors:** User  
 **Entry conditions:** The user picked the car up.  
 **Flow of events:**  
@@ -121,6 +126,7 @@ In this section are listed some common or significant use cases derivable from t
 #### Operator enrolls an assistance request
 
 **Name:** Operator enrolls an assistance request  
+**Goals:** G6  
 **Actors:** Operator  
 **Entry conditions:** The operator is logged into the system.  
 **Flow of events:**  
@@ -141,6 +147,7 @@ In this section are listed some common or significant use cases derivable from t
 #### Operator inserts a new safe area
 
 **Name:** Operator inserts a new safe area  
+**Goals:** G7   
 **Actors:** Operator  
 **Entry conditions:** The operator is logged into the system.  
 **Flow of events:**  
@@ -162,7 +169,4 @@ In this section are listed some common or significant use cases derivable from t
 **Exit conditions:** The new safe area is correctly inserted in the system and the update details notification is successfully sent to the legal office. The operator is redirected to the initial screen.  
 **Exceptions:**  
 - The operator inserted invalid coordinates for a vertex or an invalid number of vertices. In this case the operator is redirected to the previous screen and notified that he did something wrong and must perform the action again correctly.
-- The system, after ten attempts, hasn't been able to send to the legal office the update notification. In this case a warning notification containing the update information is sent to the operator and the operation is taken into account manually. **Is it ok?**  
-
-**ALSO**  
-**Do we want to consider the case the new area overlaps an existing one as an exception or will the system just melt the two without generating any problem?**
+- The system, after ten attempts, hasn't been able to send to the legal office the update notification. In this case a warning notification containing the update information is sent to the operator and the operation is taken into account manually.
