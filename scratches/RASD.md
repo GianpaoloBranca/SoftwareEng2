@@ -1,12 +1,11 @@
-# Requirements Analysis and Specification Document
-**Authors:**
+% **Requirements Analysis and Specification Document**
+%Gianpaolo Branca
+ Luca Butera
+ Andrea Cini
+%![](polimi.png)\newpage
 
-  - Gianpaolo Branca
-  - Luca Butera
-  - Andrea Cini
 
-******
-
+\newpage
 ## Introduction
 
 ### Description of the given problem
@@ -83,7 +82,7 @@ There are also secondary actors (such as third party service providers).
 
 ## Requirements
 
-#### Functional Requirements
+### Functional Requirements
 
 In the following section we are going to identify the requirements that our system will have to fulfill to meet reach the goals.
 
@@ -158,8 +157,33 @@ In the following section we are going to identify the requirements that our syst
  - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification.
  - [R8.4] The system eventually notifies the user with every update regarding the service, including changes in the terms and conditions document which will always have to be accepted again.
 
-#### Non-functional Requirements
+### Non-functional Requirements
 
  - The mobile application must work on all the android with version 4.3 or newer and iOS 7 or newer.
  - The system must optimize bandwidth usage to guarantee a responsive service and to know the position of a car real time.
  - For communication, secure protocols must be used.
+ \newpage
+
+#### Mockup
+
+##### Mobile App
+![](./Mobile App/Mobile App-1.png){#id .class width=150}
+![](./Mobile App/Mobile App-2.png){#id .class width=150}
+![](./Mobile App/Mobile App-3.png){#id .class width=150}
+![](./Mobile App/Mobile App-4.png){#id .class width=150}
+![](./Mobile App/Mobile App-5.png){#id .class width=150}
+![](./Mobile App/Mobile App-6.png){#id .class width=150}
+\newpage
+
+#####Car system
+![](./Car System/Car System-1.png){#id .class width=300}
+![](./Car System/Car System-2.png){#id .class width=300}
+
+#####Monitoring service
+![](./Monitoring service/Monitoring service-1.png){#id .class width=400}\newpage
+![](./Monitoring service/Monitoring service-2.png){#id .class width=400}\newpage
+
+##Diagrams
+
+###Class Diagram
+![](./class diagram/class diagram-1.png){#id .class width=800}
