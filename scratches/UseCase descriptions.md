@@ -52,11 +52,10 @@ In this section are listed some common or significant use cases derivable from t
 **Flow of events:**  
 - The user enters the car research screen.
 - The user types in an address or chooses to use his GPS location.
-- The user inserts the length of the search radius.
 - The user hits the "Search" button.
 - The user is redirected to the map screen showing all the available cars inside the selected area.
 - The user clicks on the chosen car.
-- The user is redirected to the details screen.
+- The system show a pop-up with the car informations.
 - The user hits the "Book now" button.
 - The user is redirected to the map screen showing the real time route to the car and the time left before the reservation expires.
 
@@ -75,23 +74,24 @@ In this section are listed some common or significant use cases derivable from t
 - The user touches the "Unlock" button.
 - The system unlocks the car.
 - The user enters the car.
+- The Car screen power on.
 - The user clicks on the QR scanner button.
 - The user scans the QR code on the car screen.
 - The user powers the engine by pressing the physical button inside the car.
-- The user clicks the "Money saving" button.
-- The user is redirected to the destination insertion screen.
+- The user clicks the "Money saving" button on the car screen.
+- The car monitor show the destination insertion screen.
 - The user inserts his destination and hits the "Confirm" button.
 - The system calculates the optimal charge station.
-- The user is redirected to the GPS navigation map screen showing the selected charge station as destination.
+- The car monitor show the GPS navigation map screen with the selected charge station as destination.
 - The user rides to his destination.
 - The user parks the car at the charge station.
 - The user powers down the engine.
-- The user is redirected to the ride ending screen.
+- The car monitor show the ride ending screen.
 - The user selects the "End ride" button.
 - The user is redirected to the plug insertion reminder screen.
 - The user exits the car and closes the car door.
 - The user inserts the charging plug into the car socket.
-- The user is redirected to a payment details screen.
+- The user is charged for the service usage.
 
 **Exit conditions:** The car is parked and is being recharged. The user is charged for the payment.  
 **Exceptions:**  
@@ -130,7 +130,7 @@ In this section are listed some common or significant use cases derivable from t
 - The operator clicks on the "Assistance request" button.
 - The system shows a pop-up screen to fill in the request.
 - The operator types in the details of the request.
-- The operator selects the facility o which the request must be sent to.
+- The operator selects the facility of which the request must be sent to.
 - The operator hits the "Send request" button.
 - The system attaches the details of the car to the request and sends it.
 - The operator is redirected to the map screen.
