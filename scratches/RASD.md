@@ -7,19 +7,19 @@
 
 \newpage
 
-## Introduction
+## 1 Introduction
 
-### Description of the given problem
+### 1.1 Description of the given problem
 
 We need to develop a system to support an electric car-sharing service, which is accessible via mobile application both on iOS and android.
 
-### Current company situation
+### 1.2 Current company situation
 
 The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
 They also have an information system which provides channels for costumer care and databases that can be used to store informations about clients and service usage.
 The company also has an efficient internal communication system that will be used in our system to be through the provided APIs.
 
-## Goals
+## 2 Goals
 
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
@@ -32,7 +32,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 - [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
 - [G8] Provides a real time, interactive, pleasant and transparent user experience.
 
-### Boundaries of the system
+## 3 Boundaries of the system
 
 - The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
 - The system will rely on PayPal as a payment system.
@@ -41,7 +41,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 - The system will detect and notify the operators when an illegal usage of the system occurs, but will not alert the police force itself.
 
 
-### Domain properties and assumptions
+## 4 Domain properties and assumptions
 
 - [D1] The users are allowed to park the car they are using in every safe area and at the company’s recharging stations.
 - [D2] The GPS service is always available and provides always the right position.
@@ -54,7 +54,7 @@ We divide the goals in two sections, the first one which contains the goals achi
 - [D9] The user has accepted the terms of use of the application.
 - [D10] Every car is equipped with a display.
 
-### Glossary
+## 5 Glossary
 
 1. Valid credential: Name, surname, birth date, driving license, PayPal account, valid e-mail address.
 2. Current car details: Remaining battery, License plate number, an estimation of the remaining autonomy expressed in kilometers (calculated at average speed of 50 km/h in city traffic), the name and an picture of the car model.
@@ -65,13 +65,13 @@ We divide the goals in two sections, the first one which contains the goals achi
 7. Plugged: a car is considered plugged when a sensor in the recharging station detects that the specific car has been connected to the recharging system.
 8. Busy: a car is marked as busy when left parked by a client but kept booked.
 
-### Text assumptions
+## 6 Text assumptions
 
 
 1. Discounts and penalties will be applied only in the case of ride not shorter than 2km, so that the system will not punish users for not using poorly charged cars for short rides and will not encourage users to use fully charged cars less to get the discount.
 2. Discounts and penalties percentage values can be customized by the management system.
 
-### Actors identifying
+## 7 Actors identifying
 
 We have two main actors:
 
@@ -81,9 +81,9 @@ Operator: is an employee who has access to an interface that allows him to monit
 
 There are also secondary actors (such as third party service providers).
 
-## Requirements
+## 8 Requirements
 
-### Functional Requirements
+### 8.1 Functional Requirements
 
 In the following section we are going to identify the requirements that our system will have to fulfill to meet reach the goals.
 
@@ -158,14 +158,14 @@ In the following section we are going to identify the requirements that our syst
     - [R8.3] At the end of a ride, if the user results parked inside a charging station, the system reminds him to insert the plug in the specific socket to get the discount of which at [R4.4] using an on screen notification.
     - [R8.4] The system eventually notifies the user with every update regarding the service, including changes in the terms and conditions document which will always have to be accepted again.
 
-### Non-functional Requirements
+### 8.2 Non-functional Requirements
 
  - The mobile application must work on all the android with version 4.3 or newer and iOS 7 or newer.
  - The system must optimize bandwidth usage to guarantee a responsive service and to know the position of a car real time.
  - For communication, secure protocols must be used.
  \newpage
 
-#### Mockup
+#### 8.2.1 Mockup
 
 ##### Mobile App
 ![](./Mobile App/Mobile App-1.png){#id .class width=150}
@@ -184,7 +184,7 @@ In the following section we are going to identify the requirements that our syst
 ![](./Monitoring service/Monitoring service-1.png){#id .class width=400}\newpage
 ![](./Monitoring service/Monitoring service-2.png){#id .class width=400}\newpage
 
-## Scenario identifying
+## 9 Scenario identifying
 
 Here are listed some different scenarios of our system to be usage.
 
@@ -210,19 +210,19 @@ She is checking through flagged cars which have low battery level. The first she
 Bob, an operator of PowerEnJoy, was assigned to update the system terms regarding to a new company policy. First of all he modifies the cost per minute for using the service from 26 cents/minute to 28 cents/minute. The price raise is balanced with a proper increase in discounts, so, still through the provided interface, Bob can increase the discount, for leaving the car plugged in a charging station, from 25% to 30% on the full price of the ride. In the end Bob has to insert two new safe areas and to remove one; the interface allows Bob to select the proper utility and he can easily select, from the list of safe areas, the one to delete. Now he inserts the first new area just by specifying the chosen address and the radius around it, which in this case is of 2.6 km. Since the second area has a more complicated shape he selects the drawing tool and easily draws the polygon defining the selected area, then the system commutates the area drew on the map into proper coordinates to identify it. After this process Bob checks out the update, the system generates a proper notification for the new terms and conditions containing also the details of the update; this will be eventually endorsed by the company's legal office, and therefore sent over to the users along with the mentioned update.
 
 
-##Diagrams
+## 10 UML Models
 
-###Class Diagram
+### 10.1 Class Diagram
 
 ![](./class diagram/class diagram-1.png){#id .class width=100% height=100%}
 \newpage
 
-###Use case diagram
+### 10.2 Use case diagram
 
 ![](./uc/uc.png){#id .class width=100% height=100%}
 \newpage
 
-### Use case description
+### 10.3 Use case description
 
 In this section are listed some common or significant use cases derivable from the Use Case diagram.
 
@@ -399,3 +399,18 @@ In this section are listed some common or significant use cases derivable from t
 
 **ALSO**  
 **Do we want to consider the case the new area overlaps an existing one as an exception or will the system just melt the two without generating any problem?**
+
+## 11 Alloy Model
+
+
+
+## 12 Used tools
+
+- Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
+- Pandoc to craft the Tex document from the MD one and the pdf from the from the Tex.
+- TexShop to edit the Tex document
+(credits to https://github.com/Angtrim/alloy-latex-highlighting for the Alloy syntax highlighting).
+- Alloy analyzer 4.2.
+- Signavio for the use case, class and activity diagrams.
+- Draw.io for the sequence diagrams.
+- Balsamiq for the GUI mockups.
