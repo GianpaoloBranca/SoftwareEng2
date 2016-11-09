@@ -149,7 +149,14 @@ fact onlyOneDriver{
 }
 
 fact flagPolicy{
-	all c: Car| (c.mechProbSensor=True or (c.battery=LowL&&c.plugged=False) or c.position not in SafeP) <=> c.flagged=True
+	all c: Car| 
+	(c.mechProbSensor=True 
+	or 
+	(c.battery=LowL&&c.plugged=False) 
+	or 
+	(c.position not in SafeP && c not in User.riding) 
+	or 
+	(c.position in OutsideCity))<=> c.flagged=True
 }
 
 //ASSERTIONS
@@ -178,12 +185,30 @@ assert noPassisDriver{
 	all r:Ride | r.driver not in r.passengers
 }
 
-fact{#Booking>1} // testing purpose
-
 //PREDS
-pred show{
-
+pred showRides{
+	#Ride=2
+	#riding=0
+	#Booking=0
+	#AssistanceRequest=0
+	#Car=3
+	#User=3
+	Position in (Car.position +Ride.startP+Ride.endP)
 }
+
+pred showRidingAndBookings{
+	#Ride=0
+	#Booking=3
+	#riding>0
+	#Car=5
+	#riding>0
+	#AssistanceRequest=0
+	Position in (Car.position +Ride.startP+Ride.endP)
+}
+pred show{#Ride=3 && #Booking=0 && #Car=4 && #User=5 && Position in (Car.position +Ride.startP+Ride.endP)}
+
+run showRidingAndBookings for 10
+run showRides for 10
 run show for 10 
 check notAvailableCarWithMechProblem 
 check noTwoRide
