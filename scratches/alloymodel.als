@@ -69,17 +69,11 @@ sig Ride{
 	legal: one Bool,
 	endBLevel: one BLevel,
 	endCharge: one Bool,
+	longerThan2: one Bool,
 	fare: set PriceVar
 }{
-	#passengers <= 3
-	legal = True implies
-		(endCharge = True iff BonusRecharge in fare)
-    	&& (endBLevel = OkL iff BonusHighBatt in fare)
-    	&&(#passengers >=2 iff BonusPassenger in fare)
-   		&&(endBLevel = LowL iff MalusLowBatt in fare)
-
+    #passengers <= 3
 	endCharge = True implies endP = RechArea
-	legal = False implies #fare = 0
 }
 
 sig Booking{
@@ -134,6 +128,21 @@ fact uniqueBooking{
 }
 
 //Ride facts
+
+fact bonusAndMalusPolicy{
+	all r: Ride | 
+	 ((r.legal = True  && r.longerThan2=True) 
+   	 implies
+		((r.endCharge = True iff BonusRecharge in r.fare)
+   		 && 
+	 	(r.endBLevel = OkL iff BonusHighBatt in r.fare)
+    	&&
+		(#(r.passengers) >=2 iff BonusPassenger in r.fare)
+   		&&
+		(r.endBLevel = LowL iff MalusLowBatt in r.fare)))
+	&&
+	((r.legal = False or r.longerThan2=False) implies r.fare = none)
+}
 
 //users can be only in one ride at a time
 fact disjointRides{
@@ -229,13 +238,14 @@ assert noPassisDriver{
 //PREDS
 
 pred showRides{
-	#Ride=2
+	#Ride=3
 	#riding=0
 	#Booking=0
 	#AssistanceRequest=0
 	#Car=3
 	#User=3
 	Position in (Car.position +Ride.startP+Ride.endP)
+	some r: Ride | #(r.fare-MalusLowBatt)=3
 }
 
 pred showRidingAndBookings{
@@ -269,7 +279,7 @@ pred show{
 
 run showAssistance for 10
 run showRidingAndBookings for 10
-run showRides
+run showRides for 10
 run show for 10 
 check notAvailableCarWithMechProblem
 check noTwoRide

@@ -11,48 +11,46 @@
 
 ### 1.1 Description of the given problem
 
-We need to develop a system to support an electric car-sharing service, which is accessible via mobile application both on iOS and android.
+We need to develop a system to support an electric car-sharing service, which have to be accessible for the users via a mobile application and provide our customers with a robust software infrastructure to manage their service.
 
 ### 1.2 Current company situation
 
 The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
-They also have an information system which provides channels for costumer care and databases that can be used to store informations about clients and service usage.
-The company also has an efficient internal communication system that will be used in our system to be through the provided APIs.
+They also have an information system which provides channels for costumer-care so that we will not need to provide it in context of our system.
+The company also has an efficient internal communication system to coordinate their staff that will be used in our system to be through the provided APIs.
 
 ## 2 Goals
 
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
-- [G1] Allows the clients to find an available car within a selected radius around his or a specified location.
-- [G2] Allows the clients to book a car and pick it up.
-- [G3] Monitoring the usage of the car and charge the client with the right fare.
-- [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
-- [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
-- [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
-- [G7] Allows management system to set up and modify the set of areas selected as safe for parking.
-- [G8] Provides a real time, interactive, pleasant and transparent user experience.
+The system must:
+- [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
+- [G2] Allow the clients to book a car and pick it up.
+- [G3] Monitor the usage of the car and charge the client with the right fare.
+- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+- [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
+- [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
+- [G7] Allow management system to set up and modify parameters of the system.
+- [G8] Provide a real time, interactive, pleasant and transparent user experience.
 
 ## 3 Boundaries of the system
 
 - The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
-- The system will rely on PayPal as a payment system.
-- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t be worried about the effective fulfillment of the maintenance task.
-- The system will be able to check if a car is parked in a safe area but won’t be able to check if the car is correctly parked according to laws, anyway data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
-- The system will detect and notify the operators when an illegal usage of the system occurs, but will not alert the police force itself.
-
+- The system will rely on PayPal as a payment system as it is very reliable and a lot of users will appreciate its use.
+- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t involved in the coordination of the maintenance team.
+- The system will not be able to check if the user behaves against the low, for example the system must ensure that a car is parked in a safe area but won’t be able to check if the car is correctly parked according to law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
 
 ## 4 Domain properties and assumptions
 
-- [D1] The users are allowed to park the car they are using in every safe area and at the company’s recharging stations.
-- [D2] The GPS service is always available and provides always the right position.
-- [D3] The system cannot prevent theft.
-- [D4] Operators are properly trained by the company to use the system and correctly mark cars under maintenance as unavailable.
-- [D5] The plugs availability is correctly communicated to the system by the recharging station.
-- [D6] User’s mobile phones are equipped with a GPS system and a camera and they are always working properly.
-- [D7] The measure of the percentage of battery charge left and the estimation of the Km/% of charge ratio are correct.
-- [D8] The internet connection of the cars is always working.
-- [D9] The user has accepted the terms of use of the application.
-- [D10] Every car is equipped with a display.
+- [D1] The GPS service is always available and provides always the right position.
+- [D2] The system cannot prevent theft.
+- [D3] Operators are properly trained by the company to use the system and correctly mark cars under maintenance as unavailable.
+- [D4] The plugs availability is correctly communicated to the system by the recharging station.
+- [D5] User’s mobile phones are equipped with a GPS system and a camera and they are always working properly.
+- [D6] The measure of the percentage of battery charge left and the estimation of the Km/% of charge ratio are correct.
+- [D7] The internet connection of the cars is always working.
+- [D8] The user has accepted the terms of use of the application.
+- [D9] Every car is equipped with a display.
 
 ## 5 Glossary
 
@@ -66,7 +64,6 @@ We divide the goals in two sections, the first one which contains the goals achi
 8. Busy: a car is marked as busy when left parked by a client but kept booked.
 
 ## 6 Text assumptions
-
 
 1. Discounts and penalties will be applied only in the case of ride not shorter than 2km, so that the system will not punish users for not using poorly charged cars for short rides and will not encourage users to use fully charged cars less to get the discount.
 2. Discounts and penalties percentage values can be customized by the management system.
