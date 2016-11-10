@@ -72,10 +72,11 @@ sig Ride{
 	fare: set PriceVar
 }{
 	#passengers <= 3
-	endCharge = True iff BonusRecharge in fare
-	endBLevel = OkL iff BonusHighBatt in fare
-	#passengers >=2 iff BonusPassenger in fare
-	endBLevel = LowL iff MalusLowBatt in fare
+	legal = True implies
+		(endCharge = True iff BonusRecharge in fare)
+    	&& (endBLevel = OkL iff BonusHighBatt in fare)
+    	&&(#passengers >=2 iff BonusPassenger in fare)
+   		&&(endBLevel = LowL iff MalusLowBatt in fare)
 
 	endCharge = True implies endP = RechArea
 	legal = False implies #fare = 0
