@@ -9,6 +9,7 @@ one sig UnderMaintance extends CarState{}
 
 abstract sig BLevel{}
 one sig LowL extends BLevel{}
+one sig MedL extends BLevel{}
 one sig OkL extends BLevel{}
 
 abstract sig Position{}
@@ -21,7 +22,12 @@ abstract sig AType{}
 one sig Move extends AType{}
 one sig Recharge extends AType{}
 one sig Repair extends AType{}
- 
+
+abstract sig PriceVar {}
+one sig BonusHighBatt extends PriceVar {}
+one sig BonusPassenger extends PriceVar {}
+one sig BonusRecharge extends PriceVar {}
+one sig MalusLowBatt extends PriceVar {}
 
 sig Car{
 
@@ -35,7 +41,7 @@ sig Car{
 }
 
 sig User{
-	riding: lone Car 
+	riding: lone Car
 }
 
 sig Operator{}
@@ -60,10 +66,19 @@ sig Ride{
 	price: one Int,
 	startP: one Position,
 	endP: one Position,
-	legal: one Bool
-
+	legal: one Bool,
+	endBLevel: one BLevel,
+	endCharge: one Bool,
+	fare: set PriceVar
 }{
-	(price>0)&&(#passengers<=3)
+	#passengers <= 3
+	endCharge = True iff BonusRecharge in fare
+	endBLevel = OkL iff BonusHighBatt in fare
+	#passengers >=2 iff BonusPassenger in fare
+	endBLevel = LowL iff MalusLowBatt in fare
+
+	endCharge = True implies endP = RechArea
+	legal = False implies #fare = 0
 }
 
 sig Booking{
@@ -253,7 +268,7 @@ pred show{
 
 run showAssistance for 10
 run showRidingAndBookings for 10
-run showRides for 10
+run showRides
 run show for 10 
 check notAvailableCarWithMechProblem
 check noTwoRide
