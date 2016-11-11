@@ -367,6 +367,7 @@ In this section are listed some common or significant use cases derivable from t
 | **Exceptions**        | - In the case there's no compatible charging station the user is redirected to a screen notifying the problem and then back to the initial car screen. |
 |                       | - If the user parks inside the charging station but forgets to insert the plug he's notified after 5 minutes. Then he has 10 additional minutes to insert the plug, if he doesn't then the discount is not applied and he's charged for the full ride. |
 |                       | - The user unlocks the car but doesn't power it up in 15 minutes. If this happens then the car is marked as free and locked up again. |
+|                       | - At the end of the ride the user has not enough money to pay on his PayPal account. If that's the case then the payment will be kept as pending and during this time the user will be banned and will be unable to use the service. |
 +-----------------------+-----------------------------------------------------+
 
 \newpage
