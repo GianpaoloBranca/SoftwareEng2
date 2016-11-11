@@ -30,14 +30,15 @@ The company also has an efficient internal communication system to coordinate th
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
 The system must:
-- [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
-- [G2] Allow the clients to book a car and pick it up.
-- [G3] Monitor the usage of the car and charge the client with the right fare.
-- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
-- [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
-- [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
-- [G7] Allow management system to set up and modify parameters of the system.
-- [G8] Provide a real time, interactive, pleasant and transparent user experience.
+    - [G0] Make the user able to access to the system.
+    - [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
+    - [G2] Allow the clients to book a car and pick it up.
+    - [G3] Monitor the usage of the car and charge the client with the right fare.
+    - [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+    - [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
+    - [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
+    - [G7] Allow management system to set up and modify parameters of the system.
+    - [G8] Provide a real time, interactive, pleasant and transparent user experience.
 
 ## 3 Boundaries of the system
 
@@ -90,14 +91,14 @@ There are also secondary actors (such as third party service providers).
 
 In the following section we are going to identify the requirements that our system will have to fulfill to meet reach the goals.
 
-- [G0] Users must be able to access to the system
+- [G0] Make the user able to access to the system.
 
     - [R0.1] User must sign up with valid credential
     - [R0.2] System must generates a password for the user
     - [R0.3] User must be able to visualize and modify all his personal informations
 
 
-- [G1] Allows the clients to find an available car within a selected radius around his or a specified location.
+- [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
 
     - [R1.1] The system must retrieve the location of the user
     - [R1.2] The user must be able to specify the radius (in km) around the selected location for the car research
@@ -105,7 +106,7 @@ In the following section we are going to identify the requirements that our syst
     - [R1.4] Upon the selection of a car the system must retrieve an informative screen with current car details.
 
 
-- [G2] Allows the clients to book a car and pick it up.
+- [G2] Allow the clients to book a car and pick it up.
 
     - [R2.1] A client must be able to choose one of the available cars and, if PayPal ensures that he can pay, book it.
     - [R2.2] Once a car has been booked no others reservation can be performed by the same client until the first one is pending.
@@ -113,7 +114,7 @@ In the following section we are going to identify the requirements that our syst
     - [R2.4] The client is able to unlock a booked car trough the app at any time after the reservation, however he has a maximum of 15 minutes to turn it on after the unlocking. If this timeout expires, the reservation is cancelled the fee is applied.
 
 
-- [G3] Monitoring the usage of the car and charge the client with the right fare.
+- [G3] Monitor the usage of the car and charge the client with the right fare.
 
     - [R3.1] As soon as the engine starts the system must start charging the user with a fixed amount for minute and show the current price of the ride in the display of the car.
     - [R3.2] When a car is parked in a safe area and the engine is turned off the system will ask the user through the display of the car if he wants to keep the car busy for at maximum 2h, if the user select 'NO' or does nothing and leaves the car the ride is considered as ended. If the user selects 'YES' the car is marked as busy.
@@ -124,22 +125,24 @@ In the following section we are going to identify the requirements that our syst
     - [R3.7] After the end of the ride the user is charged with the right amount.
 
 
-- [G4] Incentivizes a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.4)
+- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.1)
 
     - [R4.1] The system will show in the display of the car a QR code that must be scanned by the user, using the application, to check in. If 2 or more users check in, in addition to the driver, a discount will be applied to the ride.
     - [R4.2]  The system will apply a discount in the case a car is left with more the 50% of the battery capacity available.
     - [R4.3] The system will detect when a car is left plugged in a recharging station at the end of a ride (using the GPS sensor and the informations sent to the system by the station) and will apply a discount . If the car is left in the recharging station but not plugged within 5 minutes the discount will not be applied.
     - [R4.4] The system will detect when a car is about to be left more than 3km away from the nearest recharging station and with 20% or less battery available, will warn the client and if the client proceeds to leave the car will apply a penalty to the price of the ride.
-    - R[4.5] The client will be able to select a money saving option so that the system will provide him trough the GPS navigator of the car informations to reach the available recharging station which is more suitable according to the client destination and the need of the system to distribute car uniformly among the recharging stations.
+    - [R4.5] The client will be able to select a money saving option so that the system will provide him trough the GPS navigator of the car informations to reach the available recharging station which is more suitable according to the client destination and the need of the system to distribute car uniformly among the recharging stations.
+    - [R4.6] The user gets only the bigger discount, between the ones of which at [R4.2] and [R4.3], eventually cumulated with the one stated at [R4.1].
+    However the system keeps track of all the requirements for a discount, then an algorithm will calculate the right discount to apply according to this policy.
 
 
-- [G5] Ensures a correct distribution of cars in the recharging stations according to the available plugs.
+- [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
 
     - [R5.1] The system will help operators (in the case there's no need for an on place recharge) and users with the money saving option on to choose the station in which cars should be charged and left so that cars are reasonably distributed among the different stations in the city.
     - [R5.2] The amount of plugs available should be monitored and the presence of non working ones detected.
 
 
-- [G6] Allows operators to manage and monitor the state of all the cars and notifies them when maintenance is needed on a specific vehicle.
+- [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
 
     - [R6.1] The system will provide operators of the company with an interface to check the state of the cars.
     - [R6.2] Push notifications will notify when a car is need for assistance.
@@ -147,14 +150,14 @@ In the following section we are going to identify the requirements that our syst
     - [R6.4] The system must provide APIs to be used to the old system that will manage the assistance action.
 
 
-- [G7] Allows management system to set up and modify parameters of the system.
+- [G7] Allow management system to set up and modify parameters of the system.
 
     - [R7.1] The system will provide an interface to select areas to mark as safe areas for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
     - [R7.2] The system will provide an interface to select the price for minute of the rides and during the busy state.
     - [R7.3] The system will provide and interface to customize the percentage of discount and penalty for the cases highlighted in the G.4 scope.
 
 
-- [G8] Provides a real time, interactive, pleasant and transparent user experience.
+- [G8] Provide a real time, interactive, pleasant and transparent user experience.
 
     - [R8.1] At the end of each ride the system must notify the user with all the informations concerning the last usage, among which the total amount charged and details about eventual discounts or penalties.
     - [R8.2] If at the beginning of a ride the client is suitable for the discount of which at [R4.1], the system notifies the correct detection with an on screen notification.
@@ -234,7 +237,7 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Name**              | User logs in                                        |
 +-----------------------+-----------------------------------------------------+
-| **Goals**             | G8                                                  |
+| **Goals**             | G0                                                  |
 +-----------------------+-----------------------------------------------------+
 | **Actors**            | Non authenticated user                              |
 +-----------------------+-----------------------------------------------------+
@@ -267,7 +270,7 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Name**              | User registers                                      |
 +-----------------------+-----------------------------------------------------+
-| **Goals**             | G8                                                  |
+| **Goals**             | G0                                                  |
 +-----------------------+-----------------------------------------------------+
 | **Actors**            | Non authenticated user                              |
 +-----------------------+-----------------------------------------------------+
@@ -332,16 +335,16 @@ In this section are listed some common or significant use cases derivable from t
 ![](./Flow Diagrams/CarBookingSD.png){#id .class width=100% height=100%}
 \newpage
 
-#### User does a full ride with money saving option
+#### User picks the car up
 
 +-----------------------+-----------------------------------------------------+
-| **Name**              | User does a full ride with money saving option |
+| **Name**              | User picks the car up |
 +-----------------------+-----------------------------------------------------+
-| **Goals**             | G2, G3, G4, G5 |
+| **Goals**             | G2 |
 +-----------------------+-----------------------------------------------------+
 | **Actors**            | User |
 +-----------------------+-----------------------------------------------------+
-| **Entry conditions**  | The user made a reservation for the car he's about to ride. |
+| **Entry conditions**  | The user made a reservation for the car he's about to pick up. |
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The user enters his profile screen. |
 |                       | - The user hits the car reservation inside the history tab. |
@@ -353,30 +356,39 @@ In this section are listed some common or significant use cases derivable from t
 |                       | - The user clicks on the QR scanner button. |
 |                       | - The user scans the QR code on the car screen. |
 |                       | - The user powers the engine by pressing the physical button inside the car. |
-|                       | - The user clicks the "Money saving" button on the car screen. |
-|                       | - The car monitor show the destination insertion screen. |
-|                       | - The user inserts his destination and hits the "Confirm" button. |
-|                       | - The system calculates the optimal charge station. |
-|                       | - The car monitor show the GPS navigation map screen with the selected charge station as destination. |
-|                       | - The user rides to his destination. |
-|                       | - The user parks the car at the charge station. |
-|                       | - The user powers down the engine. |
-|                       | - The car monitor show the ride ending screen. |
-|                       | - The user selects the "End ride" button. |
-|                       | - The user is redirected to the plug insertion reminder screen. |
-|                       | - The user exits the car and closes the car door. |
-|                       | - The user inserts the charging plug into the car socket. |
-|                       | - The user is charged for the service usage. |
++-------------------------------+---------------------------------------------+
+| **Exit conditions**   | The user checked in and the car is powered up. |
 +-----------------------+-----------------------------------------------------+
-| **Exit conditions**   | The car is parked and is being recharged. The user is charged for the payment. |
-+-----------------------+-----------------------------------------------------+
-| **Exceptions**        | - In the case there's no compatible charging station the user is redirected to a screen notifying the problem and then back to the initial car screen. |
-|                       | - If the user parks inside the charging station but forgets to insert the plug he's notified after 5 minutes. Then he has 10 additional minutes to insert the plug, if he doesn't then the discount is not applied and he's charged for the full ride. |
-|                       | - The user unlocks the car but doesn't power it up in 15 minutes. If this happens then the car is marked as free and locked up again. |
-|                       | - At the end of the ride the user has not enough money to pay on his PayPal account. If that's the case then the payment will be kept as pending and during this time the user will be banned and will be unable to use the service. |
+| **Exceptions**        | - The user unlocks the car but doesn't power it up in 15 minutes. If this happens then the car is marked as free and locked up again. |
 +-----------------------+-----------------------------------------------------+
 
 \newpage
+
+#### User starts a ride with money saving option
+
++-----------------------+-----------------------------------------------------+
+| **Name**              | User starts a ride with money saving option |
++-----------------------+-----------------------------------------------------+
+| **Goals**             | G4, G5 |
++-----------------------+-----------------------------------------------------+
+| **Actors**            | User |
++-----------------------+-----------------------------------------------------+
+| **Entry conditions**  | User checked in and powered up the car. |
++-----------------------+-----------------------------------------------------+
+| **Flow of events**    | - The user clicks the "Money saving" button on the car screen. |
+|                       | - The car shows the destination insertion screen. |
+|                       | - The user inserts his destination and hits the "Confirm" button. |
+|                       | - The system calculates the optimal charge station. |
+|                       | - The car monitor show the GPS navigation map screen with the selected charge station as destination. |
+|                       | - The user starts his ride. |
++-----------------------+-----------------------------------------------------+
+| **Exit conditions**   | The user is riding the car and the car screen shows the navigation towards the desired destination. |
++-----------------------+-----------------------------------------------------+
+| **Exceptions**        | In the case there's no compatible charging station the user is redirected to a screen notifying the problem and then back to the initial car screen. |
++-----------------------+-----------------------------------------------------+
+
+\newpage
+
 #### The user parks and keeps the car as busy
 
 +-----------------------+-----------------------------------------------------+
@@ -386,7 +398,7 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Actors**            | User |
 +-----------------------+-----------------------------------------------------+
-| **Entry conditions**  | The user picked the car up. |
+| **Entry conditions**  | The user picked the car up and is riding it. |
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The user parks the car and powers down the engine.|
 |                       | - The user is redirected to the ride ending screen. |
@@ -405,12 +417,41 @@ In this section are listed some common or significant use cases derivable from t
 
 \newpage
 
+#### User ends a ride
+
++-----------------------+-----------------------------------------------------+
+| **Name**              | User ends a ride |
++-----------------------+-----------------------------------------------------+
+| **Goals**             | G3 |
++-----------------------+-----------------------------------------------------+
+| **Actors**            | User |
++-----------------------+-----------------------------------------------------+
+| **Entry conditions**  | The user parked the car which is still powered on. |
++-----------------------+-----------------------------------------------------+
+| **Flow of events**    | - The user powers down the engine. |
+|                       | - The car monitor show the ride ending screen. |
+|                       | - The user selects the "End ride" button. |
+|                       | - The user exits the car and closes the car door. |
+|                       | - The system calculates the fare for the ride. |
+|                       | - The user is charged for the service usage. |
++-----------------------+-----------------------------------------------------+
+| **Exit conditions**   | The car is free and the user is charged with the amount due. |
++-----------------------+-----------------------------------------------------+
+| **Exceptions**        | - At the end of the ride the user has not enough money to pay on his PayPal account. If that's the case then the payment will be kept as pending and during this time the user will be banned and will be unable to use the service. |
++-----------------------+-----------------------------------------------------+
+
+\newpage
+
 #####Ride Activity Diagram
 ![](./Flow Diagrams/RideFlowAD.png){#id .class width=100% height=100%}
 \newpage
 
 #####Car State Diagram
 ![](./Flow Diagrams/CarSD.png){#id .class width=100% height=100%}
+\newpage
+
+#####Discount/Penalty Activity Diagram
+![](./Flow Diagrams/Discount_PenaltyAD.png){#id .class width=100% height=100%}
 \newpage
 
 #### Operator enrolls an assistance request
