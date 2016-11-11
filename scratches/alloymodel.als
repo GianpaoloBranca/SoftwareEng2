@@ -70,10 +70,13 @@ sig Ride{
 	endBLevel: one BLevel,
 	endCharge: one Bool,
 	longerThan2: one Bool,
-	fare: set PriceVar
+	fare: set PriceVar,
+	paid: one Bool
+
 }{
-    #passengers <= 3
-	endCharge = True implies endP = RechArea
+	timecode>=0
+	#passengers <= 3
+	endCharge = True implies endP in RechArea
 }
 
 sig Booking{
@@ -135,13 +138,25 @@ fact bonusAndMalusPolicy{
    	 implies
 		((r.endCharge = True iff BonusRecharge in r.fare)
    		 && 
-	 	(r.endBLevel = OkL iff BonusHighBatt in r.fare)
-    	&&
+	 	(r.endBLevel = OkL iff BonusHighBatt in r.fare )
+		&&
 		(#(r.passengers) >=2 iff BonusPassenger in r.fare)
    		&&
-		(r.endBLevel = LowL iff MalusLowBatt in r.fare)))
+		(r.endBLevel = LowL iff (MalusLowBatt in r.fare && r.vehicle.position not in RechArea))))
 	&&
 	((r.legal = False or r.longerThan2=False) implies r.fare = none)
+}
+
+//clients that haven't paid for a ride are banned
+fact ban{
+	all disj r1,r2 : Ride | 
+	(r1.paid=False && r1.driver=r2.driver)
+	implies
+	(r1.timecode>r2.timecode)
+}
+
+fact bannedUserCannotBeRiding{
+	all r:Ride | r.paid=False implies r.driver not in riding.Car+Booking.client
 }
 
 //users can be only in one ride at a time
@@ -181,7 +196,7 @@ fact carNotInUseAreNotBusy{
 
 //cars with a mechanical problems are put under maintence if they not busy
 fact mechProblem{
-	all c:Car | c.mechProbSensor=True => ( c not in User.riding => c.status=UnderMaintance)
+	all c:Car | c.mechProbSensor=True implies ( c not in User.riding implies c.status=UnderMaintance)
 }
 
 //cars that are being rided are busy
@@ -245,6 +260,7 @@ pred showRides{
 	#Car=3
 	#User=3
 	Position in (Car.position +Ride.startP+Ride.endP)
+	#RechArea>1
 	some r: Ride | #(r.fare-MalusLowBatt)=3
 }
 

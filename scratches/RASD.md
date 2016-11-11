@@ -4,6 +4,12 @@
  Andrea Cini
 %![](polimi.png)\newpage
 
+---
+header-includes:
+  - \usepackage[dvipsnames]{xcolor}
+  - \usepackage{listings}
+  - \usepackage{alloy}
+---
 
 \newpage
 
@@ -480,14 +486,15 @@ In this section are listed some common or significant use cases derivable from t
 
 ## 11 Alloy Model
 
-
+\lstinputlisting[language=alloy]{alloymodel.als}
+\newpage
 
 ## 12 Used tools
 
 - Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
-- Pandoc to craft the Tex document from the MD one and the pdf from the from the Tex.
-- TexShop to edit the Tex document
-(credits to https://github.com/Angtrim/alloy-latex-highlighting for the Alloy syntax highlighting).
+- Pandoc to craft the LaTeX document from the MD one and the pdf from the from the LaTeX.
+- TexShop to edit the LaTeX document
+(credits to [_Angtrim_](https://github.com/Angtrim/alloy-latex-highlighting) on GitHub for the Alloy syntax highlighting).
 - Alloy analyzer 4.2.
 - Signavio for the use case, class and activity diagrams.
 - Draw.io for the sequence diagrams.
