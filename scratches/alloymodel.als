@@ -74,9 +74,10 @@ sig Ride{
 	paid: one Bool
 
 }{
+	price>0
 	timecode>=0
 	#passengers <= 3
-	endCharge = True implies endP in RechArea
+	endCharge = True implies (endP in RechArea)
 }
 
 sig Booking{
@@ -142,7 +143,7 @@ fact bonusAndMalusPolicy{
 		&&
 		(#(r.passengers) >=2 iff BonusPassenger in r.fare)
    		&&
-		(r.endBLevel = LowL iff (MalusLowBatt in r.fare && r.vehicle.position not in RechArea))))
+		((r.endBLevel = LowL &&  r.position not in RechArea) iff MalusLowBatt in r.fare)))
 	&&
 	((r.legal = False or r.longerThan2=False) implies r.fare = none)
 }
@@ -252,6 +253,30 @@ assert noPassisDriver{
 
 //PREDS
 
+
+pred usedCar[c,c':Car,r:Ride,u:User]{
+	#User=1
+	#Car=2
+	#Ride=1
+	#Booking=0
+	#Operator=0
+	#AssistanceRequest=0
+	c.position not in OutsideCity
+	c.mechProbSensor=False
+	c!=c'
+	(c.battery=LowL implies c'.battery=LowL)
+	(c.battery=MedL implies c'.battery!=OkL)
+	r.endCharge=True iff c'.plugged=True
+	r.vehicle=c'
+	r.endBLevel=c'.battery
+	r.endP=c'.position
+	r.driver=u
+	u.riding=c
+	r.legal=True
+	c.battery!=c'.battery
+	Position in (Car.position +Ride.startP+Ride.endP)
+}
+
 pred showRides{
 	#Ride=3
 	#riding=0
@@ -293,6 +318,7 @@ pred show{
 
 //Run commands
 
+run usedCar for 10
 run showAssistance for 10
 run showRidingAndBookings for 10
 run showRides for 10
