@@ -30,15 +30,15 @@ The company also has an efficient internal communication system to coordinate th
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
 The system must:
-    - [G0] Make the user able to access to the system.
-    - [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
-    - [G2] Allow the clients to book a car and pick it up.
-    - [G3] Monitor the usage of the car and charge the client with the right fare.
-    - [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
-    - [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
-    - [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
-    - [G7] Allow management system to set up and modify parameters of the system.
-    - [G8] Provide a real time, interactive, pleasant and transparent user experience.
+- [G0] Make the user able to access to the system.
+- [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
+- [G2] Allow the clients to book a car and pick it up.
+- [G3] Monitor the usage of the car and charge the client with the right fare.
+- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+- [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
+- [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
+- [G7] Allow management system to set up and modify parameters of the system.
+- [G8] Provide a real time, interactive, pleasant and transparent user experience.
 
 ## 3 Boundaries of the system
 
@@ -69,6 +69,7 @@ The system must:
 6. On screen notification: is a notification which is displayed on the screen located inside the vehicle.
 7. Plugged: a car is considered plugged when a sensor in the recharging station detects that the specific car has been connected to the recharging system.
 8. Busy: a car is marked as busy when left parked by a client but kept booked.
+9. Update notification: is a notification sent by e-mail to the users which contains every detail of the update and eventually the new terms and conditions document.
 
 ## 6 Text assumptions
 
@@ -174,21 +175,21 @@ In the following section we are going to identify the requirements that our syst
 #### 8.2.1 Mockup
 
 ##### Mobile App
-![](./Mobile App/Mobile App-1.png){#id .class width=150}
-![](./Mobile App/Mobile App-2.png){#id .class width=150}
-![](./Mobile App/Mobile App-3.png){#id .class width=150}
-![](./Mobile App/Mobile App-4.png){#id .class width=150}
-![](./Mobile App/Mobile App-5.png){#id .class width=150}
-![](./Mobile App/Mobile App-6.png){#id .class width=150}
+![](./MobileApp/MobileApp-1.png){#id .class width=150}
+![](./MobileApp/MobileApp-2.png){#id .class width=150}
+![](./MobileApp/MobileApp-3.png){#id .class width=150}
+![](./MobileApp/MobileApp-4.png){#id .class width=150}
+![](./MobileApp/MobileApp-5.png){#id .class width=150}
+![](./MobileApp/MobileApp-6.png){#id .class width=150}
 \newpage
 
 #####Car system
-![](./Car System/Car System-1.png){#id .class width=300}
-![](./Car System/Car System-2.png){#id .class width=300}
+![](./CarSystem/CarSystem-1.png){#id .class width=300}
+![](./CarSystem/CarSystem-2.png){#id .class width=300}
 
 #####Monitoring service
-![](./Monitoring service/Monitoring service-1.png){#id .class width=400}\newpage
-![](./Monitoring service/Monitoring service-2.png){#id .class width=400}\newpage
+![](./Monitoringservice/Monitoringservice-1.png){#id .class width=400}\newpage
+![](./Monitoringservice/Monitoringservice-2.png){#id .class width=400}\newpage
 
 ## 9 Scenario identifying
 
@@ -213,19 +214,20 @@ She is checking through flagged cars which have low battery level. The first she
 
 ### Scenario 5
 
-Bob, an operator of PowerEnJoy, was assigned to update the system terms regarding to a new company policy. First of all he modifies the cost per minute for using the service from 26 cents/minute to 28 cents/minute. The price raise is balanced with a proper increase in discounts, so, still through the provided interface, Bob can increase the discount, for leaving the car plugged in a charging station, from 25% to 30% on the full price of the ride. In the end Bob has to insert two new safe areas and to remove one; the interface allows Bob to select the proper utility and he can easily select, from the list of safe areas, the one to delete. Now he inserts the first new area just by specifying the chosen address and the radius around it, which in this case is of 2.6 km. Since the second area has a more complicated shape he selects the drawing tool and easily draws the polygon defining the selected area, then the system commutates the area drew on the map into proper coordinates to identify it. After this process Bob checks out the update, the system generates a proper notification for the new terms and conditions containing also the details of the update; this will be eventually endorsed by the company's legal office, and therefore sent over to the users along with the mentioned update.
+Bob, an operator of PowerEnJoy, was assigned to update the system terms regarding to a new company policy. First of all he modifies the cost per minute for using the service from 26 cents/minute to 28 cents/minute. The price raise is balanced with a proper increase in discounts, so, still through the provided interface, Bob can increase the discount, for leaving the car plugged in a charging station, from 25% to 30% on the full price of the ride. In the end Bob has to insert two new safe areas and to remove one; the interface allows Bob to select the proper utility and he can easily select, from the list of safe areas, the one to delete. Now he inserts the first new area just by specifying the chosen address and the radius around it, which in this case is of 2.6 km. Since the second area has a more complicated shape he selects the drawing tool and easily draws the polygon defining the selected area, then the system commutates the area drew on the map into proper coordinates to identify it. After this process Bob checks out the update, the system generates a proper notification containing the new terms and conditions and the details of the update and therefore sends it over to the users along with the mentioned update.
 
+\newpage
 
 ## 10 UML Models
 
 ### 10.1 Class Diagram
 
-![](./class diagram/class diagram-1.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./classdiagram/classdiagram-1.png}}
 \newpage
 
 ### 10.2 Use case diagram
 
-![](./uc/uc.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./uc/uc.png}}
 \newpage
 
 ### 10.3 Use case description
@@ -262,7 +264,7 @@ In this section are listed some common or significant use cases derivable from t
 \newpage
 
 #####Login Sequence Diagram
-![](./Flow Diagrams/UserLoginSD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./FlowDiagrams/UserLoginSD.png}}
 \newpage
 
 ####  User registers
@@ -304,6 +306,7 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 
 \newpage
+
 #### User searches and reserves a car
 
 +-----------------------+-----------------------------------------------------+
@@ -332,7 +335,7 @@ In this section are listed some common or significant use cases derivable from t
 \newpage
 
 #####Booking Sequence Diagram
-![](./Flow Diagrams/CarBookingSD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=5.20833in]{./FlowDiagrams/CarBookingSD.png}}
 \newpage
 
 #### User picks the car up
@@ -443,15 +446,15 @@ In this section are listed some common or significant use cases derivable from t
 \newpage
 
 #####Ride Activity Diagram
-![](./Flow Diagrams/RideFlowAD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./FlowDiagrams/RideFlowAD.png}}
 \newpage
 
 #####Car State Diagram
-![](./Flow Diagrams/CarSD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./FlowDiagrams/CarSD.png}}
 \newpage
 
 #####Discount/Penalty Activity Diagram
-![](./Flow Diagrams/Discount_PenaltyAD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./FlowDiagrams/DiscountPenaltyAD.png}}
 \newpage
 
 #### Operator enrolls an assistance request
@@ -484,7 +487,7 @@ In this section are listed some common or significant use cases derivable from t
 \newpage
 
 #####Assistance Request Sequence Diagram
-![](./Flow Diagrams/AssistanceRequestSD.png){#id .class width=100% height=100%}
+\centerline{\includegraphics[width=6.25000in]{./FlowDiagrams/AssistanceRequestSD.png}}
 \newpage
 
 #### Operator inserts a new safe area
@@ -510,19 +513,14 @@ In this section are listed some common or significant use cases derivable from t
 |                       | - The operator is redirected to the map screen now showing the new safe area. |
 |                       | - The operator clicks on the "Save and exit" button. |
 |                       | - The system generates the update details notification. |
-|                       | - The system sends the update details notification to the legal office. |
+|                       | - The system sends the update details notification to the users. |
 |                       | - The operator is redirected to the initial terminal screen. |
 +-----------------------+-----------------------------------------------------+
-| **Exit conditions**   | The new safe area is correctly inserted in the system and the update details notification is successfully sent to the legal office. The operator is redirected to the initial screen. |
+| **Exit conditions**   | The new safe area is correctly inserted in the system and the update details notification is successfully sent to the users. The operator is redirected to the initial screen. |
 +-----------------------+-----------------------------------------------------+
 | **Exceptions**        | - The operator inserted invalid coordinates for a vertex or an invalid number of vertices. In this case the operator is redirected to the previous screen and notified that he did something wrong and must perform the action again correctly. |
-|                       | - The system, after ten attempts, hasn't been able to send to the legal office the update notification. In this case a warning notification containing the update information is sent to the operator and the operation is taken into account manually. |
 +-----------------------+-----------------------------------------------------+
 
-\newpage
-
-##### Update Activity Diagram
-![](./Flow Diagrams/UpdateAD.png){#id .class width=100% height=100%}
 \newpage
 
 ## 11 Alloy Model
