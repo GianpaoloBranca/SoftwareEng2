@@ -5,35 +5,35 @@ one sig False extends Bool{}
 abstract sig CarState{}
 one sig Available extends CarState{}
 one sig Busy extends CarState{}
-one sig UnderMaintance extends CarState{}
+one sig UnderMaintenance extends CarState{}
 
-abstract sig BLevel{}
-one sig LowL extends BLevel{}
-one sig MedL extends BLevel{}
-one sig OkL extends BLevel{}
+abstract sig BatteryLevel{}
+one sig LowL extends BatteryLevel{}
+one sig MedL extends BatteryLevel{}
+one sig OkL extends BatteryLevel{}
 
 abstract sig Position{}
 sig SafeP extends Position{}
 sig UnsafeP extends Position{}
 sig OutsideCity extends UnsafeP{}
-sig RechArea extends SafeP{}
+sig RechargeArea extends SafeP{} //
 
-abstract sig AType{}
-one sig Move extends AType{}
-one sig Recharge extends AType{}
-one sig Repair extends AType{}
+abstract sig AssistanceType{}
+one sig Move extends AssistanceType{}
+one sig Recharge extends AssistanceType{}
+one sig Repair extends AssistanceType{}
 
-abstract sig PriceVar {}
-one sig BonusHighBatt extends PriceVar {}
-one sig BonusPassenger extends PriceVar {}
-one sig BonusRecharge extends PriceVar {}
-one sig MalusLowBatt extends PriceVar {}
+abstract sig PriceVariation {}
+one sig BonusHighBatt extends PriceVariation {}
+one sig BonusPassenger extends PriceVariation {}
+one sig BonusRecharge extends PriceVariation {}
+one sig MalusLowBatt extends PriceVariation {}
 
 sig Car{
 
-	battery: one BLevel,
+	battery: one BatteryLevel,
 	flagged: one Bool,
-	mechProbSensor: one Bool,
+	mechProbSensor: one Bool, // True if there is a mechanical problem
 	status: one CarState,
 	plugged: one Bool,
 	position: one Position
@@ -41,23 +41,26 @@ sig Car{
 }
 
 sig User{
+
 	riding: lone Car
+
 }
+
 
 sig Operator{}
 
 sig AssistanceRequest{
 
 	supervisor: one Operator,
-	type: one AType,
+	type: one AssistanceType,
 	car: one Car
 
 }
 
 //timecode is used to simplify the model with the following meaning:
-//if 2 rides has different timecodes means that they have took place 
+//if 2 rides has different timecodes means that they have took place
 //in two disjoint period of time
-sig Ride{
+sig Ride{//rapresents only the rides that have ended
 
 	driver: one User,
 	passengers: set User,
@@ -67,17 +70,17 @@ sig Ride{
 	startP: one Position,
 	endP: one Position,
 	legal: one Bool,
-	endBLevel: one BLevel,
-	endCharge: one Bool,
+	endBatteryLevel: one BatteryLevel,
+	endWithCharge: one Bool,
 	longerThan2: one Bool,
-	fare: set PriceVar,
+	fare: set PriceVariation,
 	paid: one Bool
 
 }{
 	price>0
 	timecode>=0
 	#passengers <= 3
-	endCharge = True implies (endP in RechArea)
+	endWithCharge = True implies (endP in RechargeArea)
 }
 
 sig Booking{
@@ -91,20 +94,20 @@ sig Booking{
 //AssistantRequest facts
 
 
-//A car under assistance must be in the UndermaintanceState
-fact maintananceState{
+//A car under assistance must be in the UnderMaintenanceState
+fact maintenanceState{
 
-	all a: AssistanceRequest | let c=a.car | c.status=UnderMaintance
+	all a: AssistanceRequest | let c=a.car | c.status=UnderMaintenance
 
 }
 
-fact typePolicy{
+fact assistanceTypePolicy{ //problems has a priority: Repair>Move>Recharge
 
-	all a: AssistanceRequest | let c=a.car | 
+	all a: AssistanceRequest | let c=a.car |
 	((c.mechProbSensor=True iff a.type=Repair)
-	&& 
+	&&
 	(a.type=Recharge implies (c.battery=LowL && c.plugged=False && c.position in SafeP))
-	&& 
+	&&
 	(a.type=Move implies c.position not in SafeP))
 
 }
@@ -134,23 +137,23 @@ fact uniqueBooking{
 //Ride facts
 
 fact bonusAndMalusPolicy{
-	all r: Ride | 
-	 ((r.legal = True  && r.longerThan2=True) 
+	all r: Ride |
+	 ((r.legal = True  && r.longerThan2=True)
    	 implies
-		((r.endCharge = True iff BonusRecharge in r.fare)
-   		 && 
-	 	(r.endBLevel = OkL iff BonusHighBatt in r.fare )
+		((r.endWithCharge = True iff BonusRecharge in r.fare)
+   		 &&
+	 	(r.endBatteryLevel = OkL iff BonusHighBatt in r.fare )
 		&&
 		(#(r.passengers) >=2 iff BonusPassenger in r.fare)
    		&&
-		((r.endBLevel = LowL &&  r.position not in RechArea) iff MalusLowBatt in r.fare)))
+		((r.endBatteryLevel = LowL &&  r.endP not in RechargeArea) iff MalusLowBatt in r.fare)))
 	&&
 	((r.legal = False or r.longerThan2=False) implies r.fare = none)
 }
 
 //clients that haven't paid for a ride are banned
 fact ban{
-	all disj r1,r2 : Ride | 
+	all disj r1,r2 : Ride |
 	(r1.paid=False && r1.driver=r2.driver)
 	implies
 	(r1.timecode>r2.timecode)
@@ -162,7 +165,7 @@ fact bannedUserCannotBeRiding{
 
 //users can be only in one ride at a time
 fact disjointRides{
-	all disj r1,r2:Ride | r1.timecode=r2.timecode 
+	all disj r1,r2:Ride | r1.timecode=r2.timecode
 	implies
 	 (r1.driver+r1.passengers+r1.vehicle)&(r2.driver+r2.passengers+r2.vehicle)=none
 }
@@ -182,8 +185,8 @@ fact legalEndPosition{
 }
 
 //cars can be pluggeg only in a recharging area
-fact carsPluggedInRechArea{
- 	all c : Car | (c.plugged=True implies c.position in RechArea)
+fact carsPluggedInRechargeArea{
+ 	all c : Car | (c.plugged=True implies c.position in RechargeArea)
 }
 
 //two cars can't be in the same exact position
@@ -195,14 +198,18 @@ fact carNotInUseAreNotBusy{
 	all c:Car | notInUse[c] implies c.status!=Busy
 }
 
-//cars with a mechanical problems are put under maintence if they not busy
+fact notAvaiableOutsideCIty{
+	all c:Car | c.position in OutsideCity implies c.status!=Available
+}
+
+//cars with a mechanical problems are under maintence if they are not not rided
 fact mechProblem{
-	all c:Car | c.mechProbSensor=True implies ( c not in User.riding implies c.status=UnderMaintance)
+	all c:Car | c.mechProbSensor=True implies ( c not in User.riding implies c.status=UnderMaintenance)
 }
 
 //cars that are being rided are busy
 fact busyCar{
-	all u:User | u.riding!=none implies u.riding.status=Busy 
+	all u:User | u.riding!=none implies u.riding.status=Busy
 }
 
 pred notInUse[c: Car]{
@@ -215,13 +222,13 @@ fact onlyOneDriver{
 }
 
 fact flagPolicy{
-	all c: Car| 
-	(c.mechProbSensor=True 
-	or 
-	(c.battery=LowL&&c.plugged=False) 
-	or 
-	(c.position not in SafeP && c not in User.riding) 
-	or 
+	all c: Car|
+	(c.mechProbSensor=True
+	or
+	(c.battery=LowL&&c.plugged=False)
+	or
+	(c.position not in SafeP && c not in User.riding)
+	or
 	(c.position in OutsideCity)) iff c.flagged=True
 }
 
@@ -236,7 +243,7 @@ assert notAvailableCarWithMechProblem{
 }
 
 assert noTwoRide{
-	all u:User, disj r1,r2:Ride | r1.driver=u&&r2.driver=u implies r1.timecode!=r2.timecode 
+	all u:User, disj r1,r2:Ride | r1.driver=u&&r2.driver=u implies r1.timecode!=r2.timecode
 }
 
 assert busyStatus{
@@ -244,16 +251,20 @@ assert busyStatus{
 }
 
 assert carsAvailable{
-	all c: Car | (notInUse[c]&&c.status!=UnderMaintance) implies c.status=Available
+	all c: Car | (notInUse[c]&&c.status!=UnderMaintenance) implies c.status=Available
 }
 
-assert noPassisDriver{
+assert noPassIsDriver{
 	all r:Ride | r.driver not in r.passengers
+}
+
+assert bookedCarsHaveNoMechProblems{
+	all b:Booking | b.car.mechProbSensor=False
 }
 
 //PREDS
 
-
+// c,c': car before and after the end of the ride
 pred usedCar[c,c':Car,r:Ride,u:User]{
 	#User=1
 	#Car=2
@@ -266,14 +277,61 @@ pred usedCar[c,c':Car,r:Ride,u:User]{
 	c!=c'
 	(c.battery=LowL implies c'.battery=LowL)
 	(c.battery=MedL implies c'.battery!=OkL)
-	r.endCharge=True iff c'.plugged=True
+	r.endWithCharge=True iff c'.plugged=True
 	r.vehicle=c'
-	r.endBLevel=c'.battery
+	r.endBatteryLevel=c'.battery
 	r.endP=c'.position
 	r.driver=u
 	u.riding=c
 	r.legal=True
 	c.battery!=c'.battery
+	Position in (Car.position +Ride.startP+Ride.endP)
+}
+
+// c,c': car before and after being booked
+pred bookedCar[c,c':Car,b:Booking,u,u':User]{
+	#User=2
+	#Car=2
+	#Booking=1
+	#AssistanceRequest=0
+	#Operator=0
+	#Ride=0
+	c.status=Available
+	u not in riding.Car
+	u not in Booking.client
+	//we can't state that they are in the same Position
+	c.position in RechargeArea iff c'.position in RechargeArea
+	c.position in SafeP iff c'.position in SafeP
+	c.position in UnsafeP iff c'.position in UnsafeP
+	c.position in OutsideCity iff c'.position in OutsideCity
+	b.client=u'
+	b.car=c'
+	Position in (Car.position +Ride.startP+Ride.endP)
+}
+
+// c,c',c'': care before, during and after the assistance
+pred assistanceGiven[c,c',c'':Car]{
+	#User=0
+	#Car=3
+	#Booking=0
+	#AssistanceRequest=1
+	#Operator=1
+	#Ride=0
+	c not in AssistanceRequest.car
+	c.flagged=True
+	c.battery=c'.battery
+	c.status!=Busy
+	c.plugged=c'.plugged
+	c.mechProbSensor=c'.mechProbSensor
+	c' in AssistanceRequest.car
+	c''.status=Available
+	c''.flagged=False
+	c''.battery=OkL
+	//we can't state that they are in the same Position
+	c.position in RechargeArea iff c'.position in RechargeArea
+	c.position in SafeP iff c'.position in SafeP
+	c.position in UnsafeP iff c'.position in UnsafeP
+	c.position in OutsideCity iff c'.position in OutsideCity
 	Position in (Car.position +Ride.startP+Ride.endP)
 }
 
@@ -285,7 +343,7 @@ pred showRides{
 	#Car=3
 	#User=3
 	Position in (Car.position +Ride.startP+Ride.endP)
-	#RechArea>1
+	#RechargeArea>1
 	some r: Ride | #(r.fare-MalusLowBatt)=3
 }
 
@@ -318,15 +376,17 @@ pred show{
 
 //Run commands
 
+run assistanceGiven for 10
+run bookedCar for 10
 run usedCar for 10
 run showAssistance for 10
 run showRidingAndBookings for 10
 run showRides for 10
-run show for 10 
+run show for 10
 check notAvailableCarWithMechProblem
 check noTwoRide
 check carUnderAssistanceNotInUse
 check busyStatus
 check carsAvailable
-check noPassisDriver
-
+check noPassIsDriver
+check bookedCarsHaveNoMechProblems
