@@ -30,6 +30,7 @@ The company also has an efficient internal communication system to coordinate th
 We divide the goals in two sections, the first one which contains the goals achieved by modules of the application, and the second one, containing goals achieved by an embedded system installed on the vehicle.
 
 The system must:
+
 - [G0] Make the user able to access to the system.
 - [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
 - [G2] Allow the clients to book a car and pick it up.
@@ -185,11 +186,17 @@ In the following section we are going to identify the requirements that our syst
 
 #####Car system
 ![](./CarSystem/CarSystem-1.png){#id .class width=300}
+\newline
+
 ![](./CarSystem/CarSystem-2.png){#id .class width=300}
+\newpage
 
 #####Monitoring service
-![](./Monitoringservice/Monitoringservice-1.png){#id .class width=400}\newpage
-![](./Monitoringservice/Monitoringservice-2.png){#id .class width=400}\newpage
+![](./Monitoringservice/Monitoringservice-1.png){#id .class width=400}
+\newline
+
+![](./Monitoringservice/Monitoringservice-2.png){#id .class width=400}
+\newpage
 
 ## 9 Scenario identifying
 
