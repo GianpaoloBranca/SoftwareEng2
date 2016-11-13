@@ -533,6 +533,42 @@ In this section are listed some common or significant use cases derivable from t
 ## 11 Alloy Model
 
 \lstinputlisting[language=alloy]{alloymodel.als}
+
+### 11.1 Generated Worlds
+
+#### Generic world
+
+Result of the show predicate: \newline
+![](./alloyworlds/show.png){#id .class width=100% height=100%}
+
+#### Ride properties
+
+Result of the showRides predicate: \newline
+![](./alloyworlds/showRides.png){#id .class width=100% height=100%}
+
+#### Booking and riding properties
+
+Result of the showRidingAndBookings predicate:\newline \newline
+![](./alloyworlds/showRidingAndBookings.png){#id .class width=100% height=100%}
+
+
+#### Assistance properties
+
+Result of the showAssistance predicate:\newline
+![](./alloyworlds/showAssistance.png){#id .class width=100% height=100%}
+
+\newpage
+#### Dynamic Models
+
+Result of the usedCar predicate:\newline
+![](./alloyworlds/usedCar.png){#id .class width=100% height=100%}
+
+Result of the assistanceGiven predicate:\newline
+![](./alloyworlds/assistanceGiven.png){#id .class width=100% height=100%}
+\newpage
+Result of the bookedCar predicate:\newline \newline
+![](./alloyworlds/bookedCar.png){#id .class width=100% height=100%}
+
 \newpage
 
 ## 12 Used tools
