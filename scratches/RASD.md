@@ -229,6 +229,7 @@ Bob, an operator of PowerEnJoy, has been assigned to update the system terms reg
 ## 10 UML Models
 
 ### 10.1 Class Diagram
+Relations between Boundaries, Coordinates and other classes are omitted for clarity
 
 \centerline{\includegraphics[width=6.25000in]{./classdiagram/classdiagram-1.png}}
 \newpage
