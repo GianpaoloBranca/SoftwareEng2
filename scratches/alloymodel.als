@@ -2,9 +2,14 @@ abstract sig Bool{}
 one sig True extends Bool{}
 one sig False extends Bool{}
 
+//we are using only three states to simplify the model
 abstract sig CarState{}
 one sig Available extends CarState{}
+//state of car ridden, booked or busy
 one sig Busy extends CarState{}
+// a car could be undermaintence at the system administretor discretion,
+// even if  there's not an assistance request yet
+// or even without a particular problem being detected
 one sig UnderMaintenance extends CarState{}
 
 abstract sig BatteryLevel{}
@@ -160,6 +165,10 @@ fact ban{
 	(r1.timecode>r2.timecode)
 }
 
+fact riddenCarAreNotPlugged{
+	all c : Car | c in User.riding implies c.plugged=False
+}
+
 fact bannedUserCannotBeRiding{
 	all r:Ride | r.paid=False implies r.driver not in riding.Car+Booking.client
 }
@@ -203,12 +212,12 @@ fact notAvaiableOutsideCIty{
 	all c:Car | c.position in OutsideCity implies c.status!=Available
 }
 
-//cars with a mechanical problems are under maintence if they are not not rided
+//cars with a mechanical problems are under maintence if they are not not ridden
 fact mechProblem{
 	all c:Car | c.mechProbSensor=True implies ( c not in User.riding implies c.status=UnderMaintenance)
 }
 
-//cars that are being rided are busy
+//cars that are being ridden are busy
 fact busyCar{
 	all u:User | u.riding!=none implies u.riding.status=Busy
 }
@@ -383,6 +392,10 @@ pred show{
 	#Ride=3
 	#Car=4
 	#User=5
+	#AssistanceRequest=1
+	#Booking=1
+	#riding=1
+	some c:Car | c.status=Available
 	Position in (Car.position +Ride.startP+Ride.endP)
 }
 

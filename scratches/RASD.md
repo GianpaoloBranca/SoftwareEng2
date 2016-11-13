@@ -69,7 +69,7 @@ The system must:
 7. Plugged: a car is considered plugged when a sensor detects that the specific car has been connected to the recharging system.
 8. Update notification: is a notification sent by e-mail to the users which contains every detail of the update and eventually the new terms and conditions document.
 9. Fee: a user can be charged with a fee for an improper use of the system, the value of the fee can be customized by the management system.
-10. Engaged: a car is marked as engaged when left parked by a client but kept booked.
+10. Busy: a car is marked as busy when ridden by a user or left parked but kept booked.
 11. Ban: a banned user can not book car until his debt has not been satisfied.
 12. Push notification: a notification that pops up in real time on the user's mobile phone or in the operator terminal.
 
@@ -120,9 +120,9 @@ In the following section we are going to identify the requirements that our syst
 - [G3] Monitor the usage of the car and charge the client with the right fare.
 
     - [R3.1] As soon as the engine starts the system must start charging the user with a fixed amount for minute and show the current price of the ride in the display of the car.
-    - [R3.2] When a car is parked in a safe area and the engine is turned off, the system will ask the user through the car display if he wants to keep the car engaged for at maximum 2h, if the user selects 'NO' or does nothing and leaves the car, the ride is considered as ended. If the user selects 'YES' the car is marked as engaged.
-    - [R3.3] An user can leave the car he's using and keep it engaged with a time limit of 2 hours. During this time, since the battery is not being used, the management may configure a different fare. When the timeout expires if the car hasn't been picked up yet the client will be charged with the price of the ride up to that point.
-    - [R3.4] A car parked in a place not marked as safe will be considered as engaged, but if the client breaks the 2 hours timeout he will get a fine for improper use of the service (plus the regular price for the ride). The situation will be notified to the operators that will be able to choose if the car needs to be moved or not.
+    - [R3.2] When a car is parked in a safe area and the engine is turned off, the system will ask the user through the car display if he wants to keep the car busy for at maximum 2h, if the user selects 'NO' or does nothing and leaves the car, the ride is considered as ended. If the user selects 'YES' the car is marked as busy.
+    - [R3.3] An user can leave the car he's using and keep it busy with a time limit of 2 hours. During this time, since the battery is not being used, the management may configure a different fare. When the timeout expires if the car hasn't been picked up yet the client will be charged with the price of the ride up to that point.
+    - [R3.4] A car parked in a place not marked as safe will be considered as busy, but if the client breaks the 2 hours timeout he will get a fine for improper use of the service (plus the regular price for the ride). The situation will be notified to the operators that will be able to choose if the car needs to be moved or not.
     - [R3.5] If the user drives outside the boundaries of the area of the service, the system must detect it, notify it to the user a and apply an additional time fare as a penalty. After 30 minutes an operator will be notified of the situation.
     - [R3.6] If the signal of a car is lost for more than 10 minutes, an operator will be notified with the last known position.
     - [R3.7] 5 minutes after the end of the ride the user is charged with the right amount and a push notification will be delivered on the user's mobile phone. The five minutes delay is necessary to give the client the possibility to eventually plug the car and get the corresponding discount.
@@ -156,7 +156,7 @@ In the following section we are going to identify the requirements that our syst
 - [G7] Allow management system to set up and modify parameters of the system.
 
     - [R7.1] The system will provide an interface to select areas to mark as safe for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
-    - [R7.2] The system will provide an interface to select the price for minute of the rides and during the engaged state.
+    - [R7.2] The system will provide an interface to select the price for minute of the rides and during the busy state.
     - [R7.3] The system will provide and interface to customize fees and the percentage of discount and penalty for the cases highlighted in the [G.4] scope.
 
 
@@ -257,7 +257,7 @@ In this section are listed some common or significant use cases derivable from t
 | **Flow of events**    | - The user enters the login screen of the mobile    |
 |                       |   application.                                      |
 |                       | - The user types in his username and his password.  |
-|                       | - The user touches the "Login" button.              |
+|                       | - The user taps on the "Login" button.              |
 |                       | - The user is redirected to the car research screen.|
 +-----------------------+-----------------------------------------------------+
 | **Exit conditions**   | The user is redirected on the car research screen.  |
@@ -290,24 +290,24 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The user enters the login screen of the mobile    |
 |                       |   application.                                      |
-|                       | - The user touches the "Register" button.           |
+|                       | - The user taps on the "Register" button.           |
 |                       | - The user is redirected to the credential insertion|
 |                       |   screen.                                           |
 |                       | - The user inserts his name, surname, birth date and|
 |                       |   driving license ID in any order.                  |
-|                       | - The user touches the "Next" button.               |
+|                       | - The user taps on the "Next" button.               |
 |                       | - The user is redirected to the PayPal account insertion screen. |
 |                       | - The user inputs his PayPal credentials.           |
-|                       | - The user touches the "Next" button.               |
+|                       | - The user taps on the "Next" button.               |
 |                       | - The user is redirected to the e-mail insertion screen. |
 |                       | - The user types in an e-mail address.              |
-|                       | - The user touches the "Confirm" button.            |
+|                       | - The user taps on the "Confirm" button.            |
 |                       | - The system sends a confirmation message to the specified e-mail address. |
 |                       | - The user is redirected to a screen informing him to check is e-mail. |
 |                       | - The user clicks on the link contained in the sent e-mail. |
 |                       | - The system activates the new user's account.      |
 |                       | - The user is redirected into the mobile application inside a successful registration screen. |
-|                       | - The user touches the "Confirm" button.            |
+|                       | - The user taps on the "Confirm" button.            |
 |                       | - The user is redirected to the car research screen.|
 +-----------------------+-----------------------------------------------------+
 | **Exit conditions**   | The user is registered and is redirected to the car research screen. |
@@ -326,14 +326,14 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Actors**            | User |
 +-----------------------+-----------------------------------------------------+
-| **Entry conditions**  | The user is logged into the mobile application. |
+| **Entry conditions**  | The user is logged in the mobile application. |
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The user enters the car research screen. |
 |                       | - The user types in an address or chooses to use his GPS location. |
 |                       | - The user hits the "Search" button. |
-|                       | - The system show in the map all the available cars in the selected location |
+|                       | - The system shows in the map all the available cars in the selected location |
 |                       | - The user clicks on the chosen car. |
-|                       | - The system show a pop-up with the car informations.|
+|                       | - The system shows a pop-up with the car informations.|
 |                       | - The user hits the "Book now" button. |
 |                       | - The user is redirected to the booking details page, showing the time left before the reservation expires. |
 +-----------------------+-----------------------------------------------------+
@@ -403,10 +403,10 @@ In this section are listed some common or significant use cases derivable from t
 
 \newpage
 
-#### The user parks and keeps the car as engaged
+#### The user parks and keeps the car as busy
 
 +-----------------------+-----------------------------------------------------+
-| **Name**              | The user parks and keeps the car as engaged |
+| **Name**              | The user parks and keeps the car as busy |
 +-----------------------+-----------------------------------------------------+
 | **Goals**             | G2 |
 +-----------------------+-----------------------------------------------------+
@@ -416,17 +416,17 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The user parks the car and powers down the engine.|
 |                       | - The user is redirected to the ride ending screen. |
-|                       | - The user selects the "Keep as engaged" button.       |
+|                       | - The user selects the "Keep as busy" button.       |
 |                       | - The user exits the car and closes the car door.   |
 |                       | - The system locks the car.                         |
 |                       | - The user enters his profile screen.               |
-|                       | - The user hits the engaged car reservation inside the history tab. |
+|                       | - The user hits the busy car reservation inside the history tab. |
 |                       | - The user is redirected to the reservation details screen. |
 |                       | - The user hits the "Unlock" button.                |
 +-----------------------+-----------------------------------------------------+
 | **Exit conditions**   | The user picked up the car again. |
 +-----------------------+-----------------------------------------------------+
-| **Exceptions**        | The user doesn't unlock the car before two hours passed from the moment he made the car engaged. In this case the car is marked as free and the user is charged for the extra time the car was kept eccupied plus a fine if the car was left outside a safe area. |
+| **Exceptions**        | The user doesn't unlock the car before two hours passed from the moment he made the car busy. In this case the car is marked as free and the user is charged for the extra time the car was kept eccupied plus a fine if the car was left outside a safe area. |
 +-----------------------+-----------------------------------------------------+
 
 \newpage
@@ -521,10 +521,8 @@ In this section are listed some common or significant use cases derivable from t
 |                       | - The operator is redirected to a map screen showing the set of safe areas. |
 |                       | - The operator clicks on the polygonal drawing tool.|
 |                       | - The operator is redirected on the vertices insertion screen. |
-|                       | - The operator inserts the number of vertices. |
-|                       | - The operator hits the "Next" button. |
-|                       | - The operator inserts the coordinates of the vertices then hits the "Next" button for each one of the vertices. |
-|                       | - The operator hits the "Confirm" button. |
+|                       | - The operator inserts the coordinates of the vertices clicking on the map. |
+|                       | - The operator clicks the "Confirm" button. |
 |                       | - The operator is redirected to the map screen now showing the new safe area. |
 |                       | - The operator clicks on the "Save and exit" button. |
 |                       | - The system generates the update details notification. |
@@ -533,7 +531,7 @@ In this section are listed some common or significant use cases derivable from t
 +-----------------------+-----------------------------------------------------+
 | **Exit conditions**   | The new safe area is correctly inserted in the system and the update details notification is successfully sent to the users. The operator is redirected to the initial screen. |
 +-----------------------+-----------------------------------------------------+
-| **Exceptions**        | - The operator inserted invalid coordinates for a vertex or an invalid number of vertices. In this case the operator is redirected to the previous screen and notified that he did something wrong and must perform the action again correctly. |
+| **Exceptions**        | - The operator has not defined a proper area (e.g. not a valid shape). In this case the operator is redirected to the previous screen and notified of the mistake and must perform the action again correctly. |
 +-----------------------+-----------------------------------------------------+
 
 \newpage
@@ -591,8 +589,7 @@ Result of the bookedCar predicate:\newline \newline
 
 - Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
 - Pandoc to craft the LaTeX document from the MD one and the pdf from the LaTeX.
-- TexShop to edit the LaTeX document
-(credits to [_Angtrim_](https://github.com/Angtrim/alloy-latex-highlighting) on GitHub for the Alloy syntax highlighting).
+- TexShop to edit the LaTeX document(credits to [_Angtrim_](https://github.com/Angtrim/alloy-latex-highlighting) on GitHub for the Alloy syntax highlighting).
 - Alloy analyzer 4.2.
 - Signavio for the use case, class and activity diagrams.
 - Draw.io for the sequence diagrams.
@@ -600,6 +597,15 @@ Result of the bookedCar predicate:\newline \newline
 
 ##13 Reference material
 
-##15 Future Development
+- Project assignment from : Assignments AA 2016-2017.pdf.
+- RASD example : RASD sample from Oct. 20 lecture.pdf.
+- IEEE standard on requirement engineering.
 
-##16 Hours of work
+##14 Future Development
+
+- Enhance the efficiency of the communications with the road operators.
+- Extend the customizability of the system (e.g. the possibility to add more discounts/penalties).
+
+##15 Hours of work
+
+Each group member spent around 30 hours drafting the document. (The commits on GitHub are not completely representative of the work done, a good part of it has been done in group.)
