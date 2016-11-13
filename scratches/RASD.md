@@ -21,7 +21,7 @@ We need to develop a system to support an electric car-sharing service, which ha
 
 ### 1.2 Current company situation
 
-The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area.
+The company which wants to provide the car-sharing service is already in the public transport business, therefore they have already a network of maintenance operators in the city area that will also autonomously take care of the recharging stations.
 They also have an information system which provides channels for costumer-care, so that we will not need to provide it in the context of our system.
 The company also has an efficient internal communication system to coordinate their staff, it will be used in our system to be through the provided APIs.
 
