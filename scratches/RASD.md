@@ -1,4 +1,4 @@
-% **Requirements Analysis and Specification Document**
+% **Requirements Analysis and Specification Document - v1.0**
 %Gianpaolo Branca
  Luca Butera
  Andrea Cini \newline
