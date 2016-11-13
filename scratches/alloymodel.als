@@ -49,6 +49,7 @@ sig User{
 
 sig Operator{}
 
+//A car can be marked as UnderMaintenance even if there is not an AssistanceRequest yet
 sig AssistanceRequest{
 
 	supervisor: one Operator,
@@ -285,6 +286,7 @@ pred usedCar[c,c':Car,r:Ride,u:User]{
 	u.riding=c
 	r.legal=True
 	c.battery!=c'.battery
+	r.startP!=r.endP
 	Position in (Car.position +Ride.startP+Ride.endP)
 }
 
@@ -296,7 +298,11 @@ pred bookedCar[c,c':Car,b:Booking,u,u':User]{
 	#AssistanceRequest=0
 	#Operator=0
 	#Ride=0
+	c.flagged=False
 	c.status=Available
+	c.plugged=c'.plugged
+	c.battery=c'.battery
+	c.flagged=c'.flagged
 	u not in riding.Car
 	u not in Booking.client
 	//we can't state that they are in the same Position
@@ -326,7 +332,7 @@ pred assistanceGiven[c,c',c'':Car]{
 	c' in AssistanceRequest.car
 	c''.status=Available
 	c''.flagged=False
-	c''.battery=OkL
+	c''.battery=OkL //battery charged after assistance given
 	//we can't state that they are in the same Position
 	c.position in RechargeArea iff c'.position in RechargeArea
 	c.position in SafeP iff c'.position in SafeP
@@ -340,8 +346,9 @@ pred showRides{
 	#riding=0
 	#Booking=0
 	#AssistanceRequest=0
-	#Car=3
+	#Car=2
 	#User=3
+	#Operator=0
 	Position in (Car.position +Ride.startP+Ride.endP)
 	#RechargeArea>1
 	some r: Ride | #(r.fare-MalusLowBatt)=3
@@ -353,16 +360,22 @@ pred showRidingAndBookings{
 	#riding>0
 	#Car=5
 	#riding>0
+	#Operator=0
 	#AssistanceRequest=0
+	User in Booking.client + riding.Car
+	Car in Booking.car + User.riding
 	Position in (Car.position +Ride.startP+Ride.endP)
 }
 
-pred showAssistance{
+pred showAssistance[r,r',r'':AssistanceRequest]{
 	#Ride=0
 	#User=0
-	#Car=5
-	#AssistanceRequest=4
-	#Operator=3
+	#Car=3
+	#AssistanceRequest=3
+	#Operator=2
+	r.type=Move
+	r'.type=Recharge
+	r''.type=Repair
 	Position in (Car.position +Ride.startP+Ride.endP)
 }
 
@@ -383,10 +396,10 @@ run showAssistance for 10
 run showRidingAndBookings for 10
 run showRides for 10
 run show for 10
-check notAvailableCarWithMechProblem
-check noTwoRide
-check carUnderAssistanceNotInUse
-check busyStatus
-check carsAvailable
-check noPassIsDriver
-check bookedCarsHaveNoMechProblems
+check notAvailableCarWithMechProblem for 10
+check noTwoRide for 10
+check carUnderAssistanceNotInUse for 10
+check busyStatus for 10
+check carsAvailable for 10
+check noPassIsDriver for 10
+check bookedCarsHaveNoMechProblems for 10
