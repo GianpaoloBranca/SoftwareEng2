@@ -331,11 +331,11 @@ In this section are listed some common or significant use cases derivable from t
 | **Flow of events**    | - The user enters the car research screen. |
 |                       | - The user types in an address or chooses to use his GPS location. |
 |                       | - The user hits the "Search" button. |
-|                       | - The user is redirected to the map screen showing all the available cars inside the selected area. |
+|                       | - The system show in the map all the available cars in the selected location |
 |                       | - The user clicks on the chosen car. |
 |                       | - The system show a pop-up with the car informations.|
 |                       | - The user hits the "Book now" button. |
-|                       | - The user is redirected to the map screen showing the real time route to the car and the time left before the reservation expires. |
+|                       | - The user is redirected to the booking details page, showing the time left before the reservation expires. |
 +-----------------------+-----------------------------------------------------+
 | **Exit conditions**   | The car is correctly reserved and the user is redirected to the map screen. |
 +-----------------------+-----------------------------------------------------+
@@ -486,11 +486,9 @@ In this section are listed some common or significant use cases derivable from t
 | **Entry conditions**  | The operator is logged into the system. |
 +-----------------------+-----------------------------------------------------+
 | **Flow of events**    | - The operator enters the map screen. |
-|                       | - The operator clicks on a flagged car. |
-|                       | - The operator is redirected to a deep car details screen. |
-|                       | - The operator clicks on the "Assistance request" button. |
-|                       | - The system shows a pop-up screen to fill in the request. |
-|                       | - The operator types in the details of the request. |
+|                       | - The operator clicks on a new issue form the list. |
+|                       | - The operator is redirected to a deep issue details screen. |
+|                       | - The operator types in the form the details of the request. |
 |                       | - The operator selects the facility of which the request must be sent to. |
 |                       | - The operator hits the "Send request" button. |
 |                       | - The system attaches the details of the car to the request and sends it. |
@@ -592,7 +590,7 @@ Result of the bookedCar predicate:\newline \newline
 ## 12 Used tools
 
 - Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
-- Pandoc to craft the LaTeX document from the MD one and the pdf from the from the LaTeX.
+- Pandoc to craft the LaTeX document from the MD one and the pdf from the LaTeX.
 - TexShop to edit the LaTeX document
 (credits to [_Angtrim_](https://github.com/Angtrim/alloy-latex-highlighting) on GitHub for the Alloy syntax highlighting).
 - Alloy analyzer 4.2.
