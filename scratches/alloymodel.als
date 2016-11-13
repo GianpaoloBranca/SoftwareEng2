@@ -381,7 +381,6 @@ pred showAssistance[r,r',r'':AssistanceRequest]{
 
 pred show{
 	#Ride=3
-	#Booking=0
 	#Car=4
 	#User=5
 	Position in (Car.position +Ride.startP+Ride.endP)
