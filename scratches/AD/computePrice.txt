@@ -1,51 +1,39 @@
-function computePrice(Ride ride) {
+int computePrice(Ride ride) {
 
   int price = 0;
   boolean badB=false;
 
-  price += Service.getStandardFee() * ride.getTimeRiding() + Service.getParkedFee() * ride.getTimeParked;;
+  price += Service.getStandardFare() * ride.getTimeRiding()
+           + Service.getParkedFare() * ride.getTimeParked;;
 
   if(ride.getTimeOutsideBoundary>0){
     badB = true;
-    price += Service.getOutsideBoundaryFee() * ride.getTimeOutsideBoundary;
+    price += Service.getOutsideBoundariesFare() * ride.getTimeOutsideBoundary;
   }
 
   switch ride.getEndType()
     case LEGAL : break;
-    case LEFT_PARKED : price+=Service.getLeftParkedFee();
-                      badB=true;
+    case LEFT_PARKED : price += Service.getLeftParkedFee();
+                      badB = true;
                       break;
-    case END_OUTSIDE_CITY : price+=Service.getLeftOutsideCityFee();
-                            badB=true;
+    case END_OUTSIDE_CITY : price += Service.getLeftOutsideCityFee();
+                            badB = true;
                             break;
     default : break;
 
-  float discount=computeDiscount(Ride ride);
-
-
-
-  return price*discount;
+  price -= price*computeDiscount(ride);
 }
 
-function computeDiscount(Ride ride){
-  float discount = 1;
+float computeDiscount(Ride ride){
+  float discount = 0;
 
   if(ride.getPassengerNumber() >= 2) {
-    discount -= Service.getPassengerDiscount();
+    discount += Service.getPassengerDiscount();
   }
 
   if(ride.getEndWithCharge) {
-    discount += 0.3;
+    discount += Service.getEndWithChargeDiscount();
   } else if(ride.getEndBatteryLevel() > 0.5) {
-    discount += 0.1;
+    discount += Service.getEndWithChargeDiscount();
   }
-}
-
-Class Ride{
-
-int timeRiding
-int timeOutsideBoundary
-int timeParked
-boolean plugged
-Car car
 }

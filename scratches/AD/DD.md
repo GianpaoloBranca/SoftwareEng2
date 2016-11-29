@@ -35,3 +35,39 @@ We are going to build our system following these guidelines:
 5. Integration with the legacy server will happen trough its APIs for the purpose of providing maintenance to the cars and clients care.
 6. The application server implements the logic of the system.
 7. The data base contain the data for the system and it is independent from the legacy system for flexibility.
+
+## Component view
+
+## Deployment view
+
+## Runtime view
+
+## Component Interfaces
+
+## Selected architectural styles and pattern
+
+We will develop our system as a 3 tiers application as specified in the overview section.
+
+* Mobile app: we will follow the remote presentation pattern.
+* Monitoring web app: distributed presentation.
+* Car system: distributed logic.
+
+The reasons for this kind of architectural choices has already been discussed in the overview.
+
+### Design Patterns
+
+These are the main design patterns that we are following in the design process:
+
+* Model-Control-View : used pretty much everywhere, it's a really good choice of design that allow to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
+* Client-server : the staple good practice of a web based system.
+
+
+## Other design decisions
+
+# Algorithm design
+
+# User Interface design
+
+# Requirements Traceability
+
+# Effort spent
