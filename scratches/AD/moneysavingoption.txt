@@ -1,0 +1,12 @@
+function moneySavingOption(Car car, Coordinates finalDestination) {
+  Coordinates currentPosition = car.getPos();
+  double distance = GMaps.dist(currentPosition, finalDestination);
+
+  if(distance > car.getAutonomy()) {
+    return FAILURE //battery too low for this destination
+  }
+
+  return RechargingStations.stream()
+                           .orderedBy(a -> a.availability() / GMaps.dist(a, finalDestination) * k)
+                           .asList().sublist(0,10);
+}
