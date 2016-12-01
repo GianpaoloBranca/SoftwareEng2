@@ -19,22 +19,29 @@ Users can download the app with the Android play store or with the Apple store. 
 ##Definitions, Acronyms, Abbreviations
 
 ##Reference documents
+
 * RASD
 * Specification document
 
-#Architectural Design
+# Architectural Design
 
-##Overview
+## Overview
 
 We are going to build our system following these guidelines:
 
-1. Our application will be implemented using a 3 tiers architecture as it is the most suitable and maintainable one for our system.
+1. Our application will be implemented using a multi-tier architecture as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
+
 2. For the mobile application the client side will be light-weighted, with only the presentation layer as there's no need to perform any kind of data manipulation on the user's mobile phone.
-3. The car will be equipped with an embedded system able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD. The application running on the car system needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server.
-4. The operators will access the system through a web application through a browser in the boundaries of the company network.
+
+3. The car will be equipped with a general purpose system (with a stable Linux distribution as OS) with an our application running.
+
+  - Our application will be able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD.
+  - The application needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server.
+
+4. The operators will access the system through a web application.
+
 5. Integration with the legacy server will happen trough its APIs for the purpose of providing maintenance to the cars and clients care.
-6. The application server implements the logic of the system.
-7. The data base contain the data for the system and it is independent from the legacy system for flexibility.
+
 
 ## Component view
 
@@ -46,13 +53,22 @@ We are going to build our system following these guidelines:
 
 ## Selected architectural styles and pattern
 
-We will develop our system as a 3 tiers application as specified in the overview section.
+### Business Logic Layer
 
-* Mobile app: we will follow the remote presentation pattern.
-* Monitoring web app: distributed presentation.
-* Car system: distributed logic.
+* We will develop our server BL using the Java EnterpriseEdition framework .
 
-The reasons for this kind of architectural choices has already been discussed in the overview.
+  - JEE will allow us to shorten the development time and to achieve high performances while keeping our application complexity manageable.
+  - JEE makes our project use architectural structure that follows well-known best practices.
+
+* We will use Oracle GlassFish Server (the commercial edition) as application server.
+
+  - GlassFish gives very good performance guarantees and is well supported.
+
+* We will use the JAX-RS and JAXB APIs to expose RESTful APIs with XML that will be used client-side to interface with the web server.
+
+  - The usage of the RESTful standard will give our system robustness and flexibility.
+  - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
+
 
 ### Design Patterns
 
