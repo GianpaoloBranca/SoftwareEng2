@@ -27,20 +27,72 @@ Users can download the app with the Android play store or with the Apple store. 
 
 ## Overview
 
-We are going to build our system following these guidelines:
+We are going to build our system following these guidelines (appropriate reasons for each choice will be given in the next section):
 
-1. Our application will be implemented using a multi-tier architecture as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
+1. Our application will be implemented using a three-tier architecture as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
 
 2. For the mobile application the client side will be light-weighted, with only the presentation layer as there's no need to perform any kind of data manipulation on the user's mobile phone.
 
-3. The car will be equipped with a general purpose system (with a stable Linux distribution as OS) with an our application running.
-
-  - Our application will be able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD.
-  - The application needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server.
+3. The car will be equipped with a general purpose system (with a stable Linux distribution as OS) with an application running on it, it will also implement some logic.
 
 4. The operators will access the system through a web application.
 
 5. Integration with the legacy server will happen trough its APIs for the purpose of providing maintenance to the cars and clients care.
+
+## Architectural choices
+
+### Server-side (Web , Business Logic and Data tiers)
+
+* We will develop our application and web server using the Java EnterpriseEdition framework (formally, using JEE, we should refer to our application as multi-tier, but for simplicity sake and because our system is distributed over client machines, JEE server machine and a database we will consider it three-tier) .
+
+  - JEE will allow us to shorten the development time and to achieve high performances while keeping our application complexity manageable.
+  - JEE makes our project use architectural structure that follows well-known best practices.
+
+* We will use Oracle GlassFish Server (the commercial edition) as application server.
+
+  - GlassFish gives very good performance guarantees and is well supported.
+
+* We will use the JAX-RS APIs to expose RESTful APIs with JSON that will be used client-side to interface with the web server.
+
+  - The usage of the RESTful standard will give our system robustness and flexibility.
+  - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
+
+* We will use the MySQL to manage our Database.
+
+  - We don't need advanced feature for data management that other DBMSs offer.
+  - MySQL is fast and easy to use.
+  - Free.
+  - Compatible with JDBC.\newline
+![](./images/sysApp.png){#id .class width=100% height=100%}
+
+
+### Client-side
+
+#### Mobile application
+
+* We will develop our application using the standard web technologies (AngularJS, HTML, css) and use Adobe PhoneGap (built on Apache Cordova) to create a multi-platform mobile app. This approach will allow us to:
+
+  - Benefit from the experience of our engineers in web development.
+  - Reduce development time and cost.\newline
+![](./images/appArch.png){#id .class width=100% height=100%}
+
+#### Monitoring WebApp
+
+* We will develop the monitoring Web using a JavaServlet.
+
+  - Easy to deploy.
+  - Integrated in the JEE framework.\newline
+![](./images/webAppArch.png){#id .class width=100% height=100%}
+
+#### Car on-board application
+
+* We will develop a Java application to run in the system of the car.
+
+  - We need a tool to have control over the car status.
+  - The application needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server and deal with real time issues.
+  - The application will be able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD connector(Java libraries to read information from an OBD adapter already exist).\newline
+  ![](./images/carAppArch.png){#id .class width=100% height=100%}
+
 
 
 ## Component view
@@ -52,25 +104,6 @@ We are going to build our system following these guidelines:
 ## Component Interfaces
 
 ## Selected architectural styles and pattern
-
-### Business Logic Layer
-
-* We will develop our server BL using the Java EnterpriseEdition framework .
-
-  - JEE will allow us to shorten the development time and to achieve high performances while keeping our application complexity manageable.
-  - JEE makes our project use architectural structure that follows well-known best practices.
-
-* We will use Oracle GlassFish Server (the commercial edition) as application server.
-
-  - GlassFish gives very good performance guarantees and is well supported.
-
-* We will use the JAX-RS and JAXB APIs to expose RESTful APIs with XML that will be used client-side to interface with the web server.
-
-  - The usage of the RESTful standard will give our system robustness and flexibility.
-  - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
-
-
-### Design Patterns
 
 These are the main design patterns that we are following in the design process:
 
