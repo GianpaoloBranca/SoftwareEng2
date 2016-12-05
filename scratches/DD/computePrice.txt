@@ -34,6 +34,6 @@ float computeDiscount(Ride ride){
   if(ride.getEndWithCharge) {
     discount += Service.getEndWithChargeDiscount();
   } else if(ride.getEndBatteryLevel() > 0.5) {
-    discount += Service.getEndWithChargeDiscount();
+    discount += Service.getHighBatteryDiscount();
   }
 }
