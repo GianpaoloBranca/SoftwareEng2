@@ -18,6 +18,17 @@ Users can download the app with the Android play store or with the Apple store. 
 
 ##Definitions, Acronyms, Abbreviations
 
+* API: application programming interface, in this document we are mainly referring to web APIs that are defined interfaces through which the client-server interaction happens.
+* QR code: a matrix barcode.
+* JEE : Java Enterprise Edition, a set of APIs and a runtime environment for developing and running enterprise software.
+* RESTful: REpresentational State Transfer web services provide interoperability between computer systems on the net allowing the client-server interaction through a set of pre-defined stateless operations.
+* JAX-RS: Java API for RESTful Services, the Java APIs for developing RESTful compliant applications, JAX-RS is part of the JEE framework.
+* JDBC: Java DataBase Connection, a set of Java APIs which defines the interaction between a Java program and a DBMS JDBC compatible.
+* DBMS: DataBase Management System, a software system to handle the creation, the manipulation and the retrieval of data in a database.
+* JSON: JavaScript Object Notation, it's a lightweight format for data-interchange.
+* RASD: Requirements Analysis and Specification Document.
+* DD: Design Document.
+
 ##Reference documents
 
 * RASD
@@ -45,24 +56,24 @@ We are going to build our system following these guidelines (appropriate reasons
 
 * We will develop our application and web server using the Java EnterpriseEdition framework (formally, using JEE, we should refer to our application as multi-tier, but for simplicity sake and because our system is distributed over client machines, JEE server machine and a database we will consider it three-tier) .
 
-  - JEE will allow us to shorten the development time and to achieve high performances while keeping our application complexity manageable.
-  - JEE makes our project use architectural structure that follows well-known best practices.
+    - JEE will allow us to shorten the development time and to achieve high performances while keeping our application complexity manageable.
+    - JEE makes our project use architectural structure that follows well-known best practices.
 
 * We will use Oracle GlassFish Server (the commercial edition) as application server.
 
-  - GlassFish gives very good performance guarantees and is well supported.
+    - GlassFish gives very good performance guarantees and is well supported.
 
 * We will use the JAX-RS APIs to expose RESTful APIs with JSON that will be used client-side to interface with the web server.
 
-  - The usage of the RESTful standard will give our system robustness and flexibility.
-  - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
+    - The usage of the RESTful standard will give our system robustness and flexibility.
+    - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
 
 * We will use the MySQL to manage our Database.
 
-  - We don't need advanced feature for data management that other DBMSs offer.
-  - MySQL is fast and easy to use.
-  - Free.
-  - Compatible with JDBC.\newline
+    - We don't need advanced feature for data management that other DBMSs offer.
+    - MySQL is fast and easy to use.
+    - Free.
+    - Compatible with JDBC.\newline
 ![](./images/sysApp.png){#id .class width=100% height=100%}
 
 
