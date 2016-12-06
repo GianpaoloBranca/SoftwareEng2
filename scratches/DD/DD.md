@@ -18,6 +18,7 @@ Users can download the app with the Android play store or with the Apple store. 
 
 ##Definitions, Acronyms, Abbreviations
 
+* PWE: PoWer Enjoy.
 * API: application programming interface, in this document we are mainly referring to web APIs that are defined interfaces through which the client-server interaction happens.
 * QR code: a matrix barcode.
 * JEE : Java Enterprise Edition, a set of APIs and a runtime environment for developing and running enterprise software.
@@ -28,6 +29,9 @@ Users can download the app with the Android play store or with the Apple store. 
 * JSON: JavaScript Object Notation, it's a lightweight format for data-interchange.
 * RASD: Requirements Analysis and Specification Document.
 * DD: Design Document.
+* Controller
+* Legacy system
+* Ride
 
 ##Reference documents
 
@@ -44,7 +48,7 @@ We are going to build our system following these guidelines (appropriate reasons
 
 2. For the mobile application the client side will be light-weighted, with only the presentation layer as there's no need to perform any kind of data manipulation on the user's mobile phone.
 
-3. The car will be equipped with a general purpose system (with a stable Linux distribution as OS) with an application running on it, it will also implement some logic.
+3. The car will be equipped with a machine with our application running on it, it will also implement some logic.
 
 4. The operators will access the system through a web application.
 
@@ -104,9 +108,43 @@ We are going to build our system following these guidelines (appropriate reasons
   - The application will be able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD connector(Java libraries to read information from an OBD adapter already exist).\newline
   ![](./images/carAppArch.png){#id .class width=100% height=100%}
 
+## High level component view
+
+In this section we are going to give a look at the architectural structure of our system at the level of the components that we are going to develop and the main ones that we are going to interact with. \newline
+
+![](./comp_diagrams/System.png){#id .class width=100% height=100%}
+
+Components to be developed:
+
+* **PWEService**: It is the core of the system, it has a role of services provider and tasks coordinator. The core of the logic aimed to fulfill our business goals is implemented here.
+* **CarSystem**: The component representing the on-board application of the car, its main functionalities are the ones related to the handling of a ride and the monitoring of the car status. It also offers presentation functionalities to give(receive) feedback to(from) the client. It expose its own interface to grant the central component control over its functionalities and uses a dedicated PWEInterface to ask for the server services and to send updates.
+* **MobileApp***: The component providing the client the access to the system. It fulfills only presentation functions. It behaves like a synchronous client and interacts with the central component through the ServiceAPIs in a call/response, classic client-server fashion.
+* **MonitoringWebApp**: The component providing operators of the company access to monitoring functionalities. It has only presentation functionalities(web pages) and communicates with the central component through the provided interface.
+
+Components to be integrated in the system:
+
+* **LegacySystem**: the already existing system of the company, our system will exploit its functionalities through the provided APIs.
+* **DBMS**: the system that will take care of the management of our data, integrated in our system using a specific driver.
+* **GoogleMaps and PayPal**: respectively the provider of the maps and the payment service(they are not in the diagram, their integration in the system will be discussed later on).
 
 
 ## Component view
+
+#### Car System
+
+![](./comp_diagrams/CarSystem.png){#id .class width=100% height=100%}
+
+* **CarController** : The main controller of the car. It retrieves informations from the other components, executes the requests of the server and updates the car status.
+* **RideController** : The handler of the operations concerning the execution of a ride. It communicates with the central component which has its own control functionalities over the ride: after the users have been identified the ride controller creates the ride instance, communicates the initial details on the ride to the central system (e.g. the number of passengers) and then goes on sending updates periodically or when the ride status change (e.g. the car exits the city boundaries), further details will be given in the runtime view.
+* **UserIdentification** : The component that will handle the identification of the users that check-in at the start of the ride.
+* **Navigation Controller** : The component that will provide navigation utilities using the GoogleMaps APIs and the GPS.
+* **GPSManager** : The component that will handle GPS localization of the car.
+* **CarStatus** : An internal representation of the status of the car.
+* **SensorsController**: The component that handles the retrieval of information from the sensors thought the OBD interface.
+* **NotificationManager**: The component that handles notifications coming from the central component and that perform the sending of the outgoing ones.
+* **ViewControlLer**: The component that handles the update of the GUI and the retrieval of the user input through the interface.
+* **GUI**: Implementation of the presentation layer of the car application.
+
 
 ## Deployment view
 
