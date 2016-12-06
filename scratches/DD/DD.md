@@ -145,6 +145,12 @@ Components to be integrated in the system:
 * **ViewControlLer**: The component that handles the update of the GUI and the retrieval of the user input through the interface.
 * **GUI**: Implementation of the presentation layer of the car application.
 
+### PWEService
+
+![](./comp_diagrams/System.png){#id .class width=100% height=100%}
+
+![](./comp_diagrams/Model.png){#id .class width=100% height=100%}
+
 
 ## Deployment view
 
