@@ -231,7 +231,7 @@ In the following section we are going to identify the requirements that our syst
 
 ### Traceability
 
-The fallowing pictures show which components are involved in the in the fulfillment of each requirements group (each group corresponding to a goal). Note that to keep the diagram simple some component is not linked to any group of requirement, but it's obvious that they fulfill the same requirements of the components the makes of of them (e.g. a CarController is used to fulfill almost the same requirements of the CarsManager).
+The following pictures show which components are involved in the fulfilment of each requirements group (each group corresponding to a goal). Note that to keep the diagram simple some component is not linked to any group of requirement, but it's obvious that they fulfil the same requirements of the components the makes of of them (e.g. a CarController is used to fulfil almost the same requirements of the CarsManager).
 
 ![](./comp_diagrams/system_reqt.png){#id .class width=100% height=100%}
 
