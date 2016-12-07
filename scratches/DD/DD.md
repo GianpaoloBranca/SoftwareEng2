@@ -119,7 +119,7 @@ Components to be developed:
 * **PWEService**: It is the core of the system, it has a role of services provider and tasks coordinator. The core of the logic aimed to fulfill our business goals is implemented here.
 * **CarSystem**: The component representing the on-board application of the car, its main functionalities are the ones related to the handling of a ride and the monitoring of the car status. It also offers presentation functionalities to give(receive) feedback to(from) the client. It expose its own interface to grant the central component control over its functionalities and uses a dedicated PWEInterface to ask for the server services and to send updates.
 * **MobileApp***: The component providing the client the access to the system. It fulfills only presentation functions. It behaves like a synchronous client and interacts with the central component through the ServiceAPIs in a call/response, classic client-server fashion.
-* **MonitoringWebApp**: The component providing operators of the company access to monitoring functionalities. It has only presentation functionalities(web pages) and communicates with the central component through the provided interface.
+* **MonitoringWebApp**: The component providing operators of the company access to monitoring and configuration functionalities. It has only presentation functionalities(web pages) and communicates with the central component through the provided interface.
 
 Components to be integrated in the system:
 
@@ -134,6 +134,8 @@ Components to be integrated in the system:
 
 ![](./comp_diagrams/CarSystem.png){#id .class width=100% height=100%}
 
+Components description:
+
 * **CarController** : The main controller of the car. It retrieves informations from the other components, executes the requests of the server and updates the car status.
 * **RideController** : The handler of the operations concerning the execution of a ride. It communicates with the central component which has its own control functionalities over the ride: after the users have been identified the ride controller creates the ride instance, communicates the initial details on the ride to the central system (e.g. the number of passengers) and then goes on sending updates periodically or when the ride status change (e.g. the car exits the city boundaries), further details will be given in the runtime view.
 * **UserIdentification** : The component that will handle the identification of the users that check-in at the start of the ride.
@@ -145,12 +147,29 @@ Components to be integrated in the system:
 * **ViewControlLer**: The component that handles the update of the GUI and the retrieval of the user input through the interface.
 * **GUI**: Implementation of the presentation layer of the car application.
 
-### PWEService
+#### PWEService and Model
 
-![](./comp_diagrams/System.png){#id .class width=100% height=100%}
+![](./comp_diagrams/PWEService.png){#id .class width=100% height=100%}
 
 ![](./comp_diagrams/Model.png){#id .class width=100% height=100%}
+Components description:
 
+* **RequestDispatcher**: The component handles the requests from the mobile application clients using the functionalities of the specific components and sends back the responses.
+* **BookingManager**: The component that handles the operations concerning the usage of a car.
+* **RideController**: It interacts with the RideController component in the car  as already mentioned in the section above the way the two components interact with each other will be clarified in the Runtime View section.
+* **RidesManager**: The component that handles the set of rides that are ongoing in the system, it interacts with the other components to give the single RideController access to the functionalities that it needs.
+* **CarController**: It interacts with the CarController component in the single car to offer services and perform supervising functionalities over a single vehicle.
+* **CarsManager**: The component the supervises the set of all the car available in the system interacting with the single CarController and providing operators with informations about the cars status and a way to change the status itself.
+*  **LoginManager**: The component that handles the log-in of operators and users.
+*  **PaymentHandler**: The component that handles the payment operations and makes sure that users unable to pay are correctly banned until they pay. It uses the PayPal APIs to process the payments.
+* **PayPal**: The payment handler of choice for our system.
+* **LegacySystem**: The old system of the company, our system uses its APIs to send assistance where needed.
+* **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicle when they need to moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
+* **WebAppServlet**: The component the makes the system functionalities accessible from the WebApplication.
+* **Configurator**: The component that offers the configuration functionalities to customize a set of parameters of the system (set of SafeAreas, fares, fees and so on).
+* **NotificationController**: a component that offers notification functionalities towards the various components of the system.
+* **Model**: the structure of the data in our system (specified in a distinct diagram).
+* **GoogleMaps**: Provider of the maps services.
 
 ## Deployment view
 
