@@ -306,7 +306,7 @@ These are the main design patterns that we are following in the design process:
 * Client-server : the staple good practice of a web based system.
 
 ## Deployment view
-
+This diagram purpose is to show the hardware components of our system
 \centerline{\includegraphics{./deployment/diagram.png}}
 
 ## Runtime view
@@ -320,11 +320,32 @@ These are the main design patterns that we are following in the design process:
 
 # User Interface design
 
+## User Experience diagrams
+
+### Mobile application
+
 \centerline{\includegraphics{./images/UX_Mobile.png}}
+
+### Car application
+
 \centerline{\includegraphics{./images/UX_Car.png}}
+
+### Operators application
+
 \centerline{\includegraphics{./images/UX_Operator.png}}
+
+## Boundary entity control diagrams
+
+### Mobile application
+
 \centerline{\includegraphics{./images/BCE_Mobile.png}}
+
+### Car application
+
 \centerline{\includegraphics{./images/BCE_Car.png}}
+
+### Operators application
+
 \centerline{\includegraphics{./images/BCE_Operator.png}}
 
 # Effort spent
