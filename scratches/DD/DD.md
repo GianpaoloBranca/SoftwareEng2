@@ -312,7 +312,7 @@ These are the main design patterns that we are following in the design process a
 * Client-server : the staple good practice of a web based system.
 
 ## Deployment view
-This diagram purpose is to show the hardware components of our system.
+This diagram purpose is to show the hardware components of our system, and where the code is running.
 \centerline{\includegraphics{./deployment/diagram.png}}
 
 ## Runtime view
