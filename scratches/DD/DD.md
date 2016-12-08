@@ -29,9 +29,9 @@ Users can download the app with the Android play store or with the Apple store. 
 * JSON: JavaScript Object Notation, it's a lightweight format for data-interchange.
 * RASD: Requirements Analysis and Specification Document.
 * DD: Design Document.
-* Controller
-* Legacy system
-* Ride
+* Legacy system: the already existing system of the company
+* Ride: with ride we refer to the set of operations that begin with the user checking-in in the car and that end with the user checking-out.
+* TLS: Transport layer security, cryptographic protocol tha grants security over a computer network.
 
 ##Reference documents
 
@@ -45,7 +45,7 @@ Users can download the app with the Android play store or with the Apple store. 
 
 We are going to build our system following these guidelines (appropriate reasons for each choice will be given in the next sections):
 
-1. Our application will be implemented using a three-tier architecture as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
+1. Our application will be implemented using a three-tier architecture for each application, as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
 
 2. For the mobile application the client side will be light-weighted, with only the presentation layer as there's no need to perform any kind of data manipulation on the user's mobile phone.
 
@@ -121,7 +121,7 @@ Components description:
 * **PayPal**: The payment handler of choice for our system.
 * **LegacySystem**: The old system of the company, our system uses its APIs to send assistance where needed.
 * **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicle when they need to moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
-* **WebAppServlet**: The component the makes the system functionalities accessible from the WebApplication.
+* **WebAppController**: The component the makes the system functionalities accessible from the WebApplication.
 * **Configurator**: The component that offers the configuration functionalities to customize a set of parameters of the system (set of SafeAreas, fares, fees and so on).
 * **NotificationController**: a component that offers notification functionalities towards the various components of the system.
 * **Model**: the structure of the data in our system (specified in a distinct diagram).
@@ -231,13 +231,17 @@ In the following section we are going to identify the requirements that our syst
 
 ### Traceability
 
-The following pictures show which components are involved in the fulfilment of each requirements group (each group corresponding to a goal). Note that to keep the diagram simple some component is not linked to any group of requirement, but it's obvious that they fulfil the same requirements of the components the makes of of them (e.g. a CarController is used to fulfil almost the same requirements of the CarsManager).
+The following pictures show which components are involved in the fulfillment of each requirements group (each group corresponding to a goal). Note that to keep the diagram simple some component is not linked to any group of requirement, but it's obvious that they fulfill the same requirements of the components the makes of of them (e.g. a CarController is used to fulfill almost the same requirements of the CarsManager).
 
 ![](./comp_diagrams/system_reqt.png){#id .class width=100% height=100%}
 
 ![](./comp_diagrams/car_reqt.png){#id .class width=100% height=100%}
 
-How we are going to meet the non-functional requirements will be clarified in the architectural choices.
+How we are going to meet the non-functional requirements will be clarified in the architectural choices, but in general:
+
+  * [NFR1] We will use Adobe PhoneGap to develop a multi-platform application.
+  * [NFR2] We will use efficient communication protocols and lightweight data formats.
+  * [NFR3] Usage of firewalls(as mentioned before) and TLS.
 
 ## Architectural and technological choices
 
@@ -254,10 +258,11 @@ How we are going to meet the non-functional requirements will be clarified in th
 
     - GlassFish gives very good performance guarantees and is well supported.
 
-* We will use the JAX-RS APIs to expose RESTful APIs with JSON that will be used client-side to interface with the web server.
+* We will use the JAX-RS APIs to expose RESTful APIs with JSON that will be used from the mobile app to interface with the web server.
 
     - The usage of the RESTful standard will give our system robustness and flexibility.
     - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
+    - The usage of JSON helps with optimizing the usage of bandwidth.
 
 * We will use the MySQL to manage our Database.
 
@@ -265,6 +270,8 @@ How we are going to meet the non-functional requirements will be clarified in th
     - MySQL is fast and easy to use.
     - Free.
     - Compatible with JDBC.\newline
+
+  * TLS will be used for confidential information communication.
 
 
 ### Client-side
@@ -279,10 +286,9 @@ How we are going to meet the non-functional requirements will be clarified in th
 
 #### Monitoring WebApp
 
-* We will develop the monitoring Web using a JavaServlet.
+* We will develop the monitoring Web using a JEE web server exploiting the JavaServlet framework.
 
-  - Easy to deploy.
-  - Integrated in the JEE framework.\newline
+  - Easy to deploy and develop.\newline
 ![](./images/webAppArch.png){#id .class width=100% height=100%}
 
 #### Car on-board application
@@ -292,17 +298,17 @@ How we are going to meet the non-functional requirements will be clarified in th
   - We need a tool to have control over the car status.
   - The application needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server and deal with real time issues.
   - The application will be able to retrieve informations from the car sensors (such as the battery level or the presence of mechanical problems)through OBD connector(Java libraries to read information from an OBD adapter already exist).
-* For the communication with the server the Remote Procedure Call pattern will be used.
-    - Java offers a solid implementation of it: RMI.
-    - The existence of multiple cars fits well with a remote object representation of them.
+* For the communication with the server a RemoteProcedureCall approach will be used.
+    - Well supported by JEE.
+    - It's intuitive and practical to represent cars as remote objects.
 
 ![](./images/carAppArch.png){#id .class width=100% height=100%}
 
 ## Patterns
 
-These are the main design patterns that we are following in the design process:
+These are the main design patterns that we are following in the design process and many of those are good practices imposed by the adoption of the JEE framework.
 
-* Model-Control-View : used pretty much everywhere, it's a really good choice of design that allow to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
+* Model-Control-View : used for almost every component of the system. It's a really good choice of design that allows to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
 * Client-server : the staple good practice of a web based system.
 
 ## Deployment view
@@ -314,14 +320,12 @@ This diagram purpose is to show the hardware components of our system.
 ## Component Interfaces
 
 
-## Other design decisions
-
 # Algorithm design
 
 # User Interface design
-
 ## User Experience diagrams
-These diagrams show how users interacts with the system
+
+These diagrams show how users will interact with the system.
 
 ### Mobile application
 
@@ -336,7 +340,7 @@ These diagrams show how users interacts with the system
 \centerline{\includegraphics{./images/UX_Operator.png}}
 
 ## Boundary entity control diagrams
-There diagrams show how each action is performed by the system. The entities representation is simplified to show only the relevant parts.
+These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts.
 
 ### Mobile application
 
