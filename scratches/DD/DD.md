@@ -306,7 +306,7 @@ These are the main design patterns that we are following in the design process:
 * Client-server : the staple good practice of a web based system.
 
 ## Deployment view
-This diagram purpose is to show the hardware components of our system
+This diagram purpose is to show the hardware components of our system.
 \centerline{\includegraphics{./deployment/diagram.png}}
 
 ## Runtime view
@@ -321,6 +321,7 @@ This diagram purpose is to show the hardware components of our system
 # User Interface design
 
 ## User Experience diagrams
+These diagrams show how users interacts with the system
 
 ### Mobile application
 
@@ -335,6 +336,7 @@ This diagram purpose is to show the hardware components of our system
 \centerline{\includegraphics{./images/UX_Operator.png}}
 
 ## Boundary entity control diagrams
+There diagrams show how each action is performed by the system. The entities representation is simplified to show only the relevant parts.
 
 ### Mobile application
 
