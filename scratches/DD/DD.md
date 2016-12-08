@@ -129,7 +129,7 @@ Components description:
 
 ## Requirements Traceability
 
-In this section we will show how the components of our system are meant to satisfy the requirement and goals specified in the RASD. For ultility we report the goals and requirements here too.
+In this section we will show how the components of our system are meant to satisfy the requirement and goals specified in the RASD. For utility we report the goals and requirements here too.
 
 
 ### Goals
