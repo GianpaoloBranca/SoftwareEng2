@@ -306,7 +306,8 @@ These are the main design patterns that we are following in the design process:
 * Client-server : the staple good practice of a web based system.
 
 ## Deployment view
-![](./deployment/diagram.png){#id .class width=100% height=100%}
+
+\centerline{\includegraphics{./deployment/diagram.png}}
 
 ## Runtime view
 
@@ -318,16 +319,12 @@ These are the main design patterns that we are following in the design process:
 # Algorithm design
 
 # User Interface design
-![](./images/UX_Mobile.png){#id .class width=100% height=100%}
 
-![](./images/UX_Car.png){#id .class width=100% height=100%}
-
-![](./images/UX_Operator.png){#id .class width=100% height=100%}
-
-![](./images/BCE_Mobile.png){#id .class width=100% height=100%}
-
-![](./images/BCE_Car.png){#id .class width=100% height=100%}
-
-![](./images/BCE_Operator.png){#id .class width=100% height=100%}
+\centerline{\includegraphics{./images/UX_Mobile.png}}
+\centerline{\includegraphics{./images/UX_Car.png}}
+\centerline{\includegraphics{./images/UX_Operator.png}}
+\centerline{\includegraphics{./images/BCE_Mobile.png}}
+\centerline{\includegraphics{./images/BCE_Car.png}}
+\centerline{\includegraphics{./images/BCE_Operator.png}}
 
 # Effort spent
