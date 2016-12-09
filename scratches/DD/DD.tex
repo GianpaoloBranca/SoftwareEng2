@@ -131,11 +131,13 @@ Abbreviations}\label{definitions-acronyms-abbreviations}
 \item
   DD: Design Document.
 \item
-  Controller
+  Legacy system: the already existing system of the company
 \item
-  Legacy system
+  Ride: with ride we refer to the set of operations that begin with the
+  user checking-in in the car and that end with the user checking-out.
 \item
-  Ride
+  TLS: Transport layer security, cryptographic protocol tha grants
+  security over a computer network.
 \end{itemize}
 
 \subsection{Reference documents}\label{reference-documents}
@@ -158,9 +160,9 @@ reasons for each choice will be given in the next sections):
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Our application will be implemented using a three-tier architecture as
-  it is the most suitable(this point will be clear in the next steps)
-  and maintainable one for our system.
+  Our application will be implemented using a three-tier architecture
+  for each application, as it is the most suitable(this point will be
+  clear in the next steps) and maintainable one for our system.
 \item
   For the mobile application the client side will be light-weighted,
   with only the presentation layer as there's no need to perform any
@@ -354,7 +356,7 @@ Components description:
   need to moved, recharged or repaired. It exploits the functionalities
   of the legacy system to send road-operators to the car location.
 \item
-  \textbf{WebAppServlet}: The component the makes the system
+  \textbf{WebAppController}: The component the makes the system
   functionalities accessible from the WebApplication.
 \item
   \textbf{Configurator}: The component that offers the configuration
@@ -373,7 +375,7 @@ Components description:
 \subsection{Requirements Traceability}\label{requirements-traceability}
 
 In this section we will show how the components of our system are meant
-to satisfy the requirement and goals specified in the RASD. For ultility
+to satisfy the requirement and goals specified in the RASD. For utility
 we report the goals and requirements here too.
 
 \subsubsection{Goals}\label{goals}
@@ -659,11 +661,11 @@ Requirements}\label{non-functional-requirements}
 \subsubsection{Traceability}\label{traceability}
 
 The following pictures show which components are involved in the
-fulfilment of each requirements group (each group corresponding to a
+fulfillment of each requirements group (each group corresponding to a
 goal). Note that to keep the diagram simple some component is not linked
-to any group of requirement, but it's obvious that they fulfil the same
+to any group of requirement, but it's obvious that they fulfill the same
 requirements of the components the makes of of them (e.g.~a
-CarController is used to fulfil almost the same requirements of the
+CarController is used to fulfill almost the same requirements of the
 CarsManager).
 
 \begin{figure}
@@ -679,7 +681,19 @@ CarsManager).
 \end{figure}
 
 How we are going to meet the non-functional requirements will be
-clarified in the architectural choices.
+clarified in the architectural choices, but in general:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}NFR1{]} We will use Adobe PhoneGap to develop a multi-platform
+  application.
+\item
+  {[}NFR2{]} We will use efficient communication protocols and
+  lightweight data formats.
+\item
+  {[}NFR3{]} Usage of firewalls(as mentioned before) and TLS.
+\end{itemize}
 
 \subsection{Architectural and technological
 choices}\label{architectural-and-technological-choices}
@@ -723,7 +737,7 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   \end{itemize}
 \item
   We will use the JAX-RS APIs to expose RESTful APIs with JSON that will
-  be used client-side to interface with the web server.
+  be used from the mobile app to interface with the web server.
 
   \begin{itemize}
   \tightlist
@@ -733,6 +747,8 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   \item
     This will allow us to use Adobe PhoneGap to develop an hybrid
     multi-platform application for the client side.
+  \item
+    The usage of JSON helps with optimizing the usage of bandwidth.
   \end{itemize}
 \item
   We will use the MySQL to manage our Database.
@@ -749,6 +765,8 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   \item
     Compatible with JDBC.\newline
   \end{itemize}
+\item
+  TLS will be used for confidential information communication.
 \end{itemize}
 
 \subsubsection{Client-side}\label{client-side}
@@ -772,11 +790,10 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
 
 \begin{itemize}
 \item
-  We will develop the monitoring Web using a JavaServlet.
+  We will develop the monitoring Web using a JEE web server exploiting
+  the JavaServlet framework.
 \item
-  Easy to deploy.
-\item
-  Integrated in the JEE framework.\newline
+  Easy to deploy and develop.\newline
   \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/webAppArch.png}
 \end{itemize}
 
@@ -798,16 +815,15 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   problems)through OBD connector(Java libraries to read information from
   an OBD adapter already exist).
 \item
-  For the communication with the server the Remote Procedure Call
-  pattern will be used.
+  For the communication with the server a RemoteProcedureCall approach
+  will be used.
 
   \begin{itemize}
   \tightlist
   \item
-    Java offers a solid implementation of it: RMI.
+    Well supported by JEE.
   \item
-    The existence of multiple cars fits well with a remote object
-    representation of them.
+    It's intuitive and practical to represent cars as remote objects.
   \end{itemize}
 \end{itemize}
 
@@ -820,30 +836,29 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
 \subsection{Patterns}\label{patterns}
 
 These are the main design patterns that we are following in the design
-process:
+process and many of those are good practices imposed by the adoption of
+the JEE framework.
 
 \begin{itemize}
 \tightlist
 \item
-  Model-Control-View : used pretty much everywhere, it's a really good
-  choice of design that allow to keep very clear the role of every
-  component of the system and that makes the system easy to deploy and
-  maintain.
+  Model-Control-View : used for almost every component of the system.
+  It's a really good choice of design that allows to keep very clear the
+  role of every component of the system and that makes the system easy
+  to deploy and maintain.
 \item
   Client-server : the staple good practice of a web based system.
 \end{itemize}
 
 \subsection{Deployment view}\label{deployment-view}
 
-This diagram purpose is to show the hardware components of our system, and where the code is running.
-
+This diagram purpose is to show the hardware components of our system,
+and where the code is running.\newline
 \centerline{\includegraphics{./deployment/diagram.png}}
 
 \subsection{Runtime view}\label{runtime-view}
 
 \subsection{Component Interfaces}\label{component-interfaces}
-
-\subsection{Other design decisions}\label{other-design-decisions}
 
 \section{Algorithm design}\label{algorithm-design}
 
@@ -851,7 +866,7 @@ This diagram purpose is to show the hardware components of our system, and where
 
 \subsection{User Experience diagrams}\label{user-experience-diagrams}
 
-These diagrams show how users interacts with the system
+These diagrams show how users will interact with the system.
 
 \subsubsection{Mobile application}\label{mobile-application-1}
 
@@ -868,8 +883,9 @@ These diagrams show how users interacts with the system
 \subsection{Boundary entity control
 diagrams}\label{boundary-entity-control-diagrams}
 
-There diagrams show how each action is performed by the system. The
-entities representation is simplified to show only the relevant parts.
+These diagrams are here to show how each action is performed by the
+system. The entities representation is simplified to show only the
+relevant parts.
 
 \subsubsection{Mobile application}\label{mobile-application-2}
 
