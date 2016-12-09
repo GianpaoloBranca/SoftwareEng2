@@ -14,7 +14,7 @@ The purpose of this document is to describe in details how our system will be sh
 ## 1.2 Scope
 With the analysis carried out in the RASD in mind, it appears that our system will have to deal with 3 major issues:
 
-  * Provide a way for the final users to access the system and services that it provides.
+  * Provide a way for the final users to access the system and its services.
   * Provide the services.
   * Handle the its resources(the cars) with care.
 
@@ -46,9 +46,9 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 * DD: Design Document.
 * Legacy system: the already existing system of the company
 * Ride: with ride we refer to the set of operations that begin with the user checking-in in the car and that end with the user checking-out.
-* TLS: Transport layer security, cryptographic protocol tha grants security over a computer network.
-* BCE
-* UX
+* TLS: Transport layer security, cryptographic protocol that grants security over a computer network.
+* Boundary Control Entity, BCE: diagrams that shows how user interface features are provided in a MVC fashion.
+* User Experience, UX: diagrams used for modeling the user interface.
 
 ## 1.4 Reference documents
 
@@ -357,7 +357,7 @@ These diagrams show how users will interact with the system.
 \centerline{\includegraphics{./images/UX_Operator.png}}
 
 ## 4.2 Boundary Entity Control diagrams
-These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts.
+These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. There is not a 1-to-1 correspondence of the elements of these diagrams with the components in the component diagrams because the level of focus is different.
 
 ### Mobile application
 
