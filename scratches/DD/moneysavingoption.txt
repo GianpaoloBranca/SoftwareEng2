@@ -1,12 +1,10 @@
-function moneySavingOption(Car car, Coordinates finalDestination) {
-  Coordinates currentPosition = car.getPos();
-  double distance = GMaps.dist(currentPosition, finalDestination);
-
-  if(distance > car.getAutonomy()) {
-    return FAILURE //battery too low for this destination
+Coord computeMoneySavingStation(Coord destination) {
+  Coord selectedStation = Utility.getNearestRechargingStation(destination);
+  if(GMaps.dist(destination, selectedStation) < Utility.REASONABLE_DISTANCE) {
+    return selectedStation;
+  } else {
+       return new Coord(ERROR);
   }
-
-  return RechargingStations.stream()
-                           .orderedBy(a -> a.availability() / GMaps.dist(a, finalDestination) * k)
-                           .asList().sublist(0,10);
 }
+
+The Coord constructor initialized to ERROR generates an object that resembles the inability of the system to give a reasonable response.

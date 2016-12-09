@@ -3,20 +3,20 @@ int computePrice(Ride ride) {
   int price = 0;
   boolean badB=false;
 
-  price += Service.getStandardFare() * ride.getTimeRiding()
-           + Service.getParkedFare() * ride.getTimeParked;;
+  price += Fares.getStandardFare() * ride.getDriveTime()
+           + Fares.getParkedFare() * ride.getBusyTime;
 
   if(ride.getTimeOutsideBoundary>0){
     badB = true;
-    price += Service.getOutsideBoundariesFare() * ride.getTimeOutsideBoundary;
+    price += Fares.getOutsideCityFare() * ride.getTimeOutsideBoundary;
   }
 
   switch ride.getEndType()
     case LEGAL : break;
-    case LEFT_PARKED : price += Service.getLeftParkedFee();
+    case LEFT_PARKED : price += Fares.getLeftParkedFee();
                       badB = true;
                       break;
-    case END_OUTSIDE_CITY : price += Service.getLeftOutsideCityFee();
+    case END_OUTSIDE_CITY : price += Fares.getLeftOutsideCityFee();
                             badB = true;
                             break;
     default : break;
@@ -28,12 +28,34 @@ float computeDiscount(Ride ride){
   float discount = 0;
 
   if(ride.getPassengerNumber() >= 2) {
-    discount += Service.getPassengerDiscount();
+    discount += PriceVariation.getPassengerDiscount();
   }
 
   if(ride.getEndWithCharge) {
-    discount += Service.getEndWithChargeDiscount();
-  } else if(ride.getEndBatteryLevel() > 0.5) {
-    discount += Service.getHighBatteryDiscount();
+    discount += PriceVariation.getEndWithChargeDiscount();
+  } else {
+         if(ride.getEndBatteryLevel() > 0.5) {
+    	   discount += PriceVariation.getHighBatteryDiscount();
+  	 } else {
+               Coord endPos = ride.getEndPosition();
+		if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(endPos)) > 3)) {
+		  discount += PriceVariation.getLowBatteryMalus();
+		}
+	 }	 	
+}
+
+Coord getNearestRechargingStation(Coord position) {
+  Coord nearest = new Coord();
+  float minDist = -1;
+  float dist;
+  List<Coord> stations = Utility.getRechargingAreas();
+
+  for(Coord n : stations) {
+     dist = Gaps.dist(n, position);
+     if(dist < minDist || minDist = -1) {
+       minDist = dist;
+       nearest = n;
+     }
   }
+  return nearest;
 }
