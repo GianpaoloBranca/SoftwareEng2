@@ -6,17 +6,32 @@
 
 \newpage
 
-#Introduction
+# 1 Introduction
 
-##Purpose
-The purpose of this document is to provide technical informations about the service we are going to deploy described in the RASD.
+## 1.1 Purpose
+The purpose of this document is to describe in details how our system will be shaped, in which logical and physical units will be divided and which functionalities these units will provide and how.
 
-##Scope
-Our service is about electric car sharing to provide a valid option to public transportation for low length trips.
-It is provided via mobile application for the final users and via web application for the operators of the company.
-Users can download the app with the Android play store or with the Apple store. Operators can enter the system directly from a browser in the boundaries of the companies network after logging in.
+## 1.2 Scope
+With the analysis carried out in the RASD in mind, it appears that our system will have to deal with 3 major issues:
 
-##Definitions, Acronyms, Abbreviations
+  * Provide a way for the final users to access the system and services that it provides.
+  * Provide the services.
+  * Handle the its resources(the cars) with care.
+
+In other words:
+
+  * Accessibility.
+  * Service suppliance.
+  * Control over the resources.
+
+These points pretty much maps 1-to-1 with the three application that we are going to develop:
+
+  * A mobile application for the final users.
+  * An on-board application for the cars.
+  * A web application for the operators to monitor the status of the service.
+
+
+## 1.3 Definitions, Acronyms, Abbreviations
 
 * PWE: PoWer Enjoy.
 * API: application programming interface, in this document we are mainly referring to web APIs that are defined interfaces through which the client-server interaction happens.
@@ -32,16 +47,18 @@ Users can download the app with the Android play store or with the Apple store. 
 * Legacy system: the already existing system of the company
 * Ride: with ride we refer to the set of operations that begin with the user checking-in in the car and that end with the user checking-out.
 * TLS: Transport layer security, cryptographic protocol tha grants security over a computer network.
+* BCE
+* UX
 
-##Reference documents
+## 1.4 Reference documents
 
 * RASD
 * Specification document
 \newpage
 
-# Architectural Design
+# 2 Architectural Design
 
-## Overview
+## 2.1 Overview
 
 We are going to build our system following these guidelines (appropriate reasons for each choice will be given in the next sections):
 
@@ -51,19 +68,19 @@ We are going to build our system following these guidelines (appropriate reasons
 
 3. The car will be equipped with a machine with our application running on it. On the contrary of the mobile app case, the on-board application will need to exploit some logic to perform its functionalities.
 
-4. The operators will access the system through a web application.
+4. The operators will access the system through a web application in the boundaries of the company network.
 
-5. Integration with the legacy server will happen trough its APIs for the purpose of providing maintenance to the cars and clients care.
+5. Integration with the legacy server will happen trough its APIs for the purpose of providing effective maintenance to the cars.
 
 6. Firewalls will keep secure the communications with the mobile clients and the cars.
 
-Refer to the Architectural and technological choices for a more in depth analysis of this points.
+Refer to the Architectural and technological choices for a more in depth analysis of these points.
 
 ![](./images/sysApp.png){#id .class width=100% height=100%}
 ![](./images/layers.png){#id .class width=100% height=100%}
 
 
-## High level component view
+## 2.3 High level component view
 
 In this section we are going to give a look at the architectural structure of our system at the level of the components that we are going to develop and the main ones that we are going to interact with. \newline
 
@@ -83,7 +100,7 @@ Components to be integrated in the system:
 * **GoogleMaps and PayPal**: respectively the provider of the maps and the payment service(they are not in the diagram, their integration in the system will be discussed later on).
 
 
-## Component view
+## 2.4 Component view
 
 #### Car System
 
@@ -110,7 +127,7 @@ Components description:
 
 Components description:
 
-* **RequestDispatcher**: The component handles the requests from the mobile application clients using the functionalities of the specific components and sends back the responses.
+* **RequestDispatcher**: The component handles the requests from the mobile application clients using the interfaces provided by the internal components.
 * **BookingManager**: The component that handles the operations concerning the usage of a car.
 * **RideController**: It interacts with the RideController component in the car  as already mentioned in the section above the way the two components interact with each other will be clarified in the Runtime View section.
 * **RidesManager**: The component that handles the set of rides that are ongoing in the system, it interacts with the other components to give the single RideController access to the functionalities that it needs.
@@ -127,7 +144,7 @@ Components description:
 * **Model**: the structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
 
-## Requirements Traceability
+## 2.5 Requirements Traceability
 
 In this section we will show how the components of our system are meant to satisfy the requirement and goals specified in the RASD. For utility we report the goals and requirements here too.
 
@@ -243,7 +260,7 @@ How we are going to meet the non-functional requirements will be clarified in th
   * [NFR2] We will use efficient communication protocols and lightweight data formats.
   * [NFR3] Usage of firewalls(as mentioned before) and TLS.
 
-## Architectural and technological choices
+## 2.6 Architectural and technological choices
 
 ![](./images/sysApp.png){#id .class width=100% height=100%}
 
@@ -304,26 +321,26 @@ How we are going to meet the non-functional requirements will be clarified in th
 
 ![](./images/carAppArch.png){#id .class width=100% height=100%}
 
-## Patterns
+## 2.7 Patterns
 
 These are the main design patterns that we are following in the design process and many of those are good practices imposed by the adoption of the JEE framework.
 
 * Model-Control-View : used for almost every component of the system. It's a really good choice of design that allows to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
 * Client-server : the staple good practice of a web based system.
 
-## Deployment view
+## 2.8 Deployment view
 This diagram purpose is to show the hardware components of our system, and where the code is running.\newline
 \centerline{\includegraphics{./deployment/diagram.png}}
 
-## Runtime view
+## 2.9 Runtime view
 
-## Component Interfaces
+## 2.10 Component Interfaces
 
 
-# Algorithm design
+# 3 Algorithm design
 
-# User Interface design
-## User Experience diagrams
+# 4 User Interface design
+## 4.1 User Experience diagrams
 
 These diagrams show how users will interact with the system.
 
@@ -339,7 +356,7 @@ These diagrams show how users will interact with the system.
 
 \centerline{\includegraphics{./images/UX_Operator.png}}
 
-## Boundary entity control diagrams
+## 4.2 Boundary Entity Control diagrams
 These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts.
 
 ### Mobile application
@@ -354,4 +371,4 @@ These diagrams are here to show how each action is performed by the system. The 
 
 \centerline{\includegraphics{./images/BCE_Operator.png}}
 
-# Effort spent
+# 5 Effort spent
