@@ -54,6 +54,7 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 
 * RASD
 * Specification document
+* DD example provided on Beep.
 \newpage
 
 # 2 Architectural Design
@@ -370,5 +371,13 @@ These diagrams are here to show how each action is performed by the system. The 
 ### Operators application
 
 \centerline{\includegraphics{./images/BCE_Operator.png}}
+
+# Tools
+
+- Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
+- Pandoc to craft the LaTeX document from the MD one and the pdf from the LaTeX.
+- TexShop to edit the LaTeX document
+- Signavio fot the user interface related diagrams.
+- Astah for the diagrams.
 
 # 5 Effort spent
