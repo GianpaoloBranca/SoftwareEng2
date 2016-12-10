@@ -338,8 +338,56 @@ This diagram purpose is to show the hardware components of our system, and where
 
 ## 2.9 Runtime view
 
+In this section are the runtime diagrams which aim is to give a more detailed view of the communication among the various components of our system during different phases of it's usage.
+The runtime diagrams are coherent with the component diagrams even though in some points, for the sake of simplicity, some communications which refer just to message forwarding or data retrieval are omitted or condensed into one, technically not existing, direct communication.
+Also is important to underline that the technologies used for communication among different components are previously stated in this document and the messages containing sensible data are encrypted via TLS.
+
+### User logs in
+
+\centerline{\includegraphics{./runtime_diagrams/login_runtime.png}}
+
+In this runtime diagrams we see the login process for an already registered user. The login credentials are sent from the MobileApp to the RequestDispatcher which forward the request to the LoginManager which check the ID-password couple against the Model. In case of wrong credentials an error is sent back to the application. If credentials are correct then a token is generated, associated to the user and sent back to the MobileApp. This token will remain in the cache of the application and will e used to send future messages to the server without the need of further authentications.
+
+### User books a car
+
+\centerline{\includegraphics{./runtime_diagrams/booking_runtime.png}}
+
+In this diagram a car booking process is shown. The car search request is sent, via RequestDispatcher, form the MobileApp to the BookingManager which, retrieving datas from the Model and from GoogleMaps, builds a response for the MobileApp. The MobileApp uses the response to show a view of the city map with cars inside the requested area. When the car is selected informations are sent in the same way to the BookingManager which checks if the car is in fact available, if it is then the car status is changed and the new Booking instance is generated.
+
+### User starts a ride
+
+\centerline{\includegraphics{./runtime_diagrams/ride_start_runtime.png}}
+
+This diagram show the starting of a ride from the moment in which the user unlocks the car door to the moment the ride instance is generated and the car status is updated. In between are described all processes concerning control of timeouts after the user unlocks the car and check-in process. Is voluntary omitted the case of passengers check-in since it works the same way as the driver check-in and is not the central point of the diagram.
+Due to it's length it is not explained here step by step, but it's rather self explanatory.
+For a better view on the image is reported down there the URL to download it separately from the PDF document.
+
+https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png
+
+### User uses the navigator with money saving option
+
+\centerline{\includegraphics{./runtime_diagrams/navigation_runtime.png}}
+
+In this diagram we show the process behind the usage of the car navigator, even considering the MoneySavingOption. The ViewControlLer communicates to the NavigationController the request for the GPS navigation towards a certain destination. The NavigationController retrieves informations from the GPSManager and GoogleMaps components to build the navigation data which are sent back to the ViewControlLer that is in charge of creating the visual representation on the car display through the GUI component. Then there is a looping process of updating until the required destination is reached.
+
+### User ends a ride
+
+\centerline{\includegraphics{./runtime_diagrams/ride_ending_runtime.png}}
+
+The previous diagram shows the process of ending a ride. First the RideController inside the CarSystem notifies the specific components inside the PWESystem that the ride ended and then those components take charge to change the car and the ride status inside the Model. After that the CarController is notified when the car doors gets closed, at this point it performs a series of checks and, if everything is ok, it proceeds to lock the car. After 15 minutes, if MoneySavingOption was selected, the RideController checks if the car is plugged, then retrieves car datas and computes final datas about the ride. In the end those data are sent to the server where the RidesManager updates the ride status to "ended", enrolls the payment request and sends a final notification to the user's MobileApp.
+Since this diagram is rather big, it can be helpful to look at it outside of the present document, so the relative URL is provided.
+
+https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png
+
+### Operator enrolls an assistance request
+
+\centerline{\includegraphics{./runtime_diagrams/assistance_runtime.png}}
+
+In this runtime diagrams the operator sends, through the MonitoringWebApp, a request for a car overview. The request is handled by the WebAppController which asks the CarsManager for infos about the specified car. When the infos are retrieved from the Model and sent back to it, the WebAppController builds the view informations and send them back to the MonitoringWebApp. At this point the WebApp requests the assistance request form which is provided by the previously stated WebAppController. Then, through the same way, the compiled form is sent to the CarAssistanceManager, this component then interacts with the CarsManager to change the car status to "maintenance", and with the LegacySystem to send the request to the proper facility. Is important to underline that the CarAssistanceManager translates the request into one that is compatible with the old system. After that the CarAssistanceManager uses the NotificationManager to inform the MonitoringWebApp of the success of the operation.
+
 ## 2.10 Component Interfaces
 
+\centerline{\includegraphics{./runtime_diagrams/components_interfaces.png}}
 
 # 3 Algorithm design
 

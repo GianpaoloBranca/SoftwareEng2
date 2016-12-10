@@ -21,10 +21,10 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[unicode=true]{hyperref}
-\hypersetup{
+\usepackage{hyperref}
+\hypersetup{unicode=true,
             pdftitle={Design Document - v1.0},
-            pdfauthor={Gianpaolo Branca; Luca Butera; Andrea Cini},
+            pdfauthor={Gianpaolo Branca; Luca Butera; Andrea Cini \%},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -57,43 +57,71 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
-
 \title{\textbf{Design Document - v1.0}}
-\author{Gianpaolo Branca \and Luca Butera \and Andrea Cini \newline}
-\date{\includegraphics{polimi.png}\newpage}
+\author{Gianpaolo Branca \and Luca Butera \and Andrea Cini \newline
+\%\includegraphics{polimi.png}\newpage}
+\date{}
 
 \begin{document}
 \maketitle
 
 {
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{6}
 \tableofcontents
 }
 \newpage
 
-\section{Introduction}\label{introduction}
+\section{1 Introduction}\label{introduction}
 
-\subsection{Purpose}\label{purpose}
+\subsection{1.1 Purpose}\label{purpose}
 
-The purpose of this document is to provide technical informations about
-the service we are going to deploy described in the RASD.
+The purpose of this document is to describe in details how our system
+will be shaped, in which logical and physical units will be divided and
+which functionalities these units will provide and how.
 
-\subsection{Scope}\label{scope}
+\subsection{1.2 Scope}\label{scope}
 
-Our service is about electric car sharing to provide a valid option to
-public transportation for low length trips. It is provided via mobile
-application for the final users and via web application for the
-operators of the company. Users can download the app with the Android
-play store or with the Apple store. Operators can enter the system
-directly from a browser in the boundaries of the companies network after
-logging in.
+With the analysis carried out in the RASD in mind, it appears that our
+system will have to deal with 3 major issues:
 
-\subsection{Definitions, Acronyms,
+\begin{itemize}
+\tightlist
+\item
+  Provide a way for the final users to access the system and its
+  services.
+\item
+  Provide the services.
+\item
+  Handle the its resources(the cars) with care.
+\end{itemize}
+
+In other words:
+
+\begin{itemize}
+\tightlist
+\item
+  Accessibility.
+\item
+  Service suppliance.
+\item
+  Control over the resources.
+\end{itemize}
+
+These points pretty much maps 1-to-1 with the three application that we
+are going to develop:
+
+\begin{itemize}
+\tightlist
+\item
+  A mobile application for the final users.
+\item
+  An on-board application for the cars.
+\item
+  A web application for the operators to monitor the status of the
+  service.
+\end{itemize}
+
+\subsection{1.3 Definitions, Acronyms,
 Abbreviations}\label{definitions-acronyms-abbreviations}
 
 \begin{itemize}
@@ -136,23 +164,37 @@ Abbreviations}\label{definitions-acronyms-abbreviations}
   Ride: with ride we refer to the set of operations that begin with the
   user checking-in in the car and that end with the user checking-out.
 \item
-  TLS: Transport layer security, cryptographic protocol tha grants
+  TLS: Transport layer security, cryptographic protocol that grants
   security over a computer network.
+\item
+  Adobe PhoneGap: a tool to develop mobile applications powered by web
+  technologies. More information
+  \href{http://phonegap.com}{\emph{here}}.
+\item
+  OBD: On-Board diagnostics, a system that provide access to the status
+  of the various vehicle subsystems.
+\item
+  Boundary Control Entity, BCE: diagrams that shows how user interface
+  features are provided in a MVC fashion.
+\item
+  User Experience, UX: diagrams used for modeling the user interface.
 \end{itemize}
 
-\subsection{Reference documents}\label{reference-documents}
+\subsection{1.4 Reference documents}\label{reference-documents}
 
 \begin{itemize}
 \tightlist
 \item
   RASD
 \item
-  Specification document \newpage
+  Specification document
+\item
+  DD example provided on Beep. \newpage
 \end{itemize}
 
-\section{Architectural Design}\label{architectural-design}
+\section{2 Architectural Design}\label{architectural-design}
 
-\subsection{Overview}\label{overview}
+\subsection{2.1 Overview}\label{overview}
 
 We are going to build our system following these guidelines (appropriate
 reasons for each choice will be given in the next sections):
@@ -160,9 +202,9 @@ reasons for each choice will be given in the next sections):
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Our application will be implemented using a three-tier architecture
-  for each application, as it is the most suitable(this point will be
-  clear in the next steps) and maintainable one for our system.
+  Our system will be implemented using a three-tier architecture for
+  each application, as it is the most suitable(this point will be clear
+  in the next steps) and maintainable one for our system.
 \item
   For the mobile application the client side will be light-weighted,
   with only the presentation layer as there's no need to perform any
@@ -173,29 +215,31 @@ reasons for each choice will be given in the next sections):
   application will need to exploit some logic to perform its
   functionalities.
 \item
-  The operators will access the system through a web application.
+  The operators will access the system through a web application in the
+  boundaries of the company network.
 \item
   Integration with the legacy server will happen trough its APIs for the
-  purpose of providing maintenance to the cars and clients care.
+  purpose of providing effective maintenance to the cars.
 \item
   Firewalls will keep secure the communications with the mobile clients
   and the cars.
 \end{enumerate}
 
 Refer to the Architectural and technological choices for a more in depth
-analysis of this points.
+analysis of these points.
 
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/sysApp.png}
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/layers.png}
 
-\subsection{High level component view}\label{high-level-component-view}
+\subsection{2.3 High level component
+view}\label{high-level-component-view}
 
 In this section we are going to give a look at the architectural
 structure of our system at the level of the components that we are going
 to develop and the main ones that we are going to interact with.
 \newline
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./comp_diagrams/System.png}
 \caption{}\label{id}
@@ -245,11 +289,11 @@ Components to be integrated in the system:
   in the system will be discussed later on).
 \end{itemize}
 
-\subsection{Component view}\label{component-view}
+\subsection{2.4 Component view}\label{component-view}
 
 \paragraph{Car System}\label{car-system}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./comp_diagrams/CarSystem.png}
 \caption{}\label{id}
@@ -313,8 +357,8 @@ Components description:
 \tightlist
 \item
   \textbf{RequestDispatcher}: The component handles the requests from
-  the mobile application clients using the functionalities of the
-  specific components and sends back the responses.
+  the mobile application clients using the interfaces provided by the
+  internal components.
 \item
   \textbf{BookingManager}: The component that handles the operations
   concerning the usage of a car.
@@ -372,7 +416,8 @@ Components description:
   \textbf{GoogleMaps}: Provider of the maps services.
 \end{itemize}
 
-\subsection{Requirements Traceability}\label{requirements-traceability}
+\subsection{2.5 Requirements
+Traceability}\label{requirements-traceability}
 
 In this section we will show how the components of our system are meant
 to satisfy the requirement and goals specified in the RASD. For utility
@@ -668,13 +713,13 @@ requirements of the components the makes of of them (e.g.~a
 CarController is used to fulfill almost the same requirements of the
 CarsManager).
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./comp_diagrams/system_reqt.png}
 \caption{}\label{id}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./comp_diagrams/car_reqt.png}
 \caption{}\label{id}
@@ -695,10 +740,10 @@ clarified in the architectural choices, but in general:
   {[}NFR3{]} Usage of firewalls(as mentioned before) and TLS.
 \end{itemize}
 
-\subsection{Architectural and technological
+\subsection{2.6 Architectural and technological
 choices}\label{architectural-and-technological-choices}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/sysApp.png}
 \caption{}\label{id}
@@ -763,10 +808,10 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   \item
     Free.
   \item
-    Compatible with JDBC.\newline
+    Compatible with JDBC.
   \end{itemize}
 \item
-  TLS will be used for confidential information communication.
+  TLS will be used for confidential information communication. \newline
 \end{itemize}
 
 \subsubsection{Client-side}\label{client-side}
@@ -789,13 +834,23 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
 \paragraph{Monitoring WebApp}\label{monitoring-webapp}
 
 \begin{itemize}
+\tightlist
 \item
   We will develop the monitoring Web using a JEE web server exploiting
   the JavaServlet framework.
-\item
-  Easy to deploy and develop.\newline
-  \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/webAppArch.png}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Easy to deploy and develop.\newline
+  \end{itemize}
 \end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/webAppArch.png}
+\caption{}\label{id}
+\end{figure}
 
 \paragraph{Car on-board application}\label{car-on-board-application}
 
@@ -827,13 +882,13 @@ tiers)}\label{server-side-web-business-logic-and-data-tiers}
   \end{itemize}
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1.00000\textwidth,height=1.00000\textwidth]{./images/carAppArch.png}
 \caption{}\label{id}
 \end{figure}
 
-\subsection{Patterns}\label{patterns}
+\subsection{2.7 Patterns}\label{patterns}
 
 These are the main design patterns that we are following in the design
 process and many of those are good practices imposed by the adoption of
@@ -850,21 +905,137 @@ the JEE framework.
   Client-server : the staple good practice of a web based system.
 \end{itemize}
 
-\subsection{Deployment view}\label{deployment-view}
+\subsection{2.8 Deployment view}\label{deployment-view}
 
 This diagram purpose is to show the hardware components of our system,
 and where the code is running.\newline
+
 \centerline{\includegraphics{./deployment/diagram.png}}
 
-\subsection{Runtime view}\label{runtime-view}
+\subsection{2.9 Runtime view}\label{runtime-view}
 
-\subsection{Component Interfaces}\label{component-interfaces}
+In this section are the runtime diagrams which aim is to give a more
+detailed view of the communication among the various components of our
+system during different phases of it's usage. The runtime diagrams are
+coherent with the component diagrams even though in some points, for the
+sake of simplicity, some communications which refer just to message
+forwarding or data retrieval are omitted or condensed into one,
+technically not existing, direct communication. Also is important to
+underline that the technologies used for communication among different
+components are previously stated in this document and the messages
+containing sensible data are encrypted via TLS.
 
-\section{Algorithm design}\label{algorithm-design}
+\subsubsection{User logs in}\label{user-logs-in}
 
-\section{User Interface design}\label{user-interface-design}
+\centerline{\includegraphics{./runtime_diagrams/login_runtime.png}}
 
-\subsection{User Experience diagrams}\label{user-experience-diagrams}
+In this runtime diagrams we see the login process for an already
+registered user. The login credentials are sent from the MobileApp to
+the RequestDispatcher which forward the request to the LoginManager
+which check the ID-password couple against the Model. In case of wrong
+credentials an error is sent back to the application. If credentials are
+correct then a token is generated, associated to the user and sent back
+to the MobileApp. This token will remain in the cache of the application
+and will e used to send future messages to the server without the need
+of further authentications.
+
+\subsubsection{User books a car}\label{user-books-a-car}
+
+\centerline{\includegraphics{./runtime_diagrams/booking_runtime.png}}
+
+In this diagram a car booking process is shown. The car search request
+is sent, via RequestDispatcher, form the MobileApp to the BookingManager
+which, retrieving datas from the Model and from GoogleMaps, builds a
+response for the MobileApp. The MobileApp uses the response to show a
+view of the city map with cars inside the requested area. When the car
+is selected informations are sent in the same way to the BookingManager
+which checks if the car is in fact available, if it is then the car
+status is changed and the new Booking instance is generated.
+
+\subsubsection{User starts a ride}\label{user-starts-a-ride}
+
+\centerline{\includegraphics{./runtime_diagrams/ride_start_runtime.png}}
+
+This diagram show the starting of a ride from the moment in which the
+user unlocks the car door to the moment the ride instance is generated
+and the car status is updated. In between are described all processes
+concerning control of timeouts after the user unlocks the car and
+check-in process. Is voluntary omitted the case of passengers check-in
+since it works the same way as the driver check-in and is not the
+central point of the diagram. Due to it's length it is not explained
+here step by step, but it's rather self explanatory. For a better view
+on the image is reported down there the URL to download it separately
+from the PDF document.
+
+https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime\_diagrams/ride\_start\_runtime.png
+
+\subsubsection{User uses the navigator with money saving
+option}\label{user-uses-the-navigator-with-money-saving-option}
+
+\centerline{\includegraphics{./runtime_diagrams/navigation_runtime.png}}
+
+In this diagram we show the process behind the usage of the car
+navigator, even considering the MoneySavingOption. The ViewControlLer
+communicates to the NavigationController the request for the GPS
+navigation towards a certain destination. The NavigationController
+retrieves informations from the GPSManager and GoogleMaps components to
+build the navigation data which are sent back to the ViewControlLer that
+is in charge of creating the visual representation on the car display
+through the GUI component. Then there is a looping process of updating
+until the required destination is reached.
+
+\subsubsection{User ends a ride}\label{user-ends-a-ride}
+
+\centerline{\includegraphics{./runtime_diagrams/ride_ending_runtime.png}}
+
+The previous diagram shows the process of ending a ride. First the
+RideController inside the CarSystem notifies the specific components
+inside the PWESystem that the ride ended and then those components take
+charge to change the car and the ride status inside the Model. After
+that the CarController is notified when the car doors gets closed, at
+this point it performs a series of checks and, if everything is ok, it
+proceeds to lock the car. After 15 minutes, if MoneySavingOption was
+selected, the RideController checks if the car is plugged, then
+retrieves car datas and computes final datas about the ride. In the end
+those data are sent to the server where the RidesManager updates the
+ride status to ``ended'', enrolls the payment request and sends a final
+notification to the user's MobileApp. Since this diagram is rather big,
+it can be helpful to look at it outside of the present document, so the
+relative URL is provided.
+
+https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime\_diagrams/ride\_ending\_runtime.png
+
+\subsubsection{Operator enrolls an assistance
+request}\label{operator-enrolls-an-assistance-request}
+
+\centerline{\includegraphics{./runtime_diagrams/assistance_runtime.png}}
+
+In this runtime diagrams the operator sends, through the
+MonitoringWebApp, a request for a car overview. The request is handled
+by the WebAppController which asks the CarsManager for infos about the
+specified car. When the infos are retrieved from the Model and sent back
+to it, the WebAppController builds the view informations and send them
+back to the MonitoringWebApp. At this point the WebApp requests the
+assistance request form which is provided by the previously stated
+WebAppController. Then, through the same way, the compiled form is sent
+to the CarAssistanceManager, this component then interacts with the
+CarsManager to change the car status to ``maintenance'', and with the
+LegacySystem to send the request to the proper facility. Is important to
+underline that the CarAssistanceManager translates the request into one
+that is compatible with the old system. After that the
+CarAssistanceManager uses the NotificationManager to inform the
+MonitoringWebApp of the success of the operation.
+
+\subsection{2.10 Component Interfaces}\label{component-interfaces}
+
+\centerline{\includegraphics{./runtime_diagrams/components_interfaces.png}}
+
+\section{3 Algorithm design}\label{algorithm-design}
+
+\section{4 User Interface design}\label{user-interface-design}
+
+\subsection{4.1 User Experience
+diagrams}\label{user-experience-diagrams}
 
 These diagrams show how users will interact with the system.
 
@@ -880,12 +1051,14 @@ These diagrams show how users will interact with the system.
 
 \centerline{\includegraphics{./images/UX_Operator.png}}
 
-\subsection{Boundary entity control
+\subsection{4.2 Boundary Entity Control
 diagrams}\label{boundary-entity-control-diagrams}
 
 These diagrams are here to show how each action is performed by the
 system. The entities representation is simplified to show only the
-relevant parts.
+relevant parts. There is not a 1-to-1 correspondence of the elements of
+these diagrams with the components in the component diagrams because the
+level of focus is different.
 
 \subsubsection{Mobile application}\label{mobile-application-2}
 
@@ -899,6 +1072,24 @@ relevant parts.
 
 \centerline{\includegraphics{./images/BCE_Operator.png}}
 
-\section{Effort spent}\label{effort-spent}
+\section{Tools}\label{tools}
+
+\begin{itemize}
+\tightlist
+\item
+  Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown
+  with syntax highlighting and the preview feature.
+\item
+  Pandoc to craft the LaTeX document from the MD one and the pdf from
+  the LaTeX.
+\item
+  TexShop to edit the LaTeX document
+\item
+  Signavio for the user interface related diagrams.
+\item
+  Astah for the other diagrams.
+\end{itemize}
+
+\section{5 Effort spent}\label{effort-spent}
 
 \end{document}
