@@ -1,4 +1,4 @@
-% **Requirements Analysis and Specification Document - v1.0**
+% **Requirements Analysis and Specification Document - v1.1**
 %Gianpaolo Branca
  Luca Butera
  Andrea Cini \newline
@@ -10,6 +10,12 @@ header-includes:
   - \usepackage{listings}
   - \usepackage{alloy}
 ---
+\newpage
+## History of changes
+| Version | Changes                                                                    |
+|---------|----------------------------------------------------------------------------|
+| 1.0     | Initial release                                                            |
+| 1.1     | Add specification about the interaction of the system with the passengers of a ride |
 
 \newpage
 
@@ -43,8 +49,9 @@ The system must:
 
 - The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
 - The system will rely on PayPal as a payment system as it is very reliable and a lot of users will appreciate its use.
-- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won’t involved in the coordination of the maintenance team.
-- The system will not be able to check if the user behaves against the low, for example the system must ensure that a car is parked in a safe area but won’t be able to check if the car is correctly parked according to the law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
+- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won?t involved in the coordination of the maintenance team.
+- The system will not be able to check if the user behaves against the low, for example the system must ensure that a car is parked in a safe area but won?t be able to check if the car is correctly parked according to the law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
+- After the check in the system will not monitor the effective presence of other passengers other than the driver. That is done because the system would end up being more complicated with a deeper integration with the car sensors, and also because this behaviour is tolerated (e.g a driver can bring two passengers home, than go ahead and still get a discount)
 
 ## 4 Domain properties and assumptions
 
@@ -52,7 +59,7 @@ The system must:
 - [D2] The system cannot prevent theft.
 - [D3] Operators are properly trained by the company to use the system and correctly mark cars under maintenance as unavailable.
 - [D4] The plugs availability is correctly communicated to the system by the recharging station.
-- [D5] User’s mobile phones are equipped with a GPS system and a camera and they are always working properly.
+- [D5] User?s mobile phones are equipped with a GPS system and a camera and they are always working properly.
 - [D6] The measure of the percentage of battery charge left and the estimation of the Km/% of charge ratio are correct.
 - [D7] The internet connection of the cars is always working.
 - [D8] The user has accepted the terms of use of the application.
