@@ -47,6 +47,8 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 * Legacy system: the already existing system of the company
 * Ride: with ride we refer to the set of operations that begin with the user checking-in in the car and that end with the user checking-out.
 * TLS: Transport layer security, cryptographic protocol that grants security over a computer network.
+* Adobe PhoneGap: a tool to develop mobile applications powered by web technologies. More information [_here_](http://phonegap.com).
+* OBD: On-Board diagnostics, a system that provide access to the status of the various vehicle subsystems.
 * Boundary Control Entity, BCE: diagrams that shows how user interface features are provided in a MVC fashion.
 * User Experience, UX: diagrams used for modeling the user interface.
 
@@ -63,7 +65,7 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 
 We are going to build our system following these guidelines (appropriate reasons for each choice will be given in the next sections):
 
-1. Our application will be implemented using a three-tier architecture for each application, as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
+1. Our system will be implemented using a three-tier architecture for each application, as it is the most suitable(this point will be clear in the next steps) and maintainable one for our system.
 
 2. For the mobile application the client side will be light-weighted, with only the presentation layer as there's no need to perform any kind of data manipulation on the user's mobile phone.
 
@@ -287,9 +289,9 @@ How we are going to meet the non-functional requirements will be clarified in th
     - We don't need advanced feature for data management that other DBMSs offer.
     - MySQL is fast and easy to use.
     - Free.
-    - Compatible with JDBC.\newline
+    - Compatible with JDBC.
 
-  * TLS will be used for confidential information communication.
+  * TLS will be used for confidential information communication. \newline
 
 
 ### Client-side
@@ -305,8 +307,8 @@ How we are going to meet the non-functional requirements will be clarified in th
 #### Monitoring WebApp
 
 * We will develop the monitoring Web using a JEE web server exploiting the JavaServlet framework.
+    - Easy to deploy and develop.\newline
 
-  - Easy to deploy and develop.\newline
 ![](./images/webAppArch.png){#id .class width=100% height=100%}
 
 #### Car on-board application
@@ -331,6 +333,7 @@ These are the main design patterns that we are following in the design process a
 
 ## 2.8 Deployment view
 This diagram purpose is to show the hardware components of our system, and where the code is running.\newline
+
 \centerline{\includegraphics{./deployment/diagram.png}}
 
 ## 2.9 Runtime view
@@ -377,7 +380,7 @@ These diagrams are here to show how each action is performed by the system. The 
 - Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
 - Pandoc to craft the LaTeX document from the MD one and the pdf from the LaTeX.
 - TexShop to edit the LaTeX document
-- Signavio fot the user interface related diagrams.
-- Astah for the diagrams.
+- Signavio for the user interface related diagrams.
+- Astah for the other diagrams.
 
 # 5 Effort spent
