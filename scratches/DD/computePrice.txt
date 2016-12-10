@@ -38,24 +38,42 @@ float computeDiscount(Ride ride){
     	   discount += PriceVariation.getHighBatteryDiscount();
   	 } else {
                Coord endPos = ride.getEndPosition();
-		if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(endPos)) > 3)) {
+		if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(1, endPos).get(0).getCoord()) > 3)) {
 		  discount += PriceVariation.getLowBatteryMalus();
 		}
 	 }	 	
 }
 
-Coord getNearestRechargingStation(Coord position) {
-  Coord nearest = new Coord();
-  float minDist = -1;
-  float dist;
-  List<Coord> stations = Utility.getRechargingAreas();
+List<Station> getNearestRechargingStation(int nOfStations, Coord position) {
+  List<Station> nearest = new ArrayList<>();
+  List<float> distances = new ArrayList<>();
+  List<Station> stations = Utility.getNonFullRechargingAreas();
 
-  for(Coord n : stations) {
-     dist = Gaps.dist(n, position);
-     if(dist < minDist || minDist = -1) {
-       minDist = dist;
-       nearest = n;
-     }
+  for(Station n : stations) {
+     addInOrder(n, GMaps.dist(n.getCoord(), position), nearest, distances, nOfStations);
   }
   return nearest;
+}
+
+void addInOrder(Station point, float dist, List<Station> points, List<float> distances, int bound) {
+  
+  if(points.isEmpty()) {
+    points.add(point);
+    distances.add(dist);
+    return;
+  }
+  for(float n : distances) {
+    if(dist < n.get()){
+      distances.add(distances.getIndexOf(n), dist);
+      points.add(distances.getIndexOf(n), point);
+      distances = distances.subList(0, bound);
+      points = points.subList(0 , bound);
+      return;
+    }
+  }
+  if(points.lenght() < bound) {
+    points.add(point);
+    distances.add(dist);
+  }
+  return;
 }

@@ -1,10 +1,27 @@
 Coord computeMoneySavingStation(Coord destination) {
-  Coord selectedStation = Utility.getNearestRechargingStation(destination);
-  if(GMaps.dist(destination, selectedStation) < Utility.REASONABLE_DISTANCE) {
-    return selectedStation;
-  } else {
-       return new Coord(ERROR);
+  List<Station> selectedStations = Utility.getNearestRechargingStations(Utility.N_OF_STATIONS, destination);
+  float maxWeight = -1;  
+  int selectedIndex;
+
+  for(Station m : selectedStations){
+    if(GMaps.dist(destination, m.getCoord()) > Utility.ACCEPTABLE_DISTANCE){
+      selectedStations = selectedStations.subList(0, selectedStations.indexOf(m);
+    }
   }
+  if(selectedStations.isEmpty()){
+    return new Coord(ERROR);
+  }
+  for(Station n : selectedStations){
+    if(n.computeWeight(destination) > maxWeight){
+      maxWeight = n.computeWeight(destination);
+      selectedIndex = selectedStations.getIndexOf(n);
+    }
+  }
+  return selectedStations.get(selectedIndex).getCoord();
+}
+
+float computeWeight(Coord point){
+  return (this.plugsAvailable/GMaps.dist(point, this.coordinates))
 }
 
 The Coord constructor initialized to ERROR generates an object that resembles the inability of the system to give a reasonable response.
