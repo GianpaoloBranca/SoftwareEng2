@@ -565,3 +565,5 @@ These diagrams are here to show how each action is performed by the system. The 
 # 6 Effort spent
 
 * Andrea Cini : 35h
+* Gianpaolo Branca: 25h
+* Luca butera: 25h
