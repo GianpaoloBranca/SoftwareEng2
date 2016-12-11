@@ -146,6 +146,7 @@ Components description:
 * **NotificationController**: The component that offers notification functionalities towards the various components of the system.
 * **Model**: The structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
+\newpage
 
 ## 2.4 Requirements Traceability
 
@@ -425,11 +426,11 @@ float computePrice(Ride ride) {
   boolean badB=false;
 
   price += Fares.getStandardFare() * ride.getDriveTime()
-           + Fares.getParkedFare() * ride.getBusyTime;
+           + Fares.getParkedFare() * ride.getBusyTime();
 
-  if(ride.getTimeOutsideBoundary>0){
+  if(ride.getTimeOutsideBoundary()>0){
     badB = true;
-    price += Fares.getOutsideCityFare() * ride.getTimeOutsideBoundary;
+    price += Fares.getOutsideCityFare() * ride.getTimeOutsideBoundary();
   }
 
   switch (ride.getEndType()){
@@ -497,7 +498,7 @@ Coord computeMoneySavingStation(Coord destination) {
     return new Coord(ERROR);
   }
   for(Station n : selectedStations){
-    if(n.computeWeight(destination) > maxWeight){
+    if(computeWeight(n , destination) > maxWeight){
       maxWeight = computeWeight(n , destination);
       selectedIndex = selectedStations.getIndexOf(n);
     }
@@ -564,6 +565,4 @@ These diagrams are here to show how each action is performed by the system. The 
 
 # 6 Effort spent
 
-* Andrea Cini : 35h
-* Gianpaolo Branca: 30h
-* Luca butera: 25h
+Each group member has spent around 30h working on the project.
