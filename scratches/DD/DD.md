@@ -343,6 +343,24 @@ In this section are the runtime diagrams which aim is to give a more detailed vi
 The runtime diagrams are coherent with the component diagrams even though in some points, for the sake of simplicity, some communications which refer just to message forwarding or data retrieval are omitted or condensed into one, technically not existing, direct communication.
 Also is important to underline that the technologies used for communication among different components are previously stated in this document and the messages containing sensible data are encrypted via TLS.
 
+#### Diagrams URLs
+
+Since runtime diagrams, especially the ones referring to the ride, are rather big, here are provided the URLs to download the PNG files directly, in order to have a better look on the diagrams themselves.
+
+[User logs in](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/login_runtime.png)
+
+[User books a car](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/booking_runtime.png)
+
+[User starts a ride](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
+
+[User uses the navigator with money saving option](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/navigation_runtime.png)
+
+[User ends a ride](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
+
+[Operator enrolls an assistance request](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/assistance_runtime.png)
+
+\newpage
+
 ### User logs in
 
 ![](./runtime_diagrams/login_runtime.png){#id .class width=100% height=100%}\
@@ -362,10 +380,6 @@ In this diagram a car booking process is shown. The car search request is sent, 
 
 This diagram show the starting of a ride from the moment in which the user unlocks the car door to the moment the ride instance is generated and the car status is updated. In between are described all processes concerning control of timeouts after the user unlocks the car and check-in process. Is voluntary omitted the case of passengers check-in since it works the same way as the driver check-in and is not the central point of the diagram.
 Due to it's length it is not explained here step by step, but it's rather self explanatory.
-For a better view on the image is reported down there the URL to download it separately from the PDF document.
-
-[https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
-
 
 ### User uses the navigator with money saving option
 
@@ -378,9 +392,6 @@ In this diagram we show the process behind the usage of the car navigator, even 
 ![](./runtime_diagrams/ride_ending_runtime.png){#id .class width=100% height=100%}\
 
 The previous diagram shows the process of ending a ride. First the RideController inside the CarSystem notifies the specific components inside the PWESystem that the ride ended and then those components take charge to change the car and the ride status inside the Model. After that the CarController is notified when the car doors gets closed, at this point it performs a series of checks and, if everything is ok, it proceeds to lock the car. After 15 minutes, if MoneySavingOption was selected, the RideController checks if the car is plugged, then retrieves car datas and computes final datas about the ride. In the end those data are sent to the server where the RidesManager updates the ride status to "ended", enrolls the payment request and sends a final notification to the user's MobileApp.
-Since this diagram is rather big, it can be helpful to look at it outside of the present document, so the relative URL is provided.
-
-[https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
 
 ### Operator enrolls an assistance request
 
