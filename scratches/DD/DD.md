@@ -1,10 +1,8 @@
 % **Design Document - v1.0**
 %Gianpaolo Branca
  Luca Butera
- Andrea Cini\newline
- %![](polimi.png)\newpage
-
-\newpage
+ Andrea Cini \newline
+%![](polimi.png)\newpage
 
 # 1 Introduction
 
@@ -79,15 +77,15 @@ We are going to build our system following these guidelines (appropriate reasons
 
 Refer to the Architectural and technological choices for a more in depth analysis of these points.
 
-![](./images/sysApp.png){#id .class width=100% height=100%}
-![](./images/layers.png){#id .class width=100% height=100%}
+![](./images/sysApp.png){#id .class width=100% height=100%}\
+![](./images/layers.png){#id .class width=100% height=100%}\
 
 
 ## 2.3 High level component view
 
 In this section we are going to give a look at the architectural structure of our system at the level of the components that we are going to develop and the main ones that we are going to interact with. \newline
 
-![](./comp_diagrams/System.png){#id .class width=100% height=100%}
+![](./comp_diagrams/System.png){#id .class width=100% height=100%}\
 
 Components to be developed:
 
@@ -107,7 +105,7 @@ Components to be integrated in the system:
 
 #### Car System
 
-![](./comp_diagrams/CarSystem.png){#id .class width=100% height=100%}
+![](./comp_diagrams/CarSystem.png){#id .class width=100% height=100%}\
 
 Components description:
 
@@ -124,9 +122,9 @@ Components description:
 
 #### PWEService and Model
 
-![](./comp_diagrams/PWEService.png){#id .class width=100% height=100%} \newline
+![](./comp_diagrams/PWEService.png){#id .class width=100% height=100%}\
 
-![](./comp_diagrams/Model.png){#id .class width=100% height=100%} \newline
+![](./comp_diagrams/Model.png){#id .class width=100% height=100%}\
 
 Components description:
 
@@ -253,9 +251,9 @@ In the following section we are going to identify the requirements that our syst
 
 The following pictures show which components are involved in the fulfillment of each requirements group (each group corresponding to a goal). Note that to keep the diagram simple some component is not linked to any group of requirement, but it's obvious that they fulfill the same requirements of the components the makes of of them (e.g. a CarController is used to fulfill almost the same requirements of the CarsManager).
 
-![](./comp_diagrams/system_reqt.png){#id .class width=100% height=100%}
+![](./comp_diagrams/system_reqt.png){#id .class width=100% height=100%}\
 
-![](./comp_diagrams/car_reqt.png){#id .class width=100% height=100%}
+![](./comp_diagrams/car_reqt.png){#id .class width=100% height=100%}\
 
 How we are going to meet the non-functional requirements will be clarified in the architectural choices, but in general:
 
@@ -265,7 +263,8 @@ How we are going to meet the non-functional requirements will be clarified in th
 
 ## 2.6 Architectural and technological choices
 
-![](./images/sysApp.png){#id .class width=100% height=100%}
+![](./images/sysApp.png){#id .class width=100% height=100%}\
+
 
 ### Server-side (Web , Business Logic and Data tiers)
 
@@ -302,14 +301,14 @@ How we are going to meet the non-functional requirements will be clarified in th
 
   - Benefit from the experience of our engineers in web development.
   - Reduce development time and cost.\newline
-![](./images/appArch.png){#id .class width=100% height=100%}
+![](./images/appArch.png){#id .class width=100% height=100%}\
 
 #### Monitoring WebApp
 
 * We will develop the monitoring Web using a JEE web server exploiting the JavaServlet framework.
     - Easy to deploy and develop.\newline
 
-![](./images/webAppArch.png){#id .class width=100% height=100%}
+![](./images/webAppArch.png){#id .class width=100% height=100%}\
 
 #### Car on-board application
 
@@ -322,7 +321,8 @@ How we are going to meet the non-functional requirements will be clarified in th
     - Well supported by JEE.
     - It's intuitive and practical to represent cars as remote objects.
 
-![](./images/carAppArch.png){#id .class width=100% height=100%}
+![](./images/carAppArch.png){#id .class width=100% height=100%}\
+
 
 ## 2.7 Patterns
 
@@ -334,7 +334,8 @@ These are the main design patterns that we are following in the design process a
 ## 2.8 Deployment view
 This diagram purpose is to show the hardware components of our system, and where the code is running.\newline
 
-\centerline{\includegraphics{./deployment/diagram.png}}
+![](./deployment/diagram.png){#id .class width=100% height=100%}\
+
 
 ## 2.9 Runtime view
 
@@ -344,51 +345,52 @@ Also is important to underline that the technologies used for communication amon
 
 ### User logs in
 
-\centerline{\includegraphics{./runtime_diagrams/login_runtime.png}}
+![](./runtime_diagrams/login_runtime.png){#id .class width=100% height=100%}\
 
 In this runtime diagrams we see the login process for an already registered user. The login credentials are sent from the MobileApp to the RequestDispatcher which forward the request to the LoginManager which check the ID-password couple against the Model. In case of wrong credentials an error is sent back to the application. If credentials are correct then a token is generated, associated to the user and sent back to the MobileApp. This token will remain in the cache of the application and will e used to send future messages to the server without the need of further authentications.
 
 ### User books a car
 
-\centerline{\includegraphics{./runtime_diagrams/booking_runtime.png}}
+![](./runtime_diagrams/booking_runtime.png){#id .class width=100% height=100%}\
 
 In this diagram a car booking process is shown. The car search request is sent, via RequestDispatcher, form the MobileApp to the BookingManager which, retrieving datas from the Model and from GoogleMaps, builds a response for the MobileApp. The MobileApp uses the response to show a view of the city map with cars inside the requested area. When the car is selected informations are sent in the same way to the BookingManager which checks if the car is in fact available, if it is then the car status is changed and the new Booking instance is generated.
 
 ### User starts a ride
 
-\centerline{\includegraphics{./runtime_diagrams/ride_start_runtime.png}}
+![](./runtime_diagrams/ride_start_runtime.png){#id .class width=100% height=100%}\
+
 
 This diagram show the starting of a ride from the moment in which the user unlocks the car door to the moment the ride instance is generated and the car status is updated. In between are described all processes concerning control of timeouts after the user unlocks the car and check-in process. Is voluntary omitted the case of passengers check-in since it works the same way as the driver check-in and is not the central point of the diagram.
 Due to it's length it is not explained here step by step, but it's rather self explanatory.
 For a better view on the image is reported down there the URL to download it separately from the PDF document.
 
-https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png
+[https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
+
 
 ### User uses the navigator with money saving option
 
-\centerline{\includegraphics{./runtime_diagrams/navigation_runtime.png}}
+![](./runtime_diagrams/navigation_runtime.png){#id .class width=100% height=100%}\
 
 In this diagram we show the process behind the usage of the car navigator, even considering the MoneySavingOption. The ViewControlLer communicates to the NavigationController the request for the GPS navigation towards a certain destination. The NavigationController retrieves informations from the GPSManager and GoogleMaps components to build the navigation data which are sent back to the ViewControlLer that is in charge of creating the visual representation on the car display through the GUI component. Then there is a looping process of updating until the required destination is reached.
 
 ### User ends a ride
 
-\centerline{\includegraphics{./runtime_diagrams/ride_ending_runtime.png}}
+![](./runtime_diagrams/ride_ending_runtime.png){#id .class width=100% height=100%}\
 
 The previous diagram shows the process of ending a ride. First the RideController inside the CarSystem notifies the specific components inside the PWESystem that the ride ended and then those components take charge to change the car and the ride status inside the Model. After that the CarController is notified when the car doors gets closed, at this point it performs a series of checks and, if everything is ok, it proceeds to lock the car. After 15 minutes, if MoneySavingOption was selected, the RideController checks if the car is plugged, then retrieves car datas and computes final datas about the ride. In the end those data are sent to the server where the RidesManager updates the ride status to "ended", enrolls the payment request and sends a final notification to the user's MobileApp.
 Since this diagram is rather big, it can be helpful to look at it outside of the present document, so the relative URL is provided.
 
-https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png
+[https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
 
 ### Operator enrolls an assistance request
 
-\centerline{\includegraphics{./runtime_diagrams/assistance_runtime.png}}
+![](./runtime_diagrams/assistance_runtime.png){#id .class width=100% height=100%}\
 
 In this runtime diagrams the operator sends, through the MonitoringWebApp, a request for a car overview. The request is handled by the WebAppController which asks the CarsManager for infos about the specified car. When the infos are retrieved from the Model and sent back to it, the WebAppController builds the view informations and send them back to the MonitoringWebApp. At this point the WebApp requests the assistance request form which is provided by the previously stated WebAppController. Then, through the same way, the compiled form is sent to the CarAssistanceManager, this component then interacts with the CarsManager to change the car status to "maintenance", and with the LegacySystem to send the request to the proper facility. Is important to underline that the CarAssistanceManager translates the request into one that is compatible with the old system. After that the CarAssistanceManager uses the NotificationManager to inform the MonitoringWebApp of the success of the operation.
 
 ## 2.10 Component Interfaces
 
-\centerline{\includegraphics{./runtime_diagrams/components_interfaces.png}}
-
+![](./runtime_diagrams/Components_interfaces.png){#id .class width=100% height=100%}\
 \newpage
 
 # 3 Algorithm design
@@ -526,36 +528,45 @@ void addInOrder(Station point, float dist, List<Station> points, List<float> dis
 \newpage
 
 # 4 User Interface design
+
+In the following sections we will provide an insight of the user interface design with UX and BCE diagrams. GUI mockups already have been already provided in the RASD.
+
 ## 4.1 User Experience diagrams
 
 These diagrams show how users will interact with the system.
 
 ### Mobile application
 
-\centerline{\includegraphics{./images/UX_Mobile.png}}
+![](./images/UX_Mobile.png){#id .class width=100% height=100%}\
+
 
 ### Car application
 
-\centerline{\includegraphics{./images/UX_Car.png}}
+![](./images/UX_Car.png){#id .class width=100% height=100%}\
+
 
 ### Operators application
 
-\centerline{\includegraphics{./images/UX_Operator.png}}
+![](./images/UX_Operator.png){#id .class width=100% height=100%}\
+
 
 ## 4.2 Boundary Entity Control diagrams
 These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. There is not a 1-to-1 correspondence of the elements of these diagrams with the components in the component diagrams because the level of focus is different.
 
 ### Mobile application
 
-\centerline{\includegraphics{./images/BCE_Mobile.png}}
+![](./images/BCE_Mobile.png){#id .class width=100% height=100%}\
+
 
 ### Car application
 
-\centerline{\includegraphics{./images/BCE_Car.png}}
+![](./images/BCE_Car.png){#id .class width=100% height=100%}\
+
 
 ### Operators application
 
-\centerline{\includegraphics{./images/BCE_Operator.png}}
+![](./images/BCE_Operator.png){#id .class width=100% height=100%}\
+
 
 # Tools
 
