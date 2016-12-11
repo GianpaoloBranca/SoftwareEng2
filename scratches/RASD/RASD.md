@@ -39,7 +39,7 @@ The system must:
 - [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
 - [G2] Allow the clients to book a car and pick it up.
 - [G3] Monitor the usage of the car and charge the client with the right fare.
-- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
+- [G4] Incentivise a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.
 - [G5] Ensure a correct distribution of cars in the recharging stations according to the available plugs.
 - [G6] Allow operators to manage and monitor the state of all the cars and notify them when maintenance is needed on a specific vehicle.
 - [G7] Allow management system to set up and modify parameters of the system.
@@ -47,10 +47,10 @@ The system must:
 
 ## 3 Boundaries of the system
 
-- The system to fulfill the goals that we have identified will use the Google Maps service to locate cars,users,operators and recharging stations and to provide the clients with navigation information.
+- The system to fulfil the goals that we have identified will use the Google Maps service to locate cars, users, operators and recharging stations and to provide the clients with navigation information.
 - The system will rely on PayPal as a payment system as it is very reliable and a lot of users will appreciate its use.
-- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won?t involved in the coordination of the maintenance team.
-- The system will not be able to check if the user behaves against the low, for example the system must ensure that a car is parked in a safe area but won?t be able to check if the car is correctly parked according to the law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
+- The system will provide operators of the company with the information needed for the maintenance of the vehicle but won't involved in the coordination of the maintenance team.
+- The system will not be able to check if the user behaves against the law, for example the system must ensure that a car is parked in a safe area but won't be able to check if the car is correctly parked according to the law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
 - After the check in the system will not monitor the effective presence of other passengers other than the driver. That is done because the system would end up being less user friendly and would not incentivise the subscription, while at the beginning we think that the company should focus on the creation of a large user base. Another reason is because this behaviour is tolerated (e.g a driver can bring two passengers home, than go ahead and still get a discount)
 
 ## 4 Domain properties and assumptions
@@ -75,7 +75,7 @@ The system must:
 6. On screen notification: is a notification which is displayed on the screen located inside the vehicle.
 7. Plugged: a car is considered plugged when a sensor detects that the specific car has been connected to the recharging system.
 8. Update notification: is a notification sent by e-mail to the users which contains every detail of the update and eventually the new terms and conditions document.
-9. Fee: a user can be charged with a fee for an improper use of the system, the value of the fee can be customized by the management system.
+9. Fee: a user can be charged with a fee for an improper use of the system, the value of the fee can be customised by the management system.
 10. Busy: a car is marked as busy when ridden by a user or left parked but kept booked.
 11. Ban: a banned user can not book car until his debt has not been satisfied.
 12. Push notification: a notification that pops up in real time on the user's mobile phone or in the operator terminal.
@@ -83,7 +83,7 @@ The system must:
 ## 6 Text assumptions
 
 1. Discounts and penalties will be applied only in the case of a ride not shorter than 2km, so that the system will not punish users for not using poorly charged cars for short rides and will not encourage users to use fully charged cars less to get the discount.
-2. Discounts and penalties percentage values can be customized by the management system.
+2. Discounts and penalties percentage values can be customised by the management system.
 
 ## 7 Actors identifying
 
@@ -99,13 +99,13 @@ There are also secondary actors (such as third party service providers).
 
 ### 8.1 Functional Requirements
 
-In the following section we are going to identify the requirements that our system will have to fulfill to reach the goals.
+In the following section we are going to identify the requirements that our system will have to fulfil to reach the goals.
 
 - [G0] Make the user able to access to the system.
 
     - [R0.1] A user must sign up with valid credential.
     - [R0.2] The system must generate a password for the user and send it to him through e-mail.
-    - [R0.3] A user must be able to visualize and modify all his personal informations.
+    - [R0.3] A user must be able to visualise and modify all his personal informations.
 
 
 - [G1] Allow the clients to find an available car within a selected radius around his or a specified location.
@@ -136,7 +136,7 @@ In the following section we are going to identify the requirements that our syst
     - [R3.8] If a user is unable to pay for a ride he will be banned from the system until the pending payment will be satisfied.
 
 
-- [G4] Incentivize a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.1)
+- [G4] Incentivise a correct usage of the service to allow as many as possible users to use the same car without the need of the service of an operator.(Note that discounts and penalties will not be applied to short rides, further details in Text Assumption n.1)
 
     - [R4.1] The system will show in the car display a QR code that must be scanned by the user, using the application, to check in. If 2 or more users check in, in addition to the driver, a discount will be applied to the ride.
     - [R4.2]  The system will apply a discount in the case that a car is left with more the 50% of the battery capacity available.
@@ -164,7 +164,7 @@ In the following section we are going to identify the requirements that our syst
 
     - [R7.1] The system will provide an interface to select areas to mark as safe for parking. The selection of the locations will be possible specifying the boundaries of the areas using a map or a radius around an address.
     - [R7.2] The system will provide an interface to select the price for minute of the rides and during the busy state.
-    - [R7.3] The system will provide and interface to customize fees and the percentage of discount and penalty for the cases highlighted in the [G.4] scope.
+    - [R7.3] The system will provide and interface to customise fees and the percentage of discount and penalty for the cases highlighted in the [G.4] scope.
 
 
 - [G8] Provide a real time, interactive, pleasant and transparent user experience.
@@ -177,7 +177,7 @@ In the following section we are going to identify the requirements that our syst
 ### 8.2 Non-functional Requirements
 
  - The mobile application must work on all the android devices with version 4.3 or higher and iOS 7 or higher.
- - The system must optimize bandwidth usage to guarantee a responsive service and to detect the position of a car real time.
+ - The system must optimise bandwidth usage to guarantee a responsive service and to detect the position of a car real time.
  - For communication, secure protocols must be used.
  \newpage
 
