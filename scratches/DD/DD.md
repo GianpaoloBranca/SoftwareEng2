@@ -342,6 +342,7 @@ This diagram purpose is to show the hardware components of our system, and where
 ![](./deployment/diagram.png){#id .class width=100% height=100%}\
 
 \newpage
+
 ## 2.8 Runtime view
 
 In this section are the runtime diagrams which aim is to give a more detailed view of the communication among the various components of our system during different phases of it's usage.
