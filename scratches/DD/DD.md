@@ -16,7 +16,7 @@ With the analysis carried out in the RASD in mind, it appears that our system wi
 
   * Provide a way for the final users to access the system and its services.
   * Provide the services.
-  * Handle the its resources(the cars) with care.
+  * Handle its resources(the cars) with care.
 
 In other words:
 
@@ -24,7 +24,7 @@ In other words:
   * Service suppliance.
   * Control over the resources.
 
-These points pretty much maps 1-to-1 with the three application that we are going to develop:
+These points pretty much maps 1-to-1 with the three applications that we are going to develop:
 
   * A mobile application for the final users.
   * An on-board application for the cars.
@@ -34,7 +34,7 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 ## 1.3 Definitions, Acronyms, Abbreviations
 
 * PWE: PoWer Enjoy.
-* API: application programming interface, in this document we are mainly referring to web APIs that are defined interfaces through which the client-server interaction happens.
+* API: application programming interface, in this document we are mainly referring to web APIs that are pre-defined interfaces through which the client-server interaction happens.
 * QR code: a matrix barcode.
 * JEE : Java Enterprise Edition, a set of APIs and a runtime environment for developing and running enterprise software.
 * RESTful: REpresentational State Transfer web services provide interoperability between computer systems on the net allowing the client-server interaction through a set of pre-defined stateless operations.
@@ -45,11 +45,11 @@ These points pretty much maps 1-to-1 with the three application that we are goin
 * RASD: Requirements Analysis and Specification Document.
 * DD: Design Document.
 * Legacy system: the already existing system of the company
-* Ride: with ride we refer to the set of operations that begin with the user checking-in in the car and that end with the user checking-out.
+* Ride: with ride we refer to the set of operations that begins with the user checking-in in the car and that ends with the user checking-out.
 * TLS: Transport layer security, cryptographic protocol that grants security over a computer network.
 * Adobe PhoneGap: a tool to develop mobile applications powered by web technologies. More information [_here_](http://phonegap.com).
 * OBD: On-Board diagnostics, a system that provide access to the status of the various vehicle subsystems.
-* Boundary Control Entity, BCE: diagrams that shows how user interface features are provided in a MVC fashion.
+* Boundary Control Entity, BCE: diagrams that shows how user interface features are implemented in a MVC fashion.
 * User Experience, UX: diagrams used for modeling the user interface.
 
 ## 1.4 Reference documents
@@ -71,7 +71,7 @@ We are going to build our system following these guidelines (appropriate reasons
 
 3. The car will be equipped with a machine with our application running on it. On the contrary of the mobile app case, the on-board application will need to exploit some logic to perform its functionalities.
 
-4. The operators will access the system through a web application in the boundaries of the company network.
+4. The operators will access the system through a web application from the company internal network.
 
 5. Integration with the legacy server will happen trough its APIs for the purpose of providing effective maintenance to the cars.
 
@@ -93,14 +93,14 @@ Components to be developed:
 
 * **PWEService**: It is the core of the system, it has a role of services provider and tasks coordinator. The core of the logic aimed to fulfill our business goals is implemented here.
 * **CarSystem**: The component representing the on-board application of the car, its main functionalities are the ones related to the handling of a ride and the monitoring of the car status. It also offers presentation functionalities to give(receive) feedback to(from) the client. It expose its own interface to grant the central component control over its functionalities and uses a dedicated PWEInterface to ask for the server services and to send updates.
-* **MobileApp**: The component providing the client the access to the system. It fulfills only presentation functions. It behaves like a synchronous client and interacts with the central component through the ServiceAPIs in a call/response, classic client-server fashion.
+* **MobileApp**: The component providing the client the access to the system. It fulfills only presentation functions. It behaves like an asynchronous client and interacts with the central component through the ServiceAPIs in classic client-server fashion.
 * **MonitoringWebApp**: The component providing operators of the company access to monitoring and configuration functionalities. It has only presentation functionalities(web pages) and communicates with the central component through the provided interface.
 
 Components to be integrated in the system:
 
-* **LegacySystem**: the already existing system of the company, our system will exploit its functionalities through the provided APIs.
-* **DBMS**: the system that will take care of the management of our data, integrated in our system using a specific driver.
-* **GoogleMaps and PayPal**: respectively the provider of the maps and the payment service(they are not in the diagram, their integration in the system will be discussed later on).
+* **LegacySystem**: The already existing system of the company, our system will exploit its functionalities through the provided APIs.
+* **DBMS**: The system that will take care of the management of our data, integrated in our system using a specific driver.
+* **GoogleMaps and PayPal**: Respectively the provider of the maps and the payment service(they are not in the diagram, their integration in the system will be discussed later on).
 
 
 ## 2.3 Component view
@@ -112,13 +112,13 @@ Components to be integrated in the system:
 Components description:
 
 * **CarController** : The main controller of the car. It retrieves informations from the other components, executes the requests of the server and updates the car status.
-* **RideController** : The handler of the operations concerning the execution of a ride. It communicates with the central component which has its own control functionalities over the ride: after the users have been identified the ride controller creates the ride instance, communicates the initial details on the ride to the central system (e.g. the number of passengers) and then goes on sending updates periodically or when the ride status change (e.g. the car exits the city boundaries), further details will be given in the runtime view.
+* **RideController** : The handler of the operations concerning the execution of a ride. It communicates with the central component which has its own control functionalities over the ride: after the users have been identified the ride controller creates the ride instance, communicates the initial details on the ride to the central system (e.g. the number of passengers) and then goes on sending updates periodically or when the ride status change (e.g. the car exits the city boundaries). Further details will be given in the runtime view.
 * **UserIdentification** : The component that will handle the identification of the users that check-in at the start of the ride.
 * **Navigation Controller** : The component that will provide navigation utilities using the GoogleMaps APIs and the GPS.
 * **GPSManager** : The component that will handle GPS localization of the car.
 * **CarStatus** : An internal representation of the status of the car.
 * **SensorsController**: The component that handles the retrieval of information from the sensors thought the OBD interface.
-* **NotificationManager**: The component that handles notifications coming from the central component and that perform the sending of the outgoing ones.
+* **NotificationManager**: The component that handles notifications coming from the central component and that performs the sending of the outgoing ones.
 * **ViewControlLer**: The component that handles the update of the GUI and the retrieval of the user input through the interface.
 * **GUI**: Implementation of the presentation layer of the car application. \newpage
 
@@ -132,24 +132,24 @@ Components description:
 
 * **RequestDispatcher**: The component handles the requests from the mobile application clients using the interfaces provided by the internal components.
 * **BookingManager**: The component that handles the operations concerning the usage of a car.
-* **RideController**: It interacts with the RideController component in the car  as already mentioned in the section above the way the two components interact with each other will be clarified in the Runtime View section.
+* **RideController**: It interacts with the RideController component in the car  as already mentioned in the section above the way the two components interact with each other will be clarified in the Runtime View section. It is a multi-instance component.
 * **RidesManager**: The component that handles the set of rides that are ongoing in the system, it interacts with the other components to give the single RideController access to the functionalities that it needs.
-* **CarController**: It interacts with the CarController component in the single car to offer services and perform supervising functionalities over a single vehicle.
-* **CarsManager**: The component the supervises the set of all the car available in the system interacting with the single CarController and providing operators with informations about the cars status and a way to change the status itself.
+* **CarController**: It interacts with the CarController component in the single car to offer services and perform supervising functionalities over a single vehicle. It is a multi-instance component.
+* **CarsManager**: The component the supervises the set of all the cars available in the system interacting with the single CarController and providing operators with informations about the cars status and a way to change the status itself.
 *  **LoginManager**: The component that handles the log-in of operators and users.
 *  **PaymentHandler**: The component that handles the payment operations and makes sure that users unable to pay are correctly banned until they pay. It uses the PayPal APIs to process the payments.
 * **PayPal**: The payment handler of choice for our system.
 * **LegacySystem**: The old system of the company, our system uses its APIs to send assistance where needed.
-* **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicle when they need to moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
-* **WebAppController**: The component the makes the system functionalities accessible from the WebApplication.
+* **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicles when they need to be moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
+* **WebAppController**: The component that makes the system functionalities accessible from the WebApplication.
 * **Configurator**: The component that offers the configuration functionalities to customize a set of parameters of the system (set of SafeAreas, fares, fees and so on).
-* **NotificationController**: a component that offers notification functionalities towards the various components of the system.
-* **Model**: the structure of the data in our system (specified in a distinct diagram).
+* **NotificationController**: The component that offers notification functionalities towards the various components of the system.
+* **Model**: The structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
 
 ## 2.4 Requirements Traceability
 
-In this section we will show how the components of our system are meant to satisfy the requirement and goals specified in the RASD. For utility we report the goals and requirements here too.
+In this section we will show how the components of our system are designed to satisfy the requirements and goals specified in the RASD. For utility we report the goals and requirements here too.
 
 
 ### Goals
@@ -333,11 +333,11 @@ How we are going to meet the non-functional requirements will be clarified in th
 
 These are the main design patterns that we are following in the design process and many of those are good practices imposed by the adoption of the JEE framework.
 
-* Model-Control-View : used for almost every component of the system. It's a really good choice of design that allows to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
+* Model-Control-View : used for almost every component of the system. It's a really good choice of design that allows to keep very clear the role of every component of the system and that makes the system easier to deploy and maintain.
 * Client-server : the staple good practice of a web based system.
 
 ## 2.7 Deployment view
-This diagram purpose is to show the hardware components of our system, and where the code is running.\newline
+This diagram purpose is to show the hardware components of our system and where the code is going to run.\newline
 
 ![](./deployment/diagram.png){#id .class width=100% height=100%}\
 
@@ -353,12 +353,18 @@ Also is important to underline that the technologies used for communication amon
 
 Since runtime diagrams, especially the ones referring to the ride, are rather big, here are provided the URLs to download the PNG files directly, in order to have a better look on the diagrams themselves.
 
-* [_User logs in_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/login_runtime.png)
-* [_User books a car_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/booking_runtime.png)
-* [_User starts a ride_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
-* [_User uses the navigator with money saving option_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/navigation_runtime.png)
-* [_User ends a ride_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
-* [_Operator enrolls an assistance request_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/assistance_runtime.png)
+* User logs in:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/login_runtime.png)
+* User books a car:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/booking_runtime.png)
+* User starts a ride:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
+* User uses the navigator with money saving option:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/navigation_runtime.png)
+* User ends a ride:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
+* Operator enrolls an assistance request:
+ [_here_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/assistance_runtime.png)
 
 \newpage
 
@@ -366,21 +372,20 @@ Since runtime diagrams, especially the ones referring to the ride, are rather bi
 
 ![](./runtime_diagrams/login_runtime.png){#id .class width=100% height=100%}\
 
-In this runtime diagrams we see the login process for an already registered user. The login credentials are sent from the MobileApp to the RequestDispatcher which forward the request to the LoginManager which check the ID-password couple against the Model. In case of wrong credentials an error is sent back to the application. If credentials are correct then a token is generated, associated to the user and sent back to the MobileApp. This token will remain in the cache of the application and will e used to send future messages to the server without the need of further authentications.
+In this runtime diagrams we see the login process for an already registered user point of view. The login credentials are sent from the MobileApp to the RequestDispatcher which forwards the request to the LoginManager which checks the ID-password couple against the Model. In case of wrong credentials an error is sent back to the application. If credentials are correct then a token is generated, associated to the user and sent back to the MobileApp. This token will remain in the cache of the application and will be used to send future messages to the server without the need of further authentications.
 
 ### User books a car
 
 ![](./runtime_diagrams/booking_runtime.png){#id .class width=100% height=100%}\
 
-In this diagram a car booking process is shown. The car search request is sent, via RequestDispatcher, form the MobileApp to the BookingManager which, retrieving datas from the Model and from GoogleMaps, builds a response for the MobileApp. The MobileApp uses the response to show a view of the city map with cars inside the requested area. When the car is selected informations are sent in the same way to the BookingManager which checks if the car is in fact available, if it is then the car status is changed and the new Booking instance is generated.
+In this diagram the car booking process is shown. The car search request is sent, via RequestDispatcher, form the MobileApp to the BookingManager which, retrieving datas from the Model and from GoogleMaps, builds a response for the MobileApp. The MobileApp uses the response to show a view of the city map with cars inside the requested area. When the car is selected informations are sent in the same way to the BookingManager which checks if the car is in fact available, if it is then the car status is changed and the new Booking instance is generated.
 
 ### User starts a ride
 
 ![](./runtime_diagrams/ride_start_runtime.png){#id .class width=100% height=100%}\
 
 
-This diagram show the starting of a ride from the moment in which the user unlocks the car door to the moment the ride instance is generated and the car status is updated. In between are described all processes concerning control of timeouts after the user unlocks the car and check-in process. Is voluntary omitted the case of passengers check-in since it works the same way as the driver check-in and is not the central point of the diagram.
-Due to it's length it is not explained here step by step, but it's rather self explanatory.
+This diagram show the beginning of a ride from the moment in which the user unlocks the car door to the moment the ride instance is generated and the car status is updated. In between are described all processes concerning control of timeouts after the user unlocks the car and check-in process. It is voluntary omitted the case of passengers check-in since it works the same way as the driver check-in and is not the central point of the diagram.
 
 ### User uses the navigator with money saving option
 
@@ -392,22 +397,26 @@ In this diagram we show the process behind the usage of the car navigator, even 
 
 ![](./runtime_diagrams/ride_ending_runtime.png){#id .class width=100% height=100%}\
 
-The previous diagram shows the process of ending a ride. First the RideController inside the CarSystem notifies the specific components inside the PWESystem that the ride ended and then those components take charge to change the car and the ride status inside the Model. After that the CarController is notified when the car doors gets closed, at this point it performs a series of checks and, if everything is ok, it proceeds to lock the car. After 15 minutes, if MoneySavingOption was selected, the RideController checks if the car is plugged, then retrieves car datas and computes final datas about the ride. In the end those data are sent to the server where the RidesManager updates the ride status to "ended", enrolls the payment request and sends a final notification to the user's MobileApp.
+The previous diagram shows the process of ending a ride. First the RideController inside the CarSystem notifies the specific components inside the PWESystem that the ride ended and then those components take charge to change the car and the ride status inside the Model. After that the CarController is notified when the car doors gets closed, at this point it performs a series of checks and, if everything is ok, it proceeds to lock the car. After 15 minutes, if MoneySavingOption was selected, the RideController checks if the car is plugged, then retrieves car datas and computes final datas about the ride. In the end those datas are sent to the server where the RidesManager updates the ride status to "ended", enrolls the payment request and sends a final notification to the user's MobileApp.
 
 ### Operator enrolls an assistance request
 
 ![](./runtime_diagrams/assistance_runtime.png){#id .class width=100% height=100%}\
 
-In this runtime diagrams the operator sends, through the MonitoringWebApp, a request for a car overview. The request is handled by the WebAppController which asks the CarsManager for infos about the specified car. When the infos are retrieved from the Model and sent back to it, the WebAppController builds the view informations and send them back to the MonitoringWebApp. At this point the WebApp requests the assistance request form which is provided by the previously stated WebAppController. Then, through the same way, the compiled form is sent to the CarAssistanceManager, this component then interacts with the CarsManager to change the car status to "maintenance", and with the LegacySystem to send the request to the proper facility. Is important to underline that the CarAssistanceManager translates the request into one that is compatible with the old system. After that the CarAssistanceManager uses the NotificationManager to inform the MonitoringWebApp of the success of the operation.
+In this runtime diagram the operator sends, through the MonitoringWebApp, a request for a car overview. The request is handled by the WebAppController which asks the CarsManager for infos about the specified car. When the infos are retrieved from the Model and sent back to it, the WebAppController builds the view informations and send them back to the MonitoringWebApp. At this point the WebApp requests the assistance request form which is provided by the previously stated WebAppController. Then, through the same way, the compiled form is sent to the CarAssistanceManager, this component then interacts with the CarsManager to change the car status to "maintenance", and with the LegacySystem to send the request to the proper facility. Is important to underline that the CarAssistanceManager translates the request into one that is compatible with the old system. After that the CarAssistanceManager uses the NotificationManager to inform the MonitoringWebApp of the success of the operation.
 
 ## 2.9 Component Interfaces
+
+This diagram shows the most relevant parts of the interfaces that our system is going to use for communication between the various components. The ServiceAPIs is the main interface used by the MobileApp, it exposes methods to perform the principal interactions with the PWESystem and to retrieve informations about service usage history. This interface uses, through the RequestDispatcher, the other interfaces that are present inside the PWESystem, the 1-1 correspondence between the methods is rather intuitive and also further explained in the runtime view of the system.
+WebAppController interface contains all the functions the MonitoringWebApp requires to satisfy the goals of our monitoring system, from login and car supervision to system parameters modification.
+In the end CarAppServer and CarInterface are interfaces used for communication between the CarSystem and the PWESystem, they both contain the methods for communication during the main events that our system handles, further expansion of those interfaces is expectable as the developing process goes on.
 
 ![](./runtime_diagrams/Components_interfaces.png){#id .class width=100% height=100%}\
 \newpage
 
 # 3 Algorithm design
 
-This first algorithm uses ride informations contained in the model to compute the price the user has to pay. It keeps in account the time spent by the user in the various phases of the service usage and also the price variations to be applied.
+This first algorithm uses ride informations contained in the model to compute the price the user has to pay. It keeps into account the time spent by the user in the various phases of the service usage and also the price variations to be applied.
 
 \begin{lstlisting}
 float computePrice(Ride ride) {
@@ -423,7 +432,7 @@ float computePrice(Ride ride) {
     price += Fares.getOutsideCityFare() * ride.getTimeOutsideBoundary;
   }
 
-  switch ride.getEndType()
+  switch (ride.getEndType()){
     case LEGAL : break;
     case LEFT_PARKED : price += Fares.getLeftParkedFee();
                       badB = true;
@@ -432,32 +441,39 @@ float computePrice(Ride ride) {
                             badB = true;
                             break;
     default : break;
+  }
 
-  price -= price*computeDiscount(ride);
+  price -= price*computeDiscount(ride,badB);
+  return price;
 }
 \end{lstlisting}
 
 \newpage
 
 \begin{lstlisting}
-float computeDiscount(Ride ride){
+float computeDiscount(Ride ride, boolean badB){
   float discount = 0;
+  Coord endPos = ride.getEndPosition();
+  if(!badB){
+    if(ride.getPassengerNumber() >= 2) {
+      discount += PriceVariation.getPassengerDiscount();
+    }
 
-  if(ride.getPassengerNumber() >= 2) {
-    discount += PriceVariation.getPassengerDiscount();
-  }
-
-  if(ride.getEndWithCharge) {
-    discount += PriceVariation.getEndWithChargeDiscount();
-  } else {
-         if(ride.getEndBatteryLevel() > 0.5) {
-    	   discount += PriceVariation.getHighBatteryDiscount();
-  	 } else {
-               Coord endPos = ride.getEndPosition();
-		if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(1, endPos).get(0).getCoord()) > 3)) {
-		  discount += PriceVariation.getLowBatteryMalus();
-		}
-	 }	 	
+    //the following two options are alternatives
+    if(ride.getEndWithCharge) {
+      discount += PriceVariation.getEndWithChargeDiscount();
+      return discount;
+    }
+    if(ride.getEndBatteryLevel() > 0.5) {
+      discount += PriceVariation.getHighBatteryDiscount();
+      return discount;
+  	}
+ }
+ if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(1, endPos).get(0).getCoord()) > 3.0)) {
+   //if the distance between the nearest station and the car  is more than 3.0km
+   discount += PriceVariation.getLowBatteryMalus();
+ }
+ return discount;	 	
 }
 \end{lstlisting}
 
@@ -466,75 +482,33 @@ float computeDiscount(Ride ride){
 This algorithm calculates the best proposal for a user that wants to use the MoneySavingOption. It binds a weight to each station that considers not only the proximity to the destination but also the number of available plugs, that is to keep a good distribution of the cars among the city. If there's no reasonable choice the algorithm return an error coordinate.
 
 \begin{lstlisting}
+
+// returns the list of the n stations no farther than distance from destination
+List<Station> getNearestRechargingStations(int n, float distance , Coord destination);
+
 Coord computeMoneySavingStation(Coord destination) {
-  List<Station> selectedStations = Utility.getNearestRechargingStations(Utility.N_OF_STATIONS, destination);
+
+  List<Station> selectedStations = getNearestRechargingStations(Utility.N_OF_STATIONS, Utility.ACCEPTABLE_DISTANCE,destination);
+
   float maxWeight = -1;  
   int selectedIndex;
 
-  for(Station m : selectedStations){
-    if(GMaps.dist(destination, m.getCoord()) > Utility.ACCEPTABLE_DISTANCE){
-      selectedStations = selectedStations.subList(0, selectedStations.indexOf(m);
-    }
-  }
   if(selectedStations.isEmpty()){
     return new Coord(ERROR);
   }
   for(Station n : selectedStations){
     if(n.computeWeight(destination) > maxWeight){
-      maxWeight = n.computeWeight(destination);
+      maxWeight = computeWeight(n , destination);
       selectedIndex = selectedStations.getIndexOf(n);
     }
   }
   return selectedStations.get(selectedIndex).getCoord();
 }
-\end{lstlisting}
 
-\newpage
-
-In the end we have the auxiliary part of the previous algorithms. First we have a method to get a list of the first *n* recharging stations closer to a position. Then a trivial method to compute the weight of a station given the point of interest, and in the end an auxiliary method used to update the list of stations closer to a position keeping them in ascending order of distance.
-
-\begin{lstlisting}
-List<Station> getNearestRechargingStation(int nOfStations, Coord position) {
-  List<Station> nearest = new ArrayList<>();
-  List<float> distances = new ArrayList<>();
-  List<Station> stations = Utility.getNonFullRechargingAreas();
-
-  for(Station n : stations) {
-     addInOrder(n, GMaps.dist(n.getCoord(), position), nearest, distances, nOfStations);
-  }
-  return nearest;
+float computeWeight(Station station, Coord point){
+  return (station.plugsAvailable/GMaps.dist(point, station.coordinates))
 }
 
-float computeWeight(Coord point){
-  return (this.plugsAvailable/GMaps.dist(point, this.coordinates))
-}
-\end{lstlisting}
-
-\newpage
-
-\begin{lstlisting}
-void addInOrder(Station point, float dist, List<Station> points, List<float> distances, int bound) {
-
-  if(points.isEmpty()) {
-    points.add(point);
-    distances.add(dist);
-    return;
-  }
-  for(float n : distances) {
-    if(dist < n.get()){
-      distances.add(distances.getIndexOf(n), dist);
-      points.add(distances.getIndexOf(n), point);
-      distances = distances.subList(0, bound);
-      points = points.subList(0 , bound);
-      return;
-    }
-  }
-  if(points.lenght() < bound) {
-    points.add(point);
-    distances.add(dist);
-  }
-  return;
-}
 \end{lstlisting}
 
 \newpage
@@ -563,6 +537,7 @@ These diagrams show how users will interact with the system.
 
 
 ## 4.2 Boundary Entity Control diagrams
+
 These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. There is not a 1-to-1 correspondence of the elements of these diagrams with the components in the component diagrams because the level of focus is different.
 
 ### Mobile application
@@ -588,3 +563,5 @@ These diagrams are here to show how each action is performed by the system. The 
 - Astah for the other diagrams.
 
 # 6 Effort spent
+
+* Andrea Cini : 35h
