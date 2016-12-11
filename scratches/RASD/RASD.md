@@ -51,7 +51,7 @@ The system must:
 - The system will rely on PayPal as a payment system as it is very reliable and a lot of users will appreciate its use.
 - The system will provide operators of the company with the information needed for the maintenance of the vehicle but won?t involved in the coordination of the maintenance team.
 - The system will not be able to check if the user behaves against the low, for example the system must ensure that a car is parked in a safe area but won?t be able to check if the car is correctly parked according to the law, anyway  all the data concerning car usage are collected and therefore it is possible to get to the physical person who committed the illicit.
-- After the check in the system will not monitor the effective presence of other passengers other than the driver. That is done because the system would end up being more complicated with a deeper integration with the car sensors, and also because this behaviour is tolerated (e.g a driver can bring two passengers home, than go ahead and still get a discount)
+- After the check in the system will not monitor the effective presence of other passengers other than the driver. That is done because the system would end up being less user friendly and would not incentivise the subscription, while at the beginning we think that the company should focus on the creation of a large user base. Another reason is because this behaviour is tolerated (e.g a driver can bring two passengers home, than go ahead and still get a discount)
 
 ## 4 Domain properties and assumptions
 
