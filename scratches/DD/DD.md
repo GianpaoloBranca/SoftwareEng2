@@ -1,8 +1,8 @@
 % **Design Document - v1.0**
 %Gianpaolo Branca
  Luca Butera
- Andrea Cini \newline
-%![](polimi.png)\newpage
+ Andrea Cini\newline
+ %![](polimi.png)\newpage
 
 \newpage
 
@@ -389,7 +389,141 @@ In this runtime diagrams the operator sends, through the MonitoringWebApp, a req
 
 \centerline{\includegraphics{./runtime_diagrams/components_interfaces.png}}
 
+\newpage
+
 # 3 Algorithm design
+
+This first algorithm uses ride informations contained in the model to compute the price the user has to pay. It keeps in account the time spent by the user in the various phases of the service usage and also the price variations to be applied.
+
+\begin{lstlisting}
+float computePrice(Ride ride) {
+
+  float price = 0;
+  boolean badB=false;
+
+  price += Fares.getStandardFare() * ride.getDriveTime()
+           + Fares.getParkedFare() * ride.getBusyTime;
+
+  if(ride.getTimeOutsideBoundary>0){
+    badB = true;
+    price += Fares.getOutsideCityFare() * ride.getTimeOutsideBoundary;
+  }
+
+  switch ride.getEndType()
+    case LEGAL : break;
+    case LEFT_PARKED : price += Fares.getLeftParkedFee();
+                      badB = true;
+                      break;
+    case END_OUTSIDE_CITY : price += Fares.getLeftOutsideCityFee();
+                            badB = true;
+                            break;
+    default : break;
+
+  price -= price*computeDiscount(ride);
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+float computeDiscount(Ride ride){
+  float discount = 0;
+
+  if(ride.getPassengerNumber() >= 2) {
+    discount += PriceVariation.getPassengerDiscount();
+  }
+
+  if(ride.getEndWithCharge) {
+    discount += PriceVariation.getEndWithChargeDiscount();
+  } else {
+         if(ride.getEndBatteryLevel() > 0.5) {
+    	   discount += PriceVariation.getHighBatteryDiscount();
+  	 } else {
+               Coord endPos = ride.getEndPosition();
+		if(ride.getEndBatteryLevel() < 0.2 && GMaps.dist(endPos, getNearestRecharginStation(1, endPos).get(0).getCoord()) > 3)) {
+		  discount += PriceVariation.getLowBatteryMalus();
+		}
+	 }	 	
+}
+\end{lstlisting}
+
+\newpage
+
+This algorithm calculates the best proposal for a user that wants to use the MoneySavingOption. It binds a weight to each station that considers not only the proximity to the destination but also the number of available plugs, that is to keep a good distribution of the cars among the city. If there's no reasonable choice the algorithm return an error coordinate.
+
+\begin{lstlisting}
+Coord computeMoneySavingStation(Coord destination) {
+  List<Station> selectedStations = Utility.getNearestRechargingStations(Utility.N_OF_STATIONS, destination);
+  float maxWeight = -1;  
+  int selectedIndex;
+
+  for(Station m : selectedStations){
+    if(GMaps.dist(destination, m.getCoord()) > Utility.ACCEPTABLE_DISTANCE){
+      selectedStations = selectedStations.subList(0, selectedStations.indexOf(m);
+    }
+  }
+  if(selectedStations.isEmpty()){
+    return new Coord(ERROR);
+  }
+  for(Station n : selectedStations){
+    if(n.computeWeight(destination) > maxWeight){
+      maxWeight = n.computeWeight(destination);
+      selectedIndex = selectedStations.getIndexOf(n);
+    }
+  }
+  return selectedStations.get(selectedIndex).getCoord();
+}
+\end{lstlisting}
+
+\newpage
+
+In the end we have the auxiliary part of the previous algorithms. First we have a method to get a list of the first *n* recharging stations closer to a position. Then a trivial method to compute the weight of a station given the point of interest, and in the end an auxiliary method used to update the list of stations closer to a position keeping them in ascending order of distance.
+
+\begin{lstlisting}
+List<Station> getNearestRechargingStation(int nOfStations, Coord position) {
+  List<Station> nearest = new ArrayList<>();
+  List<float> distances = new ArrayList<>();
+  List<Station> stations = Utility.getNonFullRechargingAreas();
+
+  for(Station n : stations) {
+     addInOrder(n, GMaps.dist(n.getCoord(), position), nearest, distances, nOfStations);
+  }
+  return nearest;
+}
+
+float computeWeight(Coord point){
+  return (this.plugsAvailable/GMaps.dist(point, this.coordinates))
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+void addInOrder(Station point, float dist, List<Station> points, List<float> distances, int bound) {
+
+  if(points.isEmpty()) {
+    points.add(point);
+    distances.add(dist);
+    return;
+  }
+  for(float n : distances) {
+    if(dist < n.get()){
+      distances.add(distances.getIndexOf(n), dist);
+      points.add(distances.getIndexOf(n), point);
+      distances = distances.subList(0, bound);
+      points = points.subList(0 , bound);
+      return;
+    }
+  }
+  if(points.lenght() < bound) {
+    points.add(point);
+    distances.add(dist);
+  }
+  return;
+}
+\end{lstlisting}
+
+\newpage
 
 # 4 User Interface design
 ## 4.1 User Experience diagrams
