@@ -1,8 +1,10 @@
 % **Design Document - v1.0**
 %Gianpaolo Branca
  Luca Butera
- Andrea Cini \newline
+ Andrea Cini
 %![](polimi.png)\newpage
+
+
 
 # 1 Introduction
 
@@ -81,7 +83,7 @@ Refer to the Architectural and technological choices for a more in depth analysi
 ![](./images/layers.png){#id .class width=100% height=100%}\
 
 
-## 2.3 High level component view
+## 2.2 High level component view
 
 In this section we are going to give a look at the architectural structure of our system at the level of the components that we are going to develop and the main ones that we are going to interact with. \newline
 
@@ -101,7 +103,7 @@ Components to be integrated in the system:
 * **GoogleMaps and PayPal**: respectively the provider of the maps and the payment service(they are not in the diagram, their integration in the system will be discussed later on).
 
 
-## 2.4 Component view
+## 2.3 Component view
 
 #### Car System
 
@@ -145,7 +147,7 @@ Components description:
 * **Model**: the structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
 
-## 2.5 Requirements Traceability
+## 2.4 Requirements Traceability
 
 In this section we will show how the components of our system are meant to satisfy the requirement and goals specified in the RASD. For utility we report the goals and requirements here too.
 
@@ -261,7 +263,7 @@ How we are going to meet the non-functional requirements will be clarified in th
   * [NFR2] We will use efficient communication protocols and lightweight data formats.
   * [NFR3] Usage of firewalls(as mentioned before) and TLS.
 
-## 2.6 Architectural and technological choices
+## 2.5 Architectural and technological choices
 
 ![](./images/sysApp.png){#id .class width=100% height=100%}\
 
@@ -301,7 +303,9 @@ How we are going to meet the non-functional requirements will be clarified in th
 
   - Benefit from the experience of our engineers in web development.
   - Reduce development time and cost.\newline
+
 ![](./images/appArch.png){#id .class width=100% height=100%}\
+
 
 #### Monitoring WebApp
 
@@ -309,6 +313,7 @@ How we are going to meet the non-functional requirements will be clarified in th
     - Easy to deploy and develop.\newline
 
 ![](./images/webAppArch.png){#id .class width=100% height=100%}\
+
 
 #### Car on-board application
 
@@ -324,20 +329,20 @@ How we are going to meet the non-functional requirements will be clarified in th
 ![](./images/carAppArch.png){#id .class width=100% height=100%}\
 
 
-## 2.7 Patterns
+## 2.6 Patterns
 
 These are the main design patterns that we are following in the design process and many of those are good practices imposed by the adoption of the JEE framework.
 
 * Model-Control-View : used for almost every component of the system. It's a really good choice of design that allows to keep very clear the role of every component of the system and that makes the system easy to deploy and maintain.
 * Client-server : the staple good practice of a web based system.
 
-## 2.8 Deployment view
+## 2.7 Deployment view
 This diagram purpose is to show the hardware components of our system, and where the code is running.\newline
 
 ![](./deployment/diagram.png){#id .class width=100% height=100%}\
 
-
-## 2.9 Runtime view
+\newpage
+## 2.8 Runtime view
 
 In this section are the runtime diagrams which aim is to give a more detailed view of the communication among the various components of our system during different phases of it's usage.
 The runtime diagrams are coherent with the component diagrams even though in some points, for the sake of simplicity, some communications which refer just to message forwarding or data retrieval are omitted or condensed into one, technically not existing, direct communication.
@@ -347,17 +352,12 @@ Also is important to underline that the technologies used for communication amon
 
 Since runtime diagrams, especially the ones referring to the ride, are rather big, here are provided the URLs to download the PNG files directly, in order to have a better look on the diagrams themselves.
 
-[User logs in](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/login_runtime.png)
-
-[User books a car](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/booking_runtime.png)
-
-[User starts a ride](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
-
-[User uses the navigator with money saving option](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/navigation_runtime.png)
-
-[User ends a ride](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
-
-[Operator enrolls an assistance request](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/assistance_runtime.png)
+* [_User logs in_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/login_runtime.png)
+* [_User books a car_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/booking_runtime.png)
+* [_User starts a ride_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_start_runtime.png)
+* [_User uses the navigator with money saving option_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/navigation_runtime.png)
+* [_User ends a ride_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/ride_ending_runtime.png)
+* [_Operator enrolls an assistance request_](https://github.com/GianpaoloBranca/SoftwareEng2/raw/master/scratches/DD/runtime_diagrams/assistance_runtime.png)
 
 \newpage
 
@@ -399,7 +399,7 @@ The previous diagram shows the process of ending a ride. First the RideControlle
 
 In this runtime diagrams the operator sends, through the MonitoringWebApp, a request for a car overview. The request is handled by the WebAppController which asks the CarsManager for infos about the specified car. When the infos are retrieved from the Model and sent back to it, the WebAppController builds the view informations and send them back to the MonitoringWebApp. At this point the WebApp requests the assistance request form which is provided by the previously stated WebAppController. Then, through the same way, the compiled form is sent to the CarAssistanceManager, this component then interacts with the CarsManager to change the car status to "maintenance", and with the LegacySystem to send the request to the proper facility. Is important to underline that the CarAssistanceManager translates the request into one that is compatible with the old system. After that the CarAssistanceManager uses the NotificationManager to inform the MonitoringWebApp of the success of the operation.
 
-## 2.10 Component Interfaces
+## 2.9 Component Interfaces
 
 ![](./runtime_diagrams/Components_interfaces.png){#id .class width=100% height=100%}\
 \newpage
@@ -579,12 +579,11 @@ These diagrams are here to show how each action is performed by the system. The 
 ![](./images/BCE_Operator.png){#id .class width=100% height=100%}\
 
 
-# Tools
+# 5 Tools
 
-- Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview feature.
-- Pandoc to craft the LaTeX document from the MD one and the pdf from the LaTeX.
-- TexShop to edit the LaTeX document
+- Atom (with MarkDown Preview Plus package) for writing Pandoc MarkDown with syntax highlighting and the preview features.
+- Pandoc to craft the pdf from the MarkDown document.
 - Signavio for the user interface related diagrams.
 - Astah for the other diagrams.
 
-# 5 Effort spent
+# 6 Effort spent
