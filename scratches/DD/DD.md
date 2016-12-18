@@ -1,10 +1,16 @@
-% **Design Document - v1.0**
+% **Design Document - v1.1**
 %Gianpaolo Branca
  Luca Butera
  Andrea Cini
 %![](polimi.png)\newpage
 
+## History of changes
+| Version | Changes                                                                    |
+|---------|----------------------------------------------------------------------------|
+| 1.0     | Initial release                                                            |
+| 1.1     | Improved consistency with component diagram and BCE diagram |
 
+\newpage
 
 # 1 Introduction
 
@@ -50,7 +56,7 @@ These points pretty much maps 1-to-1 with the three applications that we are goi
 * Adobe PhoneGap: a tool to develop mobile applications powered by web technologies. More information [_here_](http://phonegap.com).
 * OBD: On-Board diagnostics, a system that provide access to the status of the various vehicle subsystems.
 * Boundary Control Entity, BCE: diagrams that shows how user interface features are implemented in a MVC fashion.
-* User Experience, UX: diagrams used for modeling the user interface.
+* User Experience, UX: diagrams used for modelling the user interface.
 
 ## 1.4 Reference documents
 
@@ -138,11 +144,12 @@ Components description:
 * **CarsManager**: The component the supervises the set of all the cars available in the system interacting with the single CarController and providing operators with informations about the cars status and a way to change the status itself.
 *  **LoginManager**: The component that handles the log-in of operators and users.
 *  **PaymentHandler**: The component that handles the payment operations and makes sure that users unable to pay are correctly banned until they pay. It uses the PayPal APIs to process the payments.
+* **ModelManager**: The component that decoupled model from the other components and expose an interface for remote data access, called for instance from the mobile app to retrieve all the user informations.
 * **PayPal**: The payment handler of choice for our system.
 * **LegacySystem**: The old system of the company, our system uses its APIs to send assistance where needed.
 * **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicles when they need to be moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
 * **WebAppController**: The component that makes the system functionalities accessible from the WebApplication.
-* **Configurator**: The component that offers the configuration functionalities to customize a set of parameters of the system (set of SafeAreas, fares, fees and so on).
+* **Configurator**: The component that offers the configuration functionalities to customise a set of parameters of the system (set of SafeAreas, fares, fees and so on).
 * **NotificationController**: The component that offers notification functionalities towards the various components of the system.
 * **Model**: The structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
@@ -539,7 +546,7 @@ These diagrams show how users will interact with the system.
 
 ## 4.2 Boundary Entity Control diagrams
 
-These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. There is not a 1-to-1 correspondence of the elements of these diagrams with the components in the component diagrams because the level of focus is different.
+These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. The model manager relation is implicit and omitted for simplicity reasons.
 
 ### Mobile application
 
