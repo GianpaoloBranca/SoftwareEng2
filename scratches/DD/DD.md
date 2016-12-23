@@ -558,7 +558,7 @@ These diagrams show how users will interact with the system.
 
 ## 4.2 Boundary Entity Control diagrams
 
-These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts. The model manager relation is implicit and omitted for simplicity reasons.
+These diagrams are here to show how each action is performed by the system. The entities representation is simplified to show only the relevant parts, as for the methods in the controllers.
 
 ### Mobile application
 

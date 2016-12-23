@@ -12,6 +12,7 @@
 
 ###Definitions
 * Bottom-up: a strategy that starts from the lower level to the higher level components.
+* Stub: a fake component that simulate the behaviour of the one that is not already integrated. It is used to test other components that require interaction with this one.
 ###Abbreviations
 * GUI: Graphical unit interfaces
 ###Reference documents
@@ -41,5 +42,5 @@ We decided to follow a bottom-up approach because is simpler
 ##Tools and test equipment required
 
 ##program stubs and test data required
-
+Since we decided to follow a bottom-up appro
 ##Effort spent
