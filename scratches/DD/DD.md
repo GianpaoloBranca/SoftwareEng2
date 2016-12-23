@@ -5,10 +5,13 @@
 %![](polimi.png)\newpage
 
 ## History of changes
-| Version | Changes                                                                    |
-|---------|----------------------------------------------------------------------------|
-| 1.0     | Initial release                                                            |
-| 1.1     | Improved consistency with component diagram and BCE diagram |
+
+* **1.0**:
+    * Initial release                                                            |
+* **1.1**:
+    * Added the DataAccessManager component to separate the model from the external components.
+    * Added a StationController component.
+    * Improved consistency of the BCE diagrams.
 
 \newpage
 
@@ -56,7 +59,8 @@ These points pretty much maps 1-to-1 with the three applications that we are goi
 * Adobe PhoneGap: a tool to develop mobile applications powered by web technologies. More information [_here_](http://phonegap.com).
 * OBD: On-Board diagnostics, a system that provide access to the status of the various vehicle subsystems.
 * Boundary Control Entity, BCE: diagrams that shows how user interface features are implemented in a MVC fashion.
-* User Experience, UX: diagrams used for modelling the user interface.
+* User Experience, UX: diagrams used for modeling the user interface.
+* JPA : Java Persistence API, a JEE framework to provide a object-oriented view of the data stored in a database.
 
 ## 1.4 Reference documents
 
@@ -149,8 +153,10 @@ Components description:
 * **LegacySystem**: The old system of the company, our system uses its APIs to send assistance where needed.
 * **CarAssistanceManager**: The component that offers the functionalities needed to provide assistance to the vehicles when they need to be moved, recharged or repaired. It exploits the functionalities of the legacy system to send road-operators to the car location.
 * **WebAppController**: The component that makes the system functionalities accessible from the WebApplication.
-* **Configurator**: The component that offers the configuration functionalities to customise a set of parameters of the system (set of SafeAreas, fares, fees and so on).
+* **Configurator**: The component that offers the configuration functionalities to customize a set of parameters of the system (set of SafeAreas, fares, fees and so on).
 * **NotificationController**: The component that offers notification functionalities towards the various components of the system.
+* **StationController**: A simple component to retrieve the number of plugs available in the stations.
+* **DataAccessManager**: The component that implements and provides through an appropriate interface the methods for accessing the data of our system. This intermediate component between the entities of the the model and the other components will facilitate extendibility.
 * **Model**: The structure of the data in our system (specified in a distinct diagram).
 * **GoogleMaps**: Provider of the maps services.
 \newpage
@@ -293,6 +299,12 @@ How we are going to meet the non-functional requirements will be clarified in th
     - This will allow us to use Adobe PhoneGap to develop an hybrid multi-platform application for the client side.
     - The usage of JSON helps with optimizing the usage of bandwidth.
 
+* A simple RESTful interface to receive data from the stations.
+
+* JPA to have and object-oriented view of the database.
+
+    - Model classes implemented as entities will allow us to manipulate our data easily.
+
 * We will use the MySQL to manage our Database.
 
     - We don't need advanced feature for data management that other DBMSs offer.
@@ -345,7 +357,7 @@ These are the main design patterns that we are following in the design process a
 * Client-server : the staple good practice of a web based system.
 
 ## 2.7 Deployment view
-This diagram purpose is to show the hardware components of our system and where the code is going to run.\newline
+This diagram purpose is to show the hardware components of our system and where the code is going to run. The deployment of the component to communicate the number of plugs available in the stations has been ignored in this diagram on purpose due to its simplicity.\newline
 
 ![](./deployment/diagram.png){#id .class width=100% height=100%}\
 
