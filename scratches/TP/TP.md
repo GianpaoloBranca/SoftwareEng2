@@ -7,20 +7,23 @@
 ##Introduction
 
 ###Purpose
+This document describe the strategy for testing the integration of components of the PowerEnjoy system, designed in the Design Document presented earlier.
 
 ###Scope
 
 ###Definitions
-* Bottom-up: a strategy that starts from the lower level to the higher level components.
-* Stub: a fake component that simulate the behaviour of the one that is not already integrated. It is used to test other components that require interaction with this one.
+* __Bottom-up__: a strategy that starts from the lower level to the higher level components.
+* __Stub__: a temporary substitute component that simulate the behavior of the one that is not already integrated. It is used to test other components that require interaction with this one.
 
 ###Abbreviations
-* GUI: Graphical unit interfaces
+* __GUI__: Graphical unit interfaces
+
 ###Reference documents
 * Specification document
 * RASD
 * Design document
 * Integration test document sample on Beep
+
 ##Integration strategy
 
 ###Entry criteria
@@ -45,7 +48,7 @@ We decided to follow a bottom-up approach because is simpler
 __N = Navigation tests (blue)__, tests concerning the navigation aspect of the system   
 __S = Status tests (red)__, tests about the sensors and status of the Car  
 __U = User tests (green)__, tests about the user identification  
-__G = General tests (black)__, test that interact with multiple aspect of the system; those test have to be done after the other three categories of tests.
+__G = General tests (black)__, tests that interact with multiple aspect of the system; those test have to be done after the other three categories of tests.
 
 | ID     | Components     |
 | :------------- | :------------- |
@@ -69,8 +72,22 @@ __G = General tests (black)__, test that interact with multiple aspect of the sy
 | G10 | ViewController -> GUI   
 ##Individual steps and test description
 
+###Test Case N1 Version1
+__Test case identifier:__ N1T1  
+__Test items:__ GPSManager -> NavigationController  
+__Input Specification:__ Create a wide range of GPS signals  
+__Output Specification:__ Check if the position is managed correctly by the NavigationController  
+__Environmental Needs:__ GPS antenna is working
+
+###Test Case N1 Version2
+__Test case identifier:__ N1T1  
+__Test items:__ NavigationController -> GoogleMaps  
+__Input Specification:__  Many GPS requests  
+__Output Specification:__ Check if the correct functions are called and returns the correct position in real time  
+__Environmental Needs:__ GPS antenna is working
+
 ##Tools and test equipment required
 
 ##program stubs and test data required
-Since we decided to follow a bottom-up appro
+
 ##Effort spent
