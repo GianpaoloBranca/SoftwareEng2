@@ -29,6 +29,8 @@ __Implements:__ ServiceConfigListener
 * Method _verboseOn_ used at line 116 should start with a verb (hint: _isVerbose_)
 * Method _nowTimestamp_ used at line 137 should start with a verb (hint: _getNowTimestamp_)
 * Method _infoOn_ used at line 224 should start with a verb and has an ambiguous name
+* Variable _next_ at line 179 should have a more meaningful name
+* Variable _next_ at line 251 should have a more meaningful name
 
 ###Indention
 * Everything is ok
@@ -51,6 +53,31 @@ __Implements:__ ServiceConfigListener
 ###Wrapping lines
 * Everything ok
 
+###Comments
+* Everything ok
+
+###Java source file
+* Everything ok
+
+###Package and import statements
+* Everything ok
+
+###Class and interface declaration
+* Method _deQueue_ should be grouped with _queue_
+
+###Initialization and declaration
+* _cancelTime_ not declared at the beginning of block at line 104 __?__
+* _startTime_ not declared at the beginning of block at line 105 __?__
+* _maxRecurrenceCount_ not declared at the beginning of block at line 148 __?__
+* _currentRecurrenceCount_ not declared at the beginning of block at line 149 __?__
+* _expr_ not declared at the beginning of block at line 150 __?__
+* _recurrence_ not declared at the beginning of block at line 151 __?__
+* _next_ not declared at the beginning of block at line 179
+* _newJob_ not declared at the beginning of block at line 197
+* _jobResult_ not declared at the beginning of block at line 222
+* _next_ not declared at the beginning of block at line 251
+* _count_ not declared at the beginning of block at line 321 __?__
+
 ------
 
 ##JobPoller
@@ -58,14 +85,15 @@ __Implements:__ ServiceConfigListener
 ###Naming convention
 * Method _pollEnabled_ declared at line 154 should start with a verb
 * Method _onServiceConfigChange_ declared at line 145 should start with a verb
-* Method _remainingCapacity_ used at line 217 should start with a verb (hint: _getremainingCapacity_)
+* Method _remainingCapacity_ used at line 217 should start with a verb (hint: _getRemainingCapacity_)
 * Method _values_ used at line 220 should start with a verb (hint: _getValues_)
 * Method _infoOn_ used at line 224 should start with a verb and has an ambiguous name
 * Method _iterator_ used at line 228 should start with a verb
+* Variable _created_ at line 51 should have a more meaningful name
 
 ###Indention
-* Line 67 starts with a mismatching number of spaces
-* Line 71 starts with a mismatching number of spaces
+* Line 67 starts with a mismatching number of spaces ?
+* Line 71 starts with a mismatching number of spaces ?
 
 ###Braces
 * Single statement _if_ without braces at line 224
@@ -79,6 +107,23 @@ __Implements:__ ServiceConfigListener
 
 ###Wrapping lines
 * Everything ok
+
+###Comments
+* Everything ok
+
+###Java source file
+* Everything ok
+
+###Package and import statements
+* Everything ok
+
+###Class and interface declaration
+* Variable _jobManagerPollerThread_ declared ad line 98 should be declared after the static variables
+
+###Initialization and declaration
+* _serviceName_ not declared at the beginning of block at line 131
+* _queueCandidates_ not declared at the beginning of block at line 231
+* _addingJobs_ not declared at the beginning of block at line 232
 
 #Other problems
 
