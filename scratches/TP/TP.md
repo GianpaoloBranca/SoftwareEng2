@@ -48,9 +48,18 @@ For the cars, the system will be tested first on a pc with the same linux distri
 
 ###Sequence of component integration
 
-###Car
+####Software integration sequence
 
-![](images/CarSystem.png)
+####Subsystem integration sequence
+we have 4 subsystem in our system:  
+
+* The server
+* The Car system
+* The mobile application
+* The operators web application
+
+After the integration test of the server components, the system will be integrated with the operators web application, the car system, and lastly with the web application.
+This is done because integrating firstly the web app can help discovering problems in the next integrations, since it is itself a control application. The mobile application is the last component because is the one we are going to deploy on smartphone stores. To test its functionality everything in the back end have to be already integrated.
 
 ##Individual steps and test description
 
@@ -137,7 +146,8 @@ __Environmental Needs:__
 
 ##Tools and test equipment required
 
-* Arquillian
+* Arquillian for automatic tests
+* Manual testing for the mobile application, to check if it is responsive and easy to use. The app will be tested on many different phone with different android versions and display diagonal
 
 ##program stubs and test data required
 

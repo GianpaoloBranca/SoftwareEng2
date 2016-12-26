@@ -23,3 +23,5 @@ __Implements:__ Serializable
 #Issues list found by applying the checklist
 
 #Other problems
+
+#Effort spent
