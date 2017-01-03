@@ -63,7 +63,8 @@ Starting from the High level component view of our system, the subsystems to be 
 
 ## 2.3 Integration test strategy
 
-At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified in parallel using a bottom-up approach for both.
+For our integration test we will use a mixed approach because, while going always bottom-up or always top-down will give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in more effective and meaningful way. 
+At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified that will be performed in parallel:
 
   * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub and a driver for the **SensorsController**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with the **SensorsController** properly tested.
 
