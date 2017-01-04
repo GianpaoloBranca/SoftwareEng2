@@ -2,7 +2,7 @@
 %Gianpaolo Branca
  Luca Butera
  Andrea Cini
- %![](polimi.png)\newpage
+%![](polimi.png)\newpage
 
 # 1 Introduction
 
@@ -45,7 +45,7 @@ After the design and the development of the components is now the time to put ev
 Before starting the integration test activity a solid version of both the RASD and the DD must have been provided so that the interactions between the components are reasonably clear and well defined.
 In our belief, for the integration tests to be effective and meaningful, the followings points have to be reached:
 
-  * The data access layer must have been fully developed and tested (**DataAccessManager**, **Model**, **StationController**) and the DBMS integrated.
+  * The data access layer must have been fully developed (**DataAccessManager**, **Model**, **StationController**) and the DBMS integrated.
   * At least 70% of the **PWEService** and **CarSystem** components functionalities must be implemented.
   * The **MobileApp** and the **MonitoringWebApp** components development is not critical for integration purpose (they offer presentation functionalities), but it must have reached a point in which they provide a way to call every service provided by the central node through its interfaces.
   * Agreements with the external services providers must have been reached and the services must be available.
@@ -63,7 +63,7 @@ Starting from the High level component view of our system, the subsystems to be 
 
 ## 2.3 Integration test strategy
 
-For our integration test we will use a mixed approach because, while going always bottom-up or always top-down will give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in more effective and meaningful way. 
+For our integration test we will use a mixed approach because, while going always bottom-up or always top-down will give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in more effective and meaningful way.
 At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified that will be performed in parallel:
 
   * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub and a driver for the **SensorsController**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with the **SensorsController** properly tested.
@@ -84,12 +84,12 @@ The **CarSystem** sub-components integration will happen in two steps and for bo
 
   * Step 1, performed in a virtual machine environment: We will follow two parallel flows of test:
 
-      * C testes: using stubs for the **SensorsController** and **GPSManager** we will test the critical components of the subsystem in the order highlighted in the diagram(arrows with C labels). These components are the most domain specific ones and their integration has to be considered with particular care.
-      * CP testes: tests for the integration on the components of the presentation layer of the car application, they can be carried out in parallel from the C testes.
+      * CAR testes: using stubs for the **SensorsController** and **GPSManager** we will test the critical components of the subsystem in the order highlighted in the diagram(arrows with CAR labels). These components are the most domain specific ones and their integration has to be considered with particular care.
+      * CPRES testes: tests for the integration on the components of the presentation layer of the car application, they can be carried out in parallel from the CAR testes.
 
   * Step 2 :
 
-      * After the tests of the step 1 has been performed the application will be deployed in a real vehicles and the integration of the **SensorsController** and **GPSManager** will be tested with the possibility to manipulate the car to simulate mechanical problems.
+      * After the tests of the step 1 has been performed the application will be deployed in a real vehicles and the integration of the **SensorsController** and **GPSManager** will be tested with the possibility to manipulate the car to simulate mechanical problems(CSENS testes).
 
 ### 2.4.2 Subsystem integration sequence
 we have 4 subsystem in our system:  
@@ -152,4 +152,4 @@ __Description:__ this stub simulate the interaction with the GPS antenna and ret
 ## 5.2 Test Data
 We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian
 
-##Effort spent
+# 6 Effort spent
