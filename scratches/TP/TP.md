@@ -138,7 +138,11 @@ In this step we are going to test the expected behavior of the core business log
 
 **Step 4**
 
+Finally we are going to test the integration of the front-end components with the rest of the system starting from the integration of the **CarController** component, then the **WebAppController** component and last the component providing the API for the mobile app, the **RequestDispatcher**.
+
 ![](./images/feTest.png){#id .class width=1000% height=100%}\
+
+The tests regarding the integration of the **CarController**(CF labels) will be the first to be performed because it is the more independent from the other 2 front-ends, than the **WebAppController**(WA labels) who needs modules the **CarController** to be integrated first to be more meaningful, and last the **RequestDispatcher** which with its integration will be the final stress-test for the cohesion of al the other modules.
 
 
 ### 2.4.2 Subsystem integration sequence
