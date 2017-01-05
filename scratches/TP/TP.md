@@ -50,6 +50,7 @@ In our belief, for the integration tests to be effective and meaningful, the fol
   * The **MobileApp** and the **MonitoringWebApp** components development is not critical for integration purpose (they offer presentation functionalities), but it must have reached a point in which they provide a way to call every service provided by the central node through its interfaces.
   * Agreements with the external services providers must have been reached and the services must be available.
   * A reliable stub for the LegacySystem must have been produced.
+  * **StationController**
 
 Every single component must be unit tested with at least an 80% branch coverage and its main functionalities fully developed before going into the integration test phase.
 
@@ -67,6 +68,12 @@ For our integration test we will use a mixed approach because, while going alway
 At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified that will be performed in parallel:
 
   * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub and a driver for the **SensorsController**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with the **SensorsController** properly tested.
+
+  * **PWEService**: To test the components of the central node we will use a strategy based on the bottom-up approach, starting from the back-end going towards the front-end:
+    * Step 1: we will test the integration of the component of the data access layer.
+    * Step 2: we will test the integration of the internal components(the ones which do not realize any interface accessible from external components) with the data access components.
+    * Step 3: we will test the integration of the internal components within each other.
+    * Step 4: we will test the integration of the most external components with the rest of the system.
 
 
 ## 2.4 Sequence of component integration
@@ -91,8 +98,52 @@ The **CarSystem** sub-components integration will happen in two steps and for bo
 
       * After the tests of the step 1 has been performed the application will be deployed in a real vehicles and the integration of the **SensorsController** and **GPSManager** will be tested with the possibility to manipulate the car to simulate mechanical problems(CSENS testes).
 
+#### PWEService
+
+In the following section we are going to analyze the necessary steps that we going to perform to test, to do that we will use a diagram for each step. It's important to notice that the diagrams are complementary and that each step incrementally concurs to the integration testing of the entire subsystem. For simplicity sake in each step diagram the connections with the components tested in previous steps are omitted in the diagrams, but obviously we will not use stubs or drivers in the place of components which integration has already been tested (e.g. the in the second step we won't show the component **Model** even if it is involved in the testing activity).
+
+As already mentioned in the previous sections we will start the integration of the subcomponents of the central node starting from the data access ones.
+
+**Step 1**:
+
+![](./images/dataTest.png){#id .class width=50% height=50%}\
+
+
+The integration of the **DataAccessManager**(a component its job is to make queries and manipulate the data using the services of the JPA framework) with the **Model** EntityManagers has to be be performed with care to ensure that the set of data that are retrieved and the ones that are generated are correct and consistent.
+
+---
+
+After the first step has been performed we will move on to the next set of tests that will test if the core components of the system can access the data correctly through the interface provided by the **DataAccessManager** component.
+
+**Step 2**:
+
+![](./images/dataAccessTest.png){#id .class width=1000% height=100%}\
+
+
+If the integration test of the **DataAccessManager** with the EntityManagers as been performed correctly this part should be quite straightforward and should not be so many problems occurring. The order in which the tests will be performed is not essential and they can be done in parallel, the labels names suggest a possible order.
+
+---
+
+**Step 3:**
+
+After the operation concerning the data access has been tested the next step will be testing the integration of the internal components.
+
+
+![](./images/ICTest.png){#id .class width=1000% height=100%}\
+
+
+In this step we are going to test the expected behavior of the core business logic functionalities our system against the reality, a large collection of test cases is needed to correctly verify the robustness of the system up to this point.
+
+---
+
+**Step 4**
+
+![](./images/feTest.png){#id .class width=1000% height=100%}\
+
+
 ### 2.4.2 Subsystem integration sequence
-we have 4 subsystem in our system:  
+
+We have 4 subsystem in our system:  
 
 * The server
 * The Car system
