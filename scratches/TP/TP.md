@@ -16,10 +16,10 @@ After the design and the development of the components is now the time to put ev
 
 ## 1.3 Definitions
 
-* __Bottom-up:__ a strategy that starts from the lower level to the higher level components.
-* __Stub:__ a temporary substitute component that simulate the behaviour of the one that is not already integrated. It is used to test other components that require interaction with this one.
-* __Unit test:__ a way to test a single function with assertions
-* __Arquillian:__ a framework for JEE for the integration tests
+* **Bottom-up**: a strategy that starts testing from the lower level to the higher level components, this usually leads to the need of having a lot of drivers, but only a few stubs.
+* **Stubs and drivers**: elements that simulate the behavior of components of the system not integrated yet. In particular stubs simulate functionalities and drivers simulate requests.
+* **Unit test**: Unit testing is a testing activity concerning only one element of the system (a component in our case), while integration testing is about the system as a whole.
+* **Arquillian**: a tool for the integration testing.
 
 ## 1.4 Abbreviations
 
@@ -35,6 +35,8 @@ After the design and the development of the components is now the time to put ev
 * Integration test document sample on Beep
 
 # 2 Integration strategy
+
+
 ![](./images/System.png){#id .class width=100% height=100%}\
 ![](./images/PWEService.png){#id .class width=100% height=100%}\
 ![](./images/CarSystem.png){#id .class width=100% height=100%}\
@@ -117,7 +119,7 @@ After the first step has been performed we will move on to the next set of tests
 
 **Step 2**:
 
-![](./images/dataAccessTest.png){#id .class width=1000% height=100%}\
+![](./images/dataAccessTest.png){#id .class width=100% height=100%}\
 
 
 If the integration test of the **DataAccessManager** with the EntityManagers as been performed correctly this part should be quite straightforward and should not be so many problems occurring. The order in which the tests will be performed is not essential and they can be done in parallel, the labels names suggest a possible order.
@@ -129,7 +131,7 @@ If the integration test of the **DataAccessManager** with the EntityManagers as 
 After the operation concerning the data access has been tested the next step will be testing the integration of the internal components.
 
 
-![](./images/ICTest.png){#id .class width=1000% height=100%}\
+![](./images/ICTest.png){#id .class width=100% height=100%}\
 
 
 In this step we are going to test the expected behavior of the core business logic functionalities our system against the reality, a large collection of test cases is needed to correctly verify the robustness of the system up to this point.
@@ -140,7 +142,7 @@ In this step we are going to test the expected behavior of the core business log
 
 Finally we are going to test the integration of the front-end components with the rest of the system starting from the integration of the **CarController** component, then the **WebAppController** component and last the component providing the API for the mobile app, the **RequestDispatcher**.
 
-![](./images/feTest.png){#id .class width=1000% height=100%}\
+![](./images/feTest.png){#id .class width=100% height=100%}\
 
 The tests regarding the integration of the **CarController**(CF labels) will be the first to be performed because it is the more independent from the other 2 front-ends, than the **WebAppController**(WA labels) who needs modules the **CarController** to be integrated first to be more meaningful, and last the **RequestDispatcher** which with its integration will be the final stress-test for the cohesion of al the other modules.
 
