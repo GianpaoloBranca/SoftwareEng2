@@ -8,17 +8,19 @@
 
 ## 1.1 Purpose
 
-This document describe the strategy for testing the integration of components of the PowerEnjoy system, designed in the Design Document presented earlier. It describe the strategy and the tools necessary to fulfill the task.
+The aim to this document is to structure a document an integration testing strategy for the system we are going to develop. This activity is crucial for the success of the project due to its highly distributed and partitioned nature. Our intention is to define a clear plan of the procedure to follow referring to well-known practice for testing, keeping in mind the very structure of the system as presented in the Design Document.
 
 ## 1.2 Scope
 
-After the design and the development of the components is now the time to put everything together and verify that everything works. This document will be presented to the testing team.
+The system, as designed in the DD, will consist in different components, deployed in different machines and part of the logic will be highly distributed over the single cars meaning that integration of components has to be tested in advance to prevent wrong behavior and bugs hard to fin once the system has been deployed. The main subsystems that we can identify in our system are: the **CarSystem**, the **PWEService**, the **MonitoringWebApp** and the **MobileApp**; in the next sections we are going to identify the steps needed for the final integration testing of these components as well as the tools and the techniques we are going to exploit.
+
 
 ## 1.3 Definitions
 
+* **Integration test**: the phase in software testing in the single components are combined together and tested in as a whole.
+* **Unit test**: Unit testing is a testing activity concerning only one element of the system (a component in our case), while integration testing is about the system as a whole.
 * **Bottom-up**: a strategy that starts testing from the lower level to the higher level components, this usually leads to the need of having a lot of drivers, but only a few stubs.
 * **Stubs and drivers**: elements that simulate the behavior of components of the system not integrated yet. In particular stubs simulate functionalities and drivers simulate requests.
-* **Unit test**: Unit testing is a testing activity concerning only one element of the system (a component in our case), while integration testing is about the system as a whole.
 * **Arquillian**: a tool for the integration testing.
 
 ## 1.4 Abbreviations
@@ -29,10 +31,10 @@ After the design and the development of the components is now the time to put ev
 
 ## 1.5 Reference documents
 
-* Specification document
-* RASD
-* Design document
-* Integration test document sample on Beep
+* The specification document.
+* The RASD.
+* The DD.
+* Integration test document samples on the Beep platform.
 
 # 2 Integration strategy
 
@@ -164,20 +166,23 @@ We will proceed with the integration as it fallows(bottom-up):
 
 * **Starting point (Step 0)**: We will use the **PWEService** as the starting element of the integration and will go on substituting one stub/driver of the other components at a time with the real component.
 
+
 * **Step 1**:
- ![](./images/carToServer.png){#id .class width=100% height=100%}\
  The first component we are going to integrate is the **CarSystem**. This integration has to be performed first so that the next integration tests (that otherwise would have needed a stub and a driver for the **CarSystem**) will be more meaningful. This step is probably the most critical (functionally and performance wise) over the whole integration testing activity as the interaction between these two components are the most complex ones.
  After the testes have been carried out in a virtual machine to emulate the car environment a test on a real vehicle will be needed.
+ ![](./images/carToServer.png){#id .class width=100% height=100%}\
 
-* **Step 2**:
- ![](./images/monitoringToServer.png){#id .class width=100% height=100%}\
+
+ * **Step 2**:
  This integration tests the correct interaction between the **MonitoringWebApp** and the **PWEService** through the provided interface. We do not expect particular difficulties in this test phase.
- This test could be iterated multiple times as the refinement of the web application pages goes on.
+ This test could be iterated multiple times as the refinement of the web application pages goes on.\
+ ![](./images/monitoringToServer.png){#id .class width=100% height=100%}\
 
-* **Step 3**
- ![](./images/appServer.png){#id .class width=100% height=100%}\
+
+* **Step 3**:
  The final step will be the integration of the **MobileApp**, as for the web app, this test should be straightforward (if the other test as been carried out with care). Due to the flexibility of Cordova part on the test can be performed on a browser( using the Chrome extension Ripple, for example), then on simulators (iOS, android) and finally on physical devices.
  This test will prove the robustness of the RESTful api provided by the server.
+ ![](./images/appServer.png){#id .class width=100% height=100%}\
 
 # 3 Individual steps and test description
 
