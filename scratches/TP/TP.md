@@ -54,6 +54,7 @@ In our belief, for the integration tests to be effective and meaningful, the fol
   * A reliable stub for the LegacySystem must have been produced.
   * **StationController**
 
+We do do expect the integration of PayPal and GoogleMaps to be problematic(the reliability of the services offered by PayPal and Google is not in doubt). We think that it will be more effective to test the proper usage of these API during the unit tests of the components that will use them directly, so we will not consider the integration of these external services in the scope of this document.
 Every single component must be unit tested with at least an 80% branch coverage and its main functionalities fully developed before going into the integration test phase.
 
 ## 2.2 Elements to be integrated
@@ -80,6 +81,8 @@ At the start we will focus on the integration of the subcomponents of the two ma
 
 ## 2.4 Sequence of component integration
 
+The following test are meant to be in context of a procedure that replacing on stub/driver after another with the real components will lead to test of the integration of the whole system. However, in some cases, the single tests can be useful at the level of unit-testing and in this case most of them are easy to reproduce using stubs and drivers for the part of the components (these kind of testes will not substitute the execution of the test case during the integration test process).
+
 ### 2.4.1 Software integration sequence
 
 In this section we are going to analyze the tests that are needed for the subcomponents of each subsystem.
@@ -102,7 +105,7 @@ The **CarSystem** sub-components integration will happen in two steps and for bo
 
 #### PWEService
 
-In the following section we are going to analyze the necessary steps that we going to perform to test, to do that we will use a diagram for each step. It's important to notice that the diagrams are complementary and that each step incrementally concurs to the integration testing of the entire subsystem. For simplicity sake in each step diagram the connections with the components tested in previous steps are omitted in the diagrams, but obviously we will not use stubs or drivers in the place of components which integration has already been tested (e.g. the in the second step we won't show the component **Model** even if it is involved in the testing activity).
+In the following section we are going to analyze the necessary steps that we going to perform to test, to do that we will use a diagram for each step. It's important to notice that the diagrams are complementary and that each step incrementally concurs to the integration testing of the entire subsystem. For simplicity sake in each step diagram the connections with the components tested in previous steps are omitted in the diagrams, but obviously we will not use stubs or drivers in the place of components which integration has already been tested (e.g. the in the second step we won't show the component **Model** even if it is involved in the testing activity). The correct integration of the **NotificationController** will be tested mainly during the integration of the subsystems because at this level it would not be so meaningful.
 
 As already mentioned in the previous sections we will start the integration of the subcomponents of the central node starting from the data access ones.
 
@@ -147,27 +150,37 @@ Finally we are going to test the integration of the front-end components with th
 The tests regarding the integration of the **CarController**(CF labels) will be the first to be performed because it is the more independent from the other 2 front-ends, than the **WebAppController**(WA labels) who needs modules the **CarController** to be integrated first to be more meaningful, and last the **RequestDispatcher** which with its integration will be the final stress-test for the cohesion of al the other modules.
 
 
-### 2.4.2 Subsystem integration sequence
+### 2.4.2 Subsystems integration sequence
 
-We have 4 subsystem in our system:  
+After the car and the central subsystems have been tested properly at the level of their sub-components we will proceed with the integration between the subsystems themselves.
+Recapping, the 4 subsystems to be integrated are:
 
-* The server
-* The Car system
-* The mobile application
-* The operators web application
+* The **PWEService**
+* The **CarSystem**
+* The **MobileApp**
+* The **MonitoringWebApp**
 
-After the integration test of the server components, the system will be integrated with the operators web application, the car system, and lastly with the web application.
-This is done because integrating firstly the web app can help discovering problems in the next integrations, since it is itself a control application. The mobile application is the last component because is the one we are going to deploy on smartphone stores. To test its functionality everything in the back end have to be already integrated.
+We will proceed with the integration as it fallows(bottom-up):
+
+* **Starting point (Step 0)**: We will use the **PWEService** as the starting element of the integration and will go on substituting one stub/driver of the other components at a time with the real component.
+
+* **Step 1**:
+ ![](./images/carToServer.png){#id .class width=100% height=100%}\
+ The first component we are going to integrate is the **CarSystem**. This integration has to be performed first so that the next integration tests (that otherwise would have needed a stub and a driver for the **CarSystem**) will be more meaningful. This step is probably the most critical (functionally and performance wise) over the whole integration testing activity as the interaction between these two components are the most complex ones.
+ After the testes have been carried out in a virtual machine to emulate the car environment a test on a real vehicle will be needed.
+
+* **Step 2**:
+ ![](./images/monitoringToServer.png){#id .class width=100% height=100%}\
+ This integration tests the correct interaction between the **MonitoringWebApp** and the **PWEService** through the provided interface. We do not expect particular difficulties in this test phase.
+ This test could be iterated multiple times as the refinement of the web application pages goes on.
+
+* **Step 3**
+ ![](./images/appServer.png){#id .class width=100% height=100%}\
+ The final step will be the integration of the **MobileApp**, as for the web app, this test should be straightforward (if the other test as been carried out with care). Due to the flexibility of Cordova part on the test can be performed on a browser( using the Chrome extension Ripple, for example), then on simulators (iOS, android) and finally on physical devices.
+ This test will prove the robustness of the RESTful api provided by the server.
 
 # 3 Individual steps and test description
 
----
-
-####Test Case C1
-
-__Test case identifier:__ C1
-__Test items:__ CarController -> Sensors
-__Environmental Needs:__ N/A
 
 # 4 Tools and test equipment required
 
