@@ -9,7 +9,7 @@
 
 ## 1.1 Purpose
 
-The aim to this document is to structure a document an integration testing strategy for the system we are going to develop. This activity is crucial for the success of the project due to its highly distributed and partitioned nature. Our intention is to define a clear plan of the procedure to follow referring to well-known practice for testing, keeping in mind the very structure of the system as presented in the Design Document.
+The aim of this document is to structure a document an integration testing strategy for the system we are going to develop. This activity is crucial for the success of the project due to its highly distributed and partitioned nature. Our intention is to define a clear plan of the procedure to follow referring to well-known practice for testing, keeping in mind the very structure of the system as presented in the Design Document.
 
 ## 1.2 Scope
 
@@ -60,7 +60,7 @@ In our belief, for the integration tests to be effective and meaningful, the fol
   * A reliable stub for the LegacySystem must have been produced.
   * **StationController**
 
-We do do expect the integration of PayPal and GoogleMaps to be problematic(the reliability of the services offered by PayPal and Google is not in doubt). We think that it will be more effective to test the proper usage of these API during the unit tests of the components that will use them directly, so we will not consider the integration of these external services in the scope of this document.
+We do not expect the integration of PayPal and GoogleMaps to be problematic(the reliability of the services offered by PayPal and Google is not in doubt). We think that it will be more effective to test the proper usage of these API during the unit tests of the components that will use them directly, so we will not consider the integration of these external services in the scope of this document.
 Every single component must be unit tested with at least an 80% branch coverage and its main functionalities fully developed before going into the integration test phase.
 
 ## 2.2 Elements to be integrated
@@ -73,7 +73,7 @@ Starting from the High level component view of our system, the subsystems to be 
 
 ## 2.3 Integration test strategy
 
-For our integration test we will use a mixed approach because, while going always bottom-up or always top-down will give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in more effective and meaningful way.
+For our integration test we will use a mixed approach because, while going always bottom-up or always top-down would give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in a more effective and meaningful way.
 At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified that will be performed in parallel:
 
   * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub and a driver for the **SensorsController**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with the **SensorsController** properly tested.
@@ -209,7 +209,7 @@ For the **MobileApplication**, after a first phase in which the tools mentioned 
 
 The **MonitoringWebApp** will be properly tested, even during the integration phase, on all the most used browsers(Chrome, Firefox, Safari, Edge and InternetExplorer).
 
-The central node has to tested on the **GlassFish** application server with **Apache Web Server** as load balancer on **Ubuntu Server** with **MySQL** as DBMS, as stated in the DD.
+The central node has to tested on the **GlassFish** application server with **Apache HTTP Server** as load balancer on **Ubuntu Server** with **MySQL** as DBMS, as stated in the DD.
 
 
 # 5 Program stubs/drivers and test data required
