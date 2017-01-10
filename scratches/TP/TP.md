@@ -4,6 +4,7 @@
  Andrea Cini
 %![](polimi.png)\newpage
 
+\newpage
 # 1 Introduction
 
 ## 1.1 Purpose
@@ -21,7 +22,10 @@ The system, as designed in the DD, will consist in different components, deploye
 * **Unit test**: Unit testing is a testing activity concerning only one element of the system (a component in our case), while integration testing is about the system as a whole.
 * **Bottom-up**: a strategy that starts testing from the lower level to the higher level components, this usually leads to the need of having a lot of drivers, but only a few stubs.
 * **Stubs and drivers**: elements that simulate the behavior of components of the system not integrated yet. In particular stubs simulate functionalities and drivers simulate requests.
-* **Arquillian**: a tool for the integration testing.
+* **Arquillian**: a tool for the integration testing of JEE applications.
+* **JUnit**: a framework for running unit tests of Java applications.
+* **Mockito**: a mocking tool for Java tests.
+* **Ripple**: a tool for testing PhoneGap powered applications. More information [_here_](http://emulate.phonegap.com/).
 
 ## 1.4 Abbreviations
 
@@ -187,40 +191,57 @@ We will proceed with the integration as it fallows(bottom-up):
 # 3 Individual steps and test description
 
 
-# 4 Tools and test equipment required
+# 4 Tools and Test equipment
 
-* Arquillian for automatic tests
-* Manual testing for the mobile application, to check if it is responsive and easy to use. The app will be tested on many different phone with different android versions and display diagonal
+## 4.1 Tools
 
-# 5 Program stubs and test data required
+We will use reliable and well-known tools to make our testing activity as effective as possible.
+We will use **Arquillian** will be our "best friend" for testing the proper behavior of our system and its proper integration with Glassfish. Arquillian will also allow as to verify that the right components are being injected and that the interactions with the DBMS are correct. Other than Arquillian, we will use **JUnit**(on which Arquillian relies) for basic testing functionalities and **Mockito** to mock the components before their integration with the rest of the system(more details in the stubs section of the document).
+**Ripple**, together with the tools provided in the iOS and android SDKs, will be an useful tools to test our PhoneGap application (note that once the executables has been produced by the PhoneGap engine they can be executed in standard simulation/emulation environments).
+
+## 4.2 Test equipment
+
+The final tests have to be performed on specific platform in specific platform.
+
+The **CarSystem** after the initial tested ha to be tested on at least one car from all the different models the company wants to use. We will have to make sure that every car in which our application will be deployed uses a compatible OBD protocol.
+
+For the **MobileApplication**, after a first phase in which the tools mentioned above will be used to emulate the execution environment, a series of tests on real devices will be needed. The version of the OS and the display diagonal are not fundamental for the integration test(this aspect concerns more the unit-testing activity), but at least a test for each of the supported OS versions will be has to be performed.
+
+The **MonitoringWebApp** will be properly tested, even during the integration phase, on all the most used browsers(Chrome, Firefox, Safari, Edge and InternetExplorer).
+
+The central node has to tested on the **GlassFish** application server with **Apache Web Server** as load balancer on **Ubuntu Server** with **MySQL** as DBMS, as stated in the DD.
+
+
+# 5 Program stubs/drivers and test data required
 
 ## 5.1 Stubs
 
-####Station Controller
+#### Station Controller
 __Usages:__  
 __Description:__ this stub is used to test the informations retrieved by the Recharging areas, because using a real net of recharging station would be very expensive and would slow down the test.
 
-####Car Service
+#### Car Service
+
 __Usages:__  
 __Description:__ this stub is used to test the server independently from the the cars, so that the testing for the systems can proceed in parallel.
 
-####Car App server
+#### Car App server
 __Usages:__  
 __Description:__ this stub is used to test the car system independently from the the server, so that the testing for the car can proceed in parallel.
 
-####Legacy System
+#### Legacy System
 __Usages:__  
 __Description:__ this stub is used for simulate the forwarding of a request to the legacy server, because sending many fake requests can interfere with the other tasks of the company.
 
-####PayPal
+#### PayPal
 __Usages:__  
 __Description:__ this stub simulate the interaction with PayPal API, avoiding the usage of real money transfers for testing.
 
-####Sensor Controller
+#### Sensor Controller
 __Usages:__  
 __Description:__ this stub simulate the interaction with the car sensors, avoiding to break cars each time we want to test if an assistance request is properly sent.
 
-####GPS Manager
+#### GPS Manager
 __Usages:__  
 __Description:__ this stub simulate the interaction with the GPS antenna and return a fake positions, simulating rides. Obviously driving a real car for integration testing is very expensive in terms of money and time.
 

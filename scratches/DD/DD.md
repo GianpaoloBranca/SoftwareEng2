@@ -11,6 +11,7 @@
 * **1.1**:
     * Added the DataAccessManager component to separate the model from the external components.
     * Added a StationController component.
+    * Added reference to the load balancer and operating system of the central node.
     * Improved consistency of the BCE diagrams.
 
 \newpage
@@ -60,6 +61,7 @@ These points pretty much maps 1-to-1 with the three applications that we are goi
 * OBD: On-Board diagnostics, a system that provide access to the status of the various vehicle subsystems.
 * Boundary Control Entity, BCE: diagrams that shows how user interface features are implemented in a MVC fashion.
 * User Experience, UX: diagrams used for modeling the user interface.
+* LTS : Long term support.
 * JPA : Java Persistence API, a JEE framework to provide a object-oriented view of the data stored in a database.
 
 ## 1.4 Reference documents
@@ -293,6 +295,22 @@ How we are going to meet the non-functional requirements will be clarified in th
 
     - GlassFish gives very good performance guarantees and is well supported.
 
+* We will use **Apache HTTP Server** as HTTP load balancer.
+
+  - Easy to integrate with Glassfish.
+  - Offers good performances and offers scalability.
+
+* **Ubuntu Server**(the last LTS open source distribution) as operating system.
+
+  - Stable, reliable and free to use.
+
+* We will use the MySQL to manage our Database.
+
+    - We don't need advanced feature for data management that other DBMSs offer.
+    - MySQL is fast and easy to use.
+    - Free.
+    - Compatible with JDBC.
+
 * We will use the JAX-RS APIs to expose RESTful APIs with JSON that will be used from the mobile app to interface with the web server.
 
     - The usage of the RESTful standard will give our system robustness and flexibility.
@@ -304,13 +322,6 @@ How we are going to meet the non-functional requirements will be clarified in th
 * JPA to have and object-oriented view of the database.
 
     - Model classes implemented as entities will allow us to manipulate our data easily.
-
-* We will use the MySQL to manage our Database.
-
-    - We don't need advanced feature for data management that other DBMSs offer.
-    - MySQL is fast and easy to use.
-    - Free.
-    - Compatible with JDBC.
 
   * TLS will be used for confidential information communication. \newline
 
@@ -337,7 +348,7 @@ How we are going to meet the non-functional requirements will be clarified in th
 
 #### Car on-board application
 
-* We will develop a Java application to run in the system of the car.
+* We will develop a Java application to run in the system of the car(over a Linux distribution).
 
   - We need a tool to have control over the car status.
   - The application needs to contain not only presentation features, but also logic to elaborate the data coming from the sensors and manage the execution of a ride without a continuos interaction with the server and deal with real time issues.
