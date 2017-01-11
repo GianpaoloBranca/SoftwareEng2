@@ -25,7 +25,7 @@ Even though the NavigationController handles all the navigation process, communi
 Here we test the integration of two critical components of the CarSystem, reason why a more "in-depth" explanation of the test case and expectations is provided.
 
 +-----------------------------------------------+
-| reqCodeVerification(code) |
+| RideController.reqCodeVerification(code) |
 +-----------------------------------------------+
 
 +----------------------+-----------------------+
@@ -41,7 +41,7 @@ Here we test the integration of two critical components of the CarSystem, reason
 +----------------------+-----------------------+
 
 +-------------------------------+
-| generateQR() |
+| CarController.generateQR() |
 +-------------------------------+
 
 +-----------------------------+--------------------------+
@@ -51,7 +51,7 @@ Here we test the integration of two critical components of the CarSystem, reason
 +-----------------------------+--------------------------+
 
 +-------------------------------+
-| rideEnded() |
+| RideController.rideEnded() |
 +-------------------------------+
 
 +------------------------+---------------------+
@@ -61,7 +61,7 @@ Here we test the integration of two critical components of the CarSystem, reason
 +------------------------+---------------------+
 
 +----------------------+
-| checkPlugged() |
+| CarController.checkPlugged() |
 +----------------------+
 
 +-----------------------+--------------------+
@@ -71,7 +71,7 @@ Here we test the integration of two critical components of the CarSystem, reason
 +-----------------------+--------------------+
 
 +----------------------+
-| retrieveCarData() |
+| CarController.retrieveCarData() |
 +----------------------+
 
 +------------------------+-------------------------+
@@ -157,7 +157,7 @@ The interaction between these two components is strictly related to the check-in
 NavigationController and ViewController mostly interact in order to achieve a real time navigation on the car screen. In order to check that they behave correctly, the methods responsible for navigation request and for navigation screen update must be tested.
 
 +-----------------------------------+
-| navigateTo(destination, mso) |
+| NavigationController.navigateTo(destination, mso) |
 +-----------------------------------+
 
 +---------------------------------+-------------------------+
@@ -171,7 +171,7 @@ NavigationController and ViewController mostly interact in order to achieve a re
 +---------------------------------+-------------------------+
 
 +-----------------+
-| putNav(navData) |
+| ViewController.putNav(navData) |
 +-----------------+
 
 +----------------------+----------------------+
@@ -181,7 +181,7 @@ NavigationController and ViewController mostly interact in order to achieve a re
 +----------------------+----------------------+
 
 +-----------------+
-| endNavigation() |
+| ViewController.endNavigation() |
 +-----------------+
 
 +-------------------------+-----------------+
@@ -289,30 +289,30 @@ This test case is aimed to cover all the procedures the DataAccessManager uses t
 Here the purpose of the test is to assure that the CarsManager correctly retrieves informations about the cars from the DataAccessManager and that is able to update them. Down are reported two tables of expected test outcomes for two methods belonging each to one of the previous families.
 
 ---------------------------
- changeStatus(Car, String)
+ changeStatus(CarID, String)
 ---------------------------
 
 +--------------------------+---------------+
 | Input                    | Effect             |
 +==========================+===============+
-| Invalid Car              | An InvalidCarExcpetion is raised |
+| Invalid CarID            | An InvalidCarExcpetion is raised |
 +--------------------------+---------------+
-| Invalid State            | An InvalidStateException is raised |
+| Invalid State string     | An InvalidStateException is raised |
 +--------------------------+--------------+
 | Both Car and State valid | The selected car state is updated to the chosen one |
 +--------------------------+--------------+
 
 ---------------------------
- getInfo(Car)
+ getInfo(CarID)
 ---------------------------
 
-+-----------------------------------+------------------------+
++-----------------------------------+------------------+
 | Input                             | Effect |
-+===================================+========================+
-| Invalid Car                       | An InvalidCarExcpetion is raised |
-+-----------------------------------+------------------------+
-| Valid Car                         | A grouped view of informations about the chosen car is returned |
-+-----------------------------------+------------------------+
++===================================+==================+
+| Invalid CarID                     | An InvalidCarExcpetion is raised |
++-----------------------------------+------------------+
+| Valid CarID                       | A grouped view of informations about the chosen car is returned |
++-----------------------------------+------------------+
 
 ### Test case DA2
 
@@ -323,20 +323,20 @@ Here the purpose of the test is to assure that the CarsManager correctly retriev
 This test case must ensure that the RidesManager can properly access to informations about all rides and update them, maintaining consistency among operations. The methods are actually similar to the ones in DA1.
 
 ---------------------------
- changeStatus(Ride, String)
+ changeStatus(RideID, String)
 ---------------------------
 
-+----------------------------------------------------+--------+
++----------------------------------------------------+-+
 | Input                                              | Effect             |
-+====================================================+========+
-| Invalid Ride                                       | An InvalidCarExcpetion is raised |
-+----------------------------------------------------+--------+
-| Invalid State                                      | An InvalidStateException is raised |
-+----------------------------------------------------+--------+
-|Both Ride and State valid                           | The selected ride state is updated to the chosen one |
-+----------------------------------------------------+--------+
-|Valid Ride and State but selected ride is completed | An InvalidOperationException is raised |
-+----------------------------------------------------+--------+
++====================================================+=+
+| Invalid RideID                                     | An InvalidCarExcpetion is raised  |
++----------------------------------------------------+-+
+| Invalid state string                               | An InvalidStateException is raised |
++----------------------------------------------------+-+
+|Both RideID and State string valid                  | The selected ride state is updated to the chosen one |
++----------------------------------------------------+-+
+|Valid RideID and State string but ride completed    | An InvalidOperationException is raised |
++----------------------------------------------------+-+
 
 ---------------------------
  getInfo(Ride)
@@ -354,7 +354,7 @@ This test case must ensure that the RidesManager can properly access to informat
 
 **Test case identifier:** DA3  
 **Test items:** LoginManager -> DataAccessManager  
-**Environmental needs:** N/A  
+**Environmental needs:**   
 
 The LoginManager must be able to correctly retrieve, update and create users informations, all this in a secure  and consistent way, to avoid account violations. Since methods of the type "retrieve" and "update" are shown in DA1 and DA2, here are shown the expected outcomes for the creation of a new user, for the control of ID-password matching and for the assignment of a token to a user.
 
