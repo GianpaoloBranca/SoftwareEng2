@@ -473,3 +473,87 @@ The Configurator's purpose is to modify parameters concerning the service terms 
 **Environmental needs:** N/A  
 
 The StationController is a simple component with the only purpose of updating the number of plugs available in each station, so this test case must make sure that the values are updated correctly and that no operation leads to inconsistent states in the Model.
+
+### Test case IC1
+
+**Test case identifier:** IC1  
+**Test items:** RidesManager -> BookingsManager  
+**Environmental needs:** N/A  
+
+RidesManager and BookingsManager are not that much coupled, the unidirectional interaction mostly concerns security checks and completion of a booking once the associated ride starts. Therefore we must ensure that these operations are correctly performed with the aim of avoiding inconsistent states in our system, such as rides starting even if the corresponding booking is still pending.
+
+------------------------
+completeCurrentBooking(CarID)
+------------------------
+
++-------------------------------+--------------------+
+| Input                         | Effect |
++===============================+====================+
+| Invalid CarID                 | An InvalidCarExcpetion is raised |
++-------------------------------+--------------------+
+| CarID with no pending booking | An InvalidOperationException is raised |
++-------------------------------+--------------------+
+| Valid CarID                   | The current booking for the car is marked as completed |
++-------------------------------+--------------------+
+
+### Test case IC2
+
+**Test case identifier:** IC2  
+**Test items:** RidesManager -> PaymentHandler  
+**Environmental needs:** N/A  
+
+The PaymentHandler is a simple component whose only purpose is to handle payment requests interacting with the PayPal service. This said, is straightforward that the only interactions between this test case related components is aimed to payment data retrieval and, most important, the correct enrollment of payment requests. With this test the focus is on ensuring that these requests are safely and correctly generated.
+
+-------------------------
+reqPayment(user, price, cause)
+-------------------------
+
++------------------------------------------+-------------------+
+| Input                                    | Effect |
++==========================================+===================+
+| Invalid UserID                           | An InvalidUserException is raised |
++------------------------------------------+-------------------+
+| Negative price value                     | An InvalidOperationException is raised |
++------------------------------------------+-------------------+
+| Invalid cause string                     | An InvalidCauseException is raised |
++------------------------------------------+-------------------+
+| All valid parameters                     | A payment request for the specified price, with the right cause, is enrolled to the selected user |
++------------------------------------------+-------------------+
+
+### Test case IC3
+
+**Test case identifier:** IC3  
+**Test items:** RidesManager <-> RideController  
+**Environmental needs:** N/A  
+
+This test case is one of the most critical, since the two components are strictly coupled and interact a lot. It is of central importance to assure that the overstated interaction takes place in the expected way for the robustness and reliability of the whole system. Must be checked that the two components are always respectively up to date, the RideController, in fact, must correctly update the RidesManager with real time informations about the ride; on the other hand must be ensured that the RidesManager correctly instantiates RideController instances and that it rightly communicates to the proper RideController any kind of external request, since RidesManager handles most of the requests directed to a specific RideController.
+
+### Test case IC4
+
+**Test case identifier:** IC4  
+**Test items:** RidesManager -> CarsManager  
+**Environmental needs:** N/A  
+
+The interaction among these two components is mostly related to cases in which the RidesManager must change the car status (i.e. at the beginning or a the end of a ride), therefore in this test case is crucial to assure that this type of requests are correctly forwarded to the CarsManager and then executed. For a further view on the expectations one can relate on the changeStatus method for cars shown before in this document.
+
+### Test case IC5
+
+**Test case identifier:** IC5  
+**Test items:** CarAssistanceManager -> CarsManager  
+**Environmental needs:** N/A  
+
+The CarAssistanceManager relies on the CarsManager to put under maintenance and back to free the PowerEnJoy cars. This test case must assure that these operations are correctly performed as for safety reasons is important that a potentially dangerous car could't be used. Here is shown the expected behavior for the procedure that puts a car under maintenance, anyway these procedures are analogous to the ones concerning state changes that we have already explained before.
+
+--------------------
+putUnderMaintenance(CarID)
+--------------------
+
++--------------------------------------+--------------------+
+| Input                                | Effect |
++======================================+====================+
+| Invalid CarID                        | An InvalidCarExcpetion is raised |
++--------------------------------------+--------------------+
+| ID of a car already under maintenance| An InvalidOperationException is raised |
++--------------------------------------+--------------------+
+| Valid CarID                          | The status of the selected car is changed to maintenance |
++--------------------------------------+--------------------+
