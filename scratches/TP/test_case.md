@@ -409,3 +409,67 @@ assignToken(ID, token)
 **Environmental needs:** N/A  
 
 As in the other tests of this "set" it is important to make sure that the BookingsManager is able to correctly and consistently manipulate data concerning its duties. Is therefore tested the functioning of procedures made to create, update and check on bookings.
+
+----------------
+completeBooking(ID)
+----------------
+
++--------------------------+---------------------------+
+| Input                    | Effect |
++==========================+===========================+
+| Not existing ID          | A NotExistingIDException is raised|
++--------------------------+---------------------------+
+| ID of completed booking  | An InvalidOperationException is raised |
++--------------------------+---------------------------+
+| Valid ID                 | The selected booking is marked as completed |
++--------------------------+---------------------------+
+
+---------------
+checkFree(Car)
+---------------
+
++---------------------------------+-----------------------+
+| Input                           | Effect |
++=================================+=======================+
+| Invalid Car                     | An InvalidCarExcpetion is raised |
++---------------------------------+-----------------------+
+| A Car which state is not Free   | false is returned     |
++---------------------------------+-----------------------+
+| A Car which state is Free       | true is returned      |
++---------------------------------+-----------------------+
+
+-----------------
+newBooking(BookingData)
+-----------------
+
++-----------------------------------+-------------------------+
+| Input                             | Effect |
++===================================+=========================+
+| Invalid BookingData               | An InvalidBookingDataException is raised |
++-----------------------------------+-------------------------+
+| Valid BookingData                 | A Booking matching the informations contained in the BookingData is created |
++-----------------------------------+-------------------------+
+
+### Test case DA5
+
+**Test case identifier:** DA5  
+**Test items:** CarAssistanceManager -> DataAccessManager  
+**Environmental needs:** N/A  
+
+This test case is aimed to assure that the CarAssistanceManager is able to access data about the cars, here the focus is only about correct retrieval since the CarAssistanceManager doesn't directly modify cars status. The methods for data retrieval must be tested for correctness as in the analogous cases showed previously.
+
+### Test case DA6
+
+**Test case identifier:** DA6  
+**Test items:** Configurator -> DataAccessManager  
+**Environmental needs:** N/A  
+
+The Configurator's purpose is to modify parameters concerning the service terms and boundaries, which consists in managing Fares, PriceVariations and Boundaries, therefore this test case is aimed to ensure that the Configurator creates, modifies and deletes those elements in the expected way and that no operation can lead to an inconsistent state.
+
+### Test case DA7
+
+**Test case identifier:** DA7  
+**Test items:** StationController -> DataAccessManager  
+**Environmental needs:** N/A  
+
+The StationController is a simple component with the only purpose of updating the number of plugs available in each station, so this test case must make sure that the values are updated correctly and that no operation leads to inconsistent states in the Model.
