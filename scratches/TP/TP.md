@@ -215,39 +215,6 @@ The central node has to tested on the **GlassFish** application server with **Ap
 
 # 5 Program stubs/drivers and test data required
 
-## 5.1 Stubs
-
-#### Station Controller
-__Usages:__  
-__Description:__ this stub is used to test the informations retrieved by the Recharging areas, because using a real net of recharging station would be very expensive and would slow down the test.
-
-#### Car Service
-
-__Usages:__  
-__Description:__ this stub is used to test the server independently from the the cars, so that the testing for the systems can proceed in parallel.
-
-#### Car App server
-__Usages:__  
-__Description:__ this stub is used to test the car system independently from the the server, so that the testing for the car can proceed in parallel.
-
-#### Legacy System
-__Usages:__  
-__Description:__ this stub is used for simulate the forwarding of a request to the legacy server, because sending many fake requests can interfere with the other tasks of the company.
-
-#### PayPal
-__Usages:__  
-__Description:__ this stub simulate the interaction with PayPal API, avoiding the usage of real money transfers for testing.
-
-#### Sensor Controller
-__Usages:__  
-__Description:__ this stub simulate the interaction with the car sensors, avoiding to break cars each time we want to test if an assistance request is properly sent.
-
-#### GPS Manager
-__Usages:__  
-__Description:__ this stub simulate the interaction with the GPS antenna and return a fake positions, simulating rides. Obviously driving a real car for integration testing is very expensive in terms of money and time.
-
-## 5.2 Drivers
-
 ## 5.3 Test Data
 We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian
 
