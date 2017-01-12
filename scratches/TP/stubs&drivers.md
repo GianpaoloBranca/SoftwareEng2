@@ -43,11 +43,11 @@ __Usages:__ in every test that involve components that are called from the CarSy
 __Description:__ this driver simulate the calls from a fake car so the integration test of the CarSystem can be done in parallel with the PWEService.
 
 #### MonitoringWebApp
-__Usages:__ WA1, WA2, WA3, WA4, WA5  
+__Usages:__ WA tests  
 __Description:__ this driver is used to call the WebAppServer APIs before the integration with the final Web application.  
 
 #### MobileApp
-__Usages:__ APP1, APP2, APP3, APP4, APP5, APP6  
+__Usages:__ APP tests  
 __Description:__ this driver is used to call the ServiceAPIs without exposing it online.
 
 #### StationController
@@ -61,7 +61,7 @@ __Usages:__ in every test that involve components that are called from the PWESe
 __Description:__ this driver simulate the calls from a fake server so the integration test of the CarSystem can be done in parallel with the PWEService.
 
 #### SensorsController
-__Usages:__ all tests done in Step 1
+__Usages:__ all tests done in Step 1 of the integration
 __Description:__  this stub simulate the interaction with the car sensors without using a real car for calling the CarController when a problem occurs.
 
 #### RideController, CarController, NavigationController
