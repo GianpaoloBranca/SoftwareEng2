@@ -31,6 +31,7 @@ The system, as designed in the DD, will consist in different components, deploye
 
 * __GUI:__ Graphical unit interfaces
 * __GPS:__ Global position system
+* __JPA:__ Java Persistent API
 * __N/A:__ Not applicable
 
 ## 1.5 Reference documents
@@ -245,7 +246,9 @@ __Description:__ this stub simulate the interaction with the car sensors, avoidi
 __Usages:__  
 __Description:__ this stub simulate the interaction with the GPS antenna and return a fake positions, simulating rides. Obviously driving a real car for integration testing is very expensive in terms of money and time.
 
-## 5.2 Test Data
+## 5.2 Drivers
+
+## 5.3 Test Data
 We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian
 
 # 6 Effort spent
