@@ -2,7 +2,7 @@
 
 ## 5.1 Stubs
 
-### 5.1.1 PWEService
+### 5.1.1 PWEService stubs
 
 #### CarSystem
 __Usages:__ in every test that involve components that communicates with the CarSystem  
@@ -16,7 +16,11 @@ __Description:__ this stub is used for simulate the forwarding of a request to t
 __Usages:__ in every test that involve components that send notifications.  
 __Description:__ since the NotificationController integration is not crucial, this stub is used everywhere before the integration with the subsystems so that instead of send real notifications the messages are only written in a log.
 
-### 5.1.2 CarSystem
+#### PayPal
+__Usages:__ CF4, APP6 
+__Description:__ this stub is used to replace PayPal service, since using it means to create real money transactions.
+
+### 5.1.2 CarSystem stubs
 
 #### PWEService
 __Usages:__ in every test that involve components that communicates with the PWEService  
@@ -34,9 +38,13 @@ __Description:__ this stub simulate the interaction with the GPS antenna and ret
 __Usages:__ CPRES tests  
 __Description:__ this stub is used for test the presentation layer in parallel with the other parts, in particular is used for the calls done from the ViewController.
 
+#### ViewController
+__Usages:__ CAR3  
+__Description:__ this stub is used to do CAR and CPRES tests in parallel.
+
 ## 5.2 Drivers
 
-### 5.2.1 PWEService
+### 5.2.1 PWEService drivers
 
 #### CarSystem
 __Usages:__ in every test that involve components that are called from the CarSystem  
@@ -54,18 +62,18 @@ __Description:__ this driver is used to call the ServiceAPIs without exposing it
 __Usages:__ DA7  
 __Description:__ this driver is used to test the function called on the DataAccessManager from the StationController, because using a real recharging station would be very expensive and would slow down the test.
 
-### 5.2.2 CarSystem
+### 5.2.2 CarSystem drivers
 
 #### PWEService
 __Usages:__ in every test that involve components that are called from the PWEService  
 __Description:__ this driver simulate the calls from a fake server so the integration test of the CarSystem can be done in parallel with the PWEService.
 
 #### SensorsController
-__Usages:__ all tests done in Step 1 of the integration
+__Usages:__ all tests done in Step 1 of the integration  
 __Description:__  this stub simulate the interaction with the car sensors without using a real car for calling the CarController when a problem occurs.
 
 #### RideController, CarController, NavigationController
-__Usages:__ CPRES tests
+__Usages:__ CPRES tests  
 __Description:__ these drivers are used to call function on the presentation layer so the tests can be done in parallel.
 
 ## 5.3 Test Data

@@ -1,9 +1,12 @@
-### Test case CS
-__Identifier:__ CS1  
-__Items:__ Car System -> PWEService  
-__Description:__  
+##Subsystem integration sequence
 
-####NotifyRideData(rideData)
+In every function with effect "INVALID BEHAVIOR" the action is not performed and an error is displayed in the app. The action is logged and reported, since it should never be possible to perform. Every action that have an invalid ID, if not specified, is is threaten as INVALID BEHAVIOR.
+
+### Test case CS
+__Items:__ CarSystem <--> PWEService  
+__Description:__ These components are the core of the system and communicates often. We have to pay particular attention to the cars and tests them in many situation. We of course have less control over the cars than on the main server when the system go online.
+
+####PWEService.NotifyRideData(rideData)
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
 +---------------------+-------------------------------+
@@ -14,11 +17,7 @@ __Description:__
 
 ---
 
-__Identifier:__ CS2  
-__Items:__ PWEService -> CarSystem  
-__Description:__
-
-####CheckIn(code, UserID)
+####CarSystem.CheckIn(code, UserID)
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
 +---------------------+-------------------------------+
@@ -30,7 +29,7 @@ __Description:__
 
 ### Test case MS
 __Items:__ MonitoringWebApp -> PWEService  
-__Description:__
+__Description:__ We do not expect particular difficulties in this phase, since MonitoringWebApp provide a way to display datas of the services and sometimes modifies them. The integration does not involve the main services.
 
 ####CarOverview(CarID)
 +---------------------+-------------------------------+
@@ -52,10 +51,9 @@ __Description:__
 
 ### Test case AS
 __Items:__ MobileApp -> PWEService  
-__Description:__ This is the most crucial and complex integration test since it involves what will be delivered to the final user.
+__Description:__ This integration test is crucial since it involves what will be delivered to the final user, and it is the last step of the whole integration process.
 
- * In every function that require a token, if it is expired or invalid an error is displayed, the user get logged out and the login screen is displayed.
- * In every function with effect "INVALID BEHAVIOR" the action is not performed and an error is displayed in the app. The action is logged and reported, since it should never be possible to perform from the mobile App. Every action except for Login that have an invalid ID is is threaten as INVALID BEHAVIOR.
+ In every function that require a token, if it is expired or invalid an error is displayed, the user get logged out and the login screen is displayed.
 
 ####Login(ID, password)
 +---------------------+-------------------------------+
