@@ -84,6 +84,9 @@ At the start we will focus on the integration of the subcomponents of the two ma
     * Step 3: we will test the integration of the internal components within each other.
     * Step 4: we will test the integration of the most external components with the rest of the system.
 
+The integration test of these two subsystems can be performed in parallel.
+One each subsystem has been tested internally, at the level of its subcomponents,  then we will proceed integrating the subsystems one within the other. In this phase we will follow almost completely the bottom-up approach, testing first the integration of the components that rely only on components already integrated( this will clarified in the **Subsystems integration sequence** section).
+
 
 ## 2.4 Sequence of component integration
 
