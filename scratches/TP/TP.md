@@ -836,8 +836,6 @@ __Description:__ These components are the core of the system and communicate oft
 +---------------------+-------------------------------+
 | Valid datas         | the datas are correctly updated in the server. If the rideData reports the end of the Ride, the user is also charged with the right fare.
 
----
-
 ####CarSystem.CheckIn(code, UserID)
 
 +---------------------+-------------------------------+
@@ -846,8 +844,6 @@ __Description:__ These components are the core of the system and communicate oft
 | Invalid code        | An error is returned. Nothing happens on the display |
 +---------------------+-------------------------------+
 | Valid code          | The engine is unlocked, a new Ride is created by the car system. The first user who checks-in is registered as driver.
-
-----
 
 ### Test case MS
 
@@ -872,8 +868,6 @@ __Description:__ We do not expect particular difficulties in this phase, since M
 | Invalid filledForm  | INVALID BEHAVIOR              |
 +---------------------+-------------------------------+
 | Valid filledForm    | A message of success is displayed and the request is correctly sent |
-
----
 
 ### Test case AS
 
@@ -1006,18 +1000,18 @@ __Description:__ this stub is used for test the presentation layer in parallel w
 __Usages:__ CAR3  
 __Description:__ this stub is used to do CAR and CPRES tests in parallel.
 
-## 5.2 mocks
+## 5.2 Mocks
 
 In the documents for semplicity sake we only indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to fullfil meaningful tests a simple stub is not enough.
 
-## 5.2.1 PWEService mocks
+### 5.2.1 PWEService mocks
 
 #### CarSystem
 
 __Usages:__ in every test that involve components that communicates with the CarSystem  
 __Description:__ this stub simulate a fake car to be called so the integration test of the CarSystem can be done in parallel with the PWEService.
 
-## 5.2.2 CarSystem mocks
+### 5.2.2 CarSystem mocks
 
 #### Sensor Controller
 
