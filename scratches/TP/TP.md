@@ -452,17 +452,17 @@ For simplicity just one example is reported here, as for each method the same ap
 **Description:** This test case must ensure that the RidesManager can properly access to informations about all rides and update them, maintaining consistency among operations. The methods are actually similar to the ones in DA1.
 
 ##### changeStatus(RideID, String)
-+----------------------------------------------------+-+
-| Input                                              | Effect             |
-+====================================================+=+
-| Invalid RideID                                     | An InvalidCarException is raised  |
-+----------------------------------------------------+-+
-| Invalid state string                               | An InvalidStateException is raised |
-+----------------------------------------------------+-+
-|Both RideID and State string valid                  | The selected ride state is updated to the chosen one |
-+----------------------------------------------------+-+
-|Valid RideID and State string but ride completed    | An InvalidOperationException is raised |
-+----------------------------------------------------+-+
++------------------------------------------------+-----------+
+| Input                                          | Effect    |
++================================================+===========+
+| Invalid RideID                                 | An InvalidCarException is raised  |
++------------------------------------------------+-----------+
+| Invalid state string                           | An InvalidStateException is raised |
++------------------------------------------------+-----------+
+|Both RideID and State string valid              | The selected ride state is updated to the chosen one |
++------------------------------------------------+-----------+
+|Valid RideID and State string but ride completed| An InvalidOperationException is raised |
++------------------------------------------------+-----------+
 
 ##### getInfo(Ride)
 +-----------------------------------+------------------------+
