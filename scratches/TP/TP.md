@@ -875,7 +875,7 @@ __Test items:__ MobileApp -> PWEService
 __Environmental needs:__ MS performed  
 __Description:__ This integration test is crucial since it involves what will be delivered to the final user, and it is the last step of the whole integration process.
 
- In every function that requires a token, if it is expired or invalid an error is displayed, the user gets logged out and the login screen is displayed.
+ In every function that requires authentication, if the sender is not authenticated an error is displayed, the user gets logged out and the login screen is displayed.
 
 ####Login(ID, password)
 
@@ -908,7 +908,7 @@ __Description:__ This integration test is crucial since it involves what will be
 +---------------------+-------------------------------+
 
 
-####Book(carID, token)
+####Book(carID)
 
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
@@ -918,7 +918,7 @@ __Description:__ This integration test is crucial since it involves what will be
 | Available Car       | The car is no more available, the booking is created in the DB, the mobile app displays the newly created booking
 
 
-####Unlock(bookingID, token)
+####Unlock(bookingID)
 
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
@@ -930,7 +930,7 @@ __Description:__ This integration test is crucial since it involves what will be
 +---------------------+-------------------------------+
 | Valid booking       | The car is unlocked and the booking status updated |
 
-####CheckIn(code, token)
+####CheckIn(code)
 
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
