@@ -22,7 +22,7 @@ The system, as designed in the DD, will consist in different components, deploye
 * **Unit test**: unit testing is a testing activity concerning only one element of the system (a component in our case), while integration testing is about the system as a whole.
 * **Bottom-up**: a strategy that starts testing from the lower level to the higher level components.
 * **Top-down**:  a strategy that starts testing from the higher level to the lower level components.
-* **Stubs and drivers**: elements that simulate the behavior of components of the system not integrated yet. In particular stubs simulate functionalities and drivers simulate requests.
+* **Stubs/drivers/mocks**: elements that simulate the behavior of components of the system not integrated yet. In particular stubs simulate functionalities and drivers simulate requests. Mocks are programmable stubs.
 * **Arquillian**: a tool for the integration testing of JEE applications.
 * **JUnit**: a framework for running unit tests of Java applications.
 * **Mockito**: a mocking tool for Java tests.
@@ -76,7 +76,7 @@ Starting from the High level component view of our system, the subsystems to be 
 For our integration test we will use a mixed approach because, while going always bottom-up or always top-down would give us the benefit of a simpler integration plan, a more dynamic approach based on the specific group of components under consideration will allow us to test in a more effective and meaningful way.
 At the start we will focus on the integration of the subcomponents of the two main subsystem that we have identified that will be performed in parallel:
 
-  * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub and a driver for the **SensorsController** and **GPSManager**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with these components properly tested.
+  * **CarSystem**: At first the tests will be carried out on a virtual machine to simulate the car environment with a stub/driver for the **SensorsController** and **GPSManager**, later on, after the unit test of the sensor controller in a real vehicle, the whole Car Application will be deployed on a car and the integration with these components properly tested.
 
   * **PWEService**: To test the components of the central node we will use a strategy based on the bottom-up approach, starting from the back-end going towards the front-end:
     * Step 1: we will test the integration of the component of the data access layer.
@@ -240,7 +240,7 @@ Results for null parameters or invalid parameters, if the outcome isn't explicit
 #### Test case CAR4
 
 **Test items:** RideController <-> CarController  
-**Environmental needs:** SensorsController stub  
+**Environmental needs:** SensorsController mock  
 **Description:** Here we test the integration of two critical components of the CarSystem, reason why a more "in-depth" explanation of the test case and expectations is provided.
 
 ##### RideController.reqCodeVerification(code)
@@ -641,13 +641,13 @@ For simplicity just one example is reported here, as for each method the same ap
 #### Test case CF1
 
 **Test items:** CarController <-> CarsManager  
-**Environmental needs:** CarSystem stub  
+**Environmental needs:** CarSystem mock  
 **Description:** CarController and CarsManager are two components which, such as RideController and RidesManager, interact a lot during the main system routines, in fact their communication is aimed to the synchronization of informations regarding the cars among the two components, plus the forwarding of requests coming from CarSystem to the PWEService and vice versa. Due to this, in this test case the main focus is on assuring that the states of the two components are consistent and that any command or request is correctly performed or fulfilled. For example for security purposes is crucial to assure that the car unlocking command is correctly sent and executed.
 
 #### Test case CF2
 
 **Test items:** CarController <-> RideController  
-**Environmental needs:** CarSystem stub  
+**Environmental needs:** CarSystem mock  
 **Description:** The communication between CarController and RideController is essential since the CarController forwards to the PWEService any information coming directly from the car, and in this specific case, transfers to the RideController informations about the ongoing ride (i.e. ride ending, change in the state of the ride). This said it is straightforward that the purpose of this test case is to make sure that every interaction happens correctly, for example that the informations coming from the car generate the correct update in the ride state and parameters. On the other hand also the RideController directly interacts with the CarController, mostly in the starting phase of a ride, to communicate updates on the ride status and to, eventually, "send" to the CarSystem commands coming from inside the PWEService, so , also in this case, we want to assure that procedures produce the expected outcome, for example when a ride ends due to timeout reasons, we want that the RideController correctly communicates the fact to the right CarController which then will take care of the ride ending procedure.
 
 #### Test case CF3
@@ -776,7 +776,7 @@ All these test cases have as an environmental need the MobileApp driver.
 #### Test case APP4
 
 **Test items:** RequestDispatcher -> CarsManager  
-**Environmental needs:** CarSystem stub  
+**Environmental needs:** CarSystem mock  
 **Description:** The RequestDispatcher interacts with the CarsManager mostly in two cases, when the MobileApp sends a car unlock request and to forward the request for the verification of the check in code. These two procedures must be tested really carefully for security reasons, first must be made sure that the car gets correctly unlocked, on the other hand the check in operation must ensure correct code transmission and verification.
 
 ##### checkInRequest(UserID, code)
@@ -824,16 +824,17 @@ In every function with effect "INVALID BEHAVIOR" the action is not performed and
 
 ### Test case CS
 __Test items:__ CarSystem <-> PWEService  
+__Environmental needs:__ MobileApp driver  
 __Description:__ These components are the core of the system and communicate often. We have to pay particular attention to the cars and test them in many situation. We of course have less control over the cars than on the main server when the system goes online.
 
 ####PWEService.NotifyRideData(rideData)
 +---------------------+-------------------------------+
 | __Input__           | __Effect__                    |
 +---------------------+-------------------------------+
-| Invalid or corrupted| The car is asked to send the information again. If the datas are not correct the third time, the car goes in maintenance status and the engine is switched off. The user is only charged by 1€
-| data
+| Invalid or corrupted| The car is asked to send the information again. If the datas are not correct the third time, the car goes in maintenance status as soon as the engine is switched off.If it is impossible to compute the price, the user is only charged by 1€.
+| datas
 +---------------------+-------------------------------+
-| Valid datas         | The user is charged the right fare and the Ride ends
+| Valid datas         | the datas are correctly updated in the server. If the rideData reports the end of the Ride, the user is also charged with the right fare.
 
 ---
 
@@ -851,6 +852,7 @@ __Description:__ These components are the core of the system and communicate oft
 ### Test case MS
 
 __Test items:__ MonitoringWebApp -> PWEService  
+__Environmental needs:__ LegacySystem stub, CS performed.  
 __Description:__ We do not expect particular difficulties in this phase, since MonitoringWebApp provides a way to display datas concerning services and sometimes modifies them. The integration does not involve the main services.
 
 ####CarOverview(CarID)
@@ -876,6 +878,7 @@ __Description:__ We do not expect particular difficulties in this phase, since M
 ### Test case AS
 
 __Test items:__ MobileApp -> PWEService  
+__Environmental needs:__ MS performed  
 __Description:__ This integration test is crucial since it involves what will be delivered to the final user, and it is the last step of the whole integration process.
 
  In every function that requires a token, if it is expired or invalid an error is displayed, the user gets logged out and the login screen is displayed.
@@ -965,16 +968,11 @@ The **MonitoringWebApp** will be properly tested, even during the integration ph
 The central node has to tested on the **GlassFish** application server with **Apache HTTP Server** as load balancer on **Ubuntu Server** with **MySQL** as DBMS, as stated in the DD.
 
 
-# 5 Program stubs/drivers and test data required
+# 5 Program stubs/mocks/drivers and test data required
 
 ## 5.1 Stubs
 
 ### 5.1.1 PWEService stubs
-
-#### CarSystem
-
-__Usages:__ in every test that involve components that communicates with the CarSystem  
-__Description:__ this stub simulate a fake car to be called so the integration test of the CarSystem can be done in parallel with the PWEService.
 
 #### Legacy System
 
@@ -994,22 +992,13 @@ __Description:__ this stub is used to replace PayPal service, since using it mea
 ### 5.1.2 CarSystem stubs
 
 #### PWEService
+
 __Usages:__ in every test that involve components that communicates with the PWEService  
 __Description:__ this stub simulate a fake server to be called so the integration test of the CarSystem can be done in parallel with the PWEService.
 
-#### Sensor Controller
-
-__Usages:__ all tests done in Step 1 of the integration  
-__Description:__ this stub simulate the interaction with the car sensors without using a real car for calling the SensorsController when car parameters are needed.
-
-#### GPS Manager
-
-__Usages:__ all tests done in the Step 1 of the integration  
-__Description:__ this stub simulate the interaction with the GPS antenna and return a fake positions, simulating rides.
-
 #### NavigationController
 
-__Usages:__ CPRES tests  
+__Usages:__ CPRES tests that require this stub
 __Description:__ this stub is used for test the presentation layer in parallel with the other parts, in particular is used for the calls done from the ViewController.
 
 #### ViewController
@@ -1017,9 +1006,32 @@ __Description:__ this stub is used for test the presentation layer in parallel w
 __Usages:__ CAR3  
 __Description:__ this stub is used to do CAR and CPRES tests in parallel.
 
-## 5.2 Drivers
+## 5.2 mocks
 
-### 5.2.1 PWEService drivers
+In the documents for semplicity sake we only indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to fullfil meaningful tests a simple stub is not enough.
+
+## 5.2.1 PWEService mocks
+
+#### CarSystem
+
+__Usages:__ in every test that involve components that communicates with the CarSystem  
+__Description:__ this stub simulate a fake car to be called so the integration test of the CarSystem can be done in parallel with the PWEService.
+
+## 5.2.2 CarSystem mocks
+
+#### Sensor Controller
+
+__Usages:__ all tests done in Step 1 of the integration that require this stub
+__Description:__ this mock simulate the interaction with the car sensors without using a real car for calling the SensorsController when car parameters are needed.
+
+#### GPS Manager
+
+__Usages:__ all tests done in the Step 1 of the integration that require this stub
+__Description:__ this mock simulate the interaction with the GPS antenna and return a fake positions, simulating rides.
+
+## 5.3 Drivers
+
+### 5.3.1 PWEService drivers
 
 #### CarSystem
 
@@ -1028,12 +1040,12 @@ __Description:__ this driver simulate the calls from a fake car so the integrati
 
 #### MonitoringWebApp
 
-__Usages:__ WA tests  
+__Usages:__ WA tests that require this stub  
 __Description:__ this driver is used to call the WebAppServer APIs before the integration with the final Web application.  
 
 #### MobileApp
 
-__Usages:__ APP tests  
+__Usages:__ APP tests that require this stub  
 __Description:__ this driver is used to call the ServiceAPIs without exposing it online.
 
 #### StationController
@@ -1050,16 +1062,16 @@ __Description:__ this driver simulate the calls from a fake server so the integr
 
 #### SensorsController
 
-__Usages:__ all tests done in Step 1 of the integration  
+__Usages:__ all tests done in Step 1 of the integration that require this stub
 __Description:__  this stub simulate the interaction with the car sensors without using a real car for calling the CarController when a problem occurs.
 
 #### RideController, CarController, NavigationController
 
-__Usages:__ CPRES tests  
+__Usages:__ CPRES tests that require this stub
 __Description:__ these drivers are used to call function on the presentation layer so the tests can be done in parallel.
 
 ## 5.3 Test Data
 
-We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian
+We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian.
 
 # 6 Effort spent
