@@ -464,13 +464,13 @@ For simplicity just one example is reported here, as for each method the same ap
 |Valid RideID and State string but ride completed| An InvalidOperationException is raised |
 +------------------------------------------------+-----------+
 
-##### getInfo(Ride)
+##### getInfo(RideID)
 +-----------------------------------+------------------------+
 | Input                             | Effect |
 +===================================+========================+
-| Invalid Ride                      | An InvalidRideException is raised |
+| Invalid RideID                    | An InvalidRideException is raised |
 +-----------------------------------+------------------------+
-| Valid Ride                        | A grouped view of informations about the chosen ride is returned |
+| Valid RideID                      | A grouped view of informations about the chosen ride is returned |
 +-----------------------------------+------------------------+
 
 #### Test case DA3
@@ -520,7 +520,7 @@ For simplicity just one example is reported here, as for each method the same ap
 **Environmental needs:** N/A  
 **Description:** As in the other tests of this "set" it is important to make sure that the BookingsManager is able to correctly and consistently manipulate data concerning its duties. Is therefore tested the functioning of procedures made to create, update and check on bookings.
 
-##### completeBooking(ID)
+##### completeBooking(bookingID)
 +--------------------------+---------------------------+
 | Input                    | Effect |
 +==========================+===========================+
@@ -531,7 +531,7 @@ For simplicity just one example is reported here, as for each method the same ap
 | Valid ID                 | The selected booking is marked as completed |
 +--------------------------+---------------------------+
 
-##### checkFree(Car)
+##### checkFree(CarID)
 +---------------------------------+-----------------------+
 | Input                           | Effect |
 +=================================+=======================+
@@ -594,7 +594,7 @@ For simplicity just one example is reported here, as for each method the same ap
 **Environmental needs:** PayPal service stub  
 **Description:** The PaymentHandler is a simple component whose only purpose is to handle payment requests interacting with the PayPal service. This said, is straightforward that the only interactions between this test case related components is aimed to payment data retrieval and, most important, the correct enrollment of payment requests. With this test the focus is on ensuring that these requests are safely and correctly generated.
 
-##### reqPayment(user, price, cause)
+##### reqPayment(userID, price, cause)
 +------------------------------------------+------------------+
 | Input                                    | Effect |
 +==========================================+==================+

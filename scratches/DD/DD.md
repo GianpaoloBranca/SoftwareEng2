@@ -13,6 +13,7 @@
     * Added a StationController component.
     * Added reference to the load balancer and operating system of the central node.
     * Improved consistency of the BCE diagrams.
+    * Improved consistency of the Runtime diagrams.
 
 \newpage
 
