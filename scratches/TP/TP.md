@@ -1002,7 +1002,7 @@ __Description:__ this stub is used to do CAR and CPRES tests in parallel.
 
 ## 5.2 Mocks
 
-In the documents for semplicity sake we often indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to fullfil meaningful tests a simple stub is not enough.
+In the documents for semplicity sake we often indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to perform meaningful tests a simple stub is not enough.
 
 ### 5.2.1 PWEService mocks
 
@@ -1069,3 +1069,5 @@ __Description:__ these drivers are used to call function on the presentation lay
 We will populate the data base with fake users, cars, and safe areas. they will be generated in an automatic way with Arquillian.
 
 # 6 Effort spent
+
+Each group member as spent about 20 hours working on this document.
