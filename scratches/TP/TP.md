@@ -85,7 +85,7 @@ At the start we will focus on the integration of the subcomponents of the two ma
     * Step 4: we will test the integration of the most external components with the rest of the system.
 
 The integration test of these two subsystems can be performed in parallel.
-One each subsystem has been tested internally, at the level of its subcomponents,  then we will proceed integrating the subsystems one within the other. In this phase we will follow almost completely the bottom-up approach, testing first the integration of the components that rely only on components already integrated( this will clarified in the **Subsystems integration sequence** section).
+One each subsystem has been tested internally, at the level of its subcomponents,  then we will proceed integrating the subsystems one within the other. In this phase we will follow almost completely the bottom-up approach, testing first the integration of the components that rely only on components already integrated (this will clarified in the **Subsystems integration sequence** section).
 
 
 ## 2.4 Sequence of component integration
@@ -105,7 +105,7 @@ The **CarSystem** sub-components integration will happen in two steps and for bo
 
   * Step 1, performed in a virtual machine environment: We will follow two parallel flows of tests with some precedence rules that will be explicitly underlined in the test descriptions section:
 
-      * CAR tests: using stubs for the **SensorsController** and **GPSManager** we will test the critical components of the subsystem in the order highlighted in the diagram(arrows with CAR labels). These components are the most domain specific ones and their integration has to be considered with particular care.
+      * CAR tests: using mocks for the **SensorsController** and **GPSManager** we will test the critical components of the subsystem in the order highlighted in the diagram (arrows with CAR labels). These components are the most domain specific ones and their integration has to be considered with particular care.
       * CPRES tests: tests for the integration on the components of the presentation layer, they can be carried out in parallel from the CAR testes until the involved components are required by CAR components. More details on the sequence are in the individual tests description.  
 
   * Step 2 :
@@ -123,7 +123,7 @@ As already mentioned in the previous sections we will start the integration of t
 ![](./images/dataTest.png){#id .class width=50% height=50%}\
 
 
-The integration of the **DataAccessManager**(a component its job is to make queries and manipulate the data using the services of the JPA framework) with the **Model** EntityManagers has to be be performed with care to ensure that the set of data that are retrieved and the ones that are generated are correct and consistent.
+The integration of the **DataAccessManager** (a component its job is to make queries and manipulate the data using the services of the JPA framework) with the **Model** EntityManagers has to be be performed with care to ensure that the set of data that are retrieved and the ones that are generated are correct and consistent.
 
 ---
 
@@ -156,7 +156,7 @@ Finally we are going to test the integration of the front-end components with th
 
 ![](./images/feTest.png){#id .class width=100% height=100%}\
 
-The tests regarding the integration of the **CarController**(CF labels) will be the first to be performed because it is the more independent from the other 2 front-ends, than the **WebAppController**(WA labels) who needs modules the **CarController** to be integrated first to be more meaningful, and last the **RequestDispatcher** which with its integration will be the final stress-test for the cohesion of all the other modules.
+The tests regarding the integration of the **CarController** (CF labels) will be the first to be performed because it is the more independent from the other 2 front-ends, than the **WebAppController** (WA labels) who needs modules the **CarController** to be integrated first to be more meaningful, and last the **RequestDispatcher** which with its integration will be the final stress-test for the cohesion of all the other modules.
 
 
 ### 2.4.2 Subsystems integration sequence
@@ -415,7 +415,7 @@ For simplicity just one example is reported here, as for each method the same ap
 
 **Test items:** DataAccessManager -> Model  
 **Environmental needs:** A populated database  
-**Description:** This test case is aimed to cover all the procedures the DataAccessManager uses to manipulate the Model. Stated that those procedures can be basically decomposed into: creation of new entities, modification of existing ones (i.e. values update), and in rare cases elimination of entities; is critical to assure that any of these actions is performed correctly, so that after the operation the Model contains the expected elements. Id also important to make sure that none of the manipulations leaves the Model in an inconsistent state.
+**Description:** This test case is aimed to cover all the procedures the DataAccessManager uses to manipulate the Model. Stated that those procedures can be basically decomposed into: creation of new entities, modification of existing ones (i.e. values update), and in rare cases elimination of entities; is critical to assure that any of these actions is performed correctly, so that after the operation the Model contains the expected elements. It is also important to make sure that none of the manipulations leaves the Model in an inconsistent state.
 
 ### DA Tests
 
@@ -566,7 +566,7 @@ For simplicity just one example is reported here, as for each method the same ap
 #### Test case DA7
 
 **Test items:** StationController -> DataAccessManager  
-**Environmental needs:** Driver for StationController that simulates the physical stations.  
+**Environmental needs:** StationController driver.  
 **Description:** The StationController is a simple component with the only purpose of updating the number of plugs available in each station, so this test case must make sure that the values are updated correctly and that no operation leads to inconsistent states in the Model.
 
 ### IC Tests
@@ -946,7 +946,7 @@ __Description:__ This integration test is crucial since it involves what will be
 ## 4.1 Tools
 
 We will use reliable and well-known tools to make our testing activity as effective as possible.
-We will use **Arquillian** will be our "best friend" for testing the proper behavior of our system and its proper integration with Glassfish. Arquillian will also allow as to verify that the right components are being injected and that the interactions with the DBMS are correct. Other than Arquillian, we will use **JUnit**(on which Arquillian relies) for basic testing functionalities and **Mockito** to mock the components before their integration with the rest of the system(more details in the stubs section of the document).
+We will use **Arquillian** will be our "best friend" for testing the proper behavior of our system and its proper integration with Glassfish. Arquillian will also allow as to verify that the right components are being injected and that the interactions with the DBMS are correct. Other than Arquillian, we will use **JUnit** (on which Arquillian relies) for basic testing functionalities and **Mockito** to mock the components before their integration with the rest of the system (more details in the mocks section of the document).
 **Ripple**, together with the tools provided in the iOS and android SDKs, will be an useful tools to test our PhoneGap application (note that once the executables has been produced by the PhoneGap engine they can be executed in standard simulation/emulation environments).
 
 ## 4.2 Test equipment
@@ -1002,7 +1002,7 @@ __Description:__ this stub is used to do CAR and CPRES tests in parallel.
 
 ## 5.2 Mocks
 
-In the documents for semplicity sake we only indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to fullfil meaningful tests a simple stub is not enough.
+In the documents for semplicity sake we often indicated tests components as "stub/driver", but some components gives more dynamic responses than other, and to fullfil meaningful tests a simple stub is not enough.
 
 ### 5.2.1 PWEService mocks
 
