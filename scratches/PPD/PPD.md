@@ -5,19 +5,144 @@
 %![](polimi.png)\newpage
 
 \newpage
+
+---
+header-includes:
+    - \usepackage{placeins}
+    - \usepackage{float}
+---
 #1 Introduction
 
 ## 1.1 Purpose and Scope
 
 ## 1.2 Definitions, Acronyms, Abbreviations
 
+* Data element type (DET): a unique user recognizable, non recursive, field.
+* Record element type (RET): Record elements type, a user recognizable subgroup of data elements.
+* File types referenced (FRT): files updated or referenced in a transaction.
+
 ## 1.3 Reference documents
 
 # 2 Project size, cost and effort estimation
 
+In this section we will use well known approaches to project planning to estimate di dimension and the cost in time and money that our project will have.
+We will use the Function Points approach for the size estimation and than COCOMO for the cost and effort estimation.
+
+
 ## 2.1 Size estimation: function points
 
+In the following tables the reference tables we are going to use for the size estimation, they classify the complexity of each element counting the numbers of file types referenced, data element types and record element types. Obviously we are going to consider these reference values, but we are also going to estimate the complexity of the components based on the specific knowledge that we have acquired about the domain of our system.
+<!--- logic files tables -->
+\begin{table}[H]
+\centering
+\caption{Logic Files}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|}
+\hline
+                                                     & \multicolumn{3}{c|}{Data Elements}                                                                                                                                             \\ \hline
+Record Elements                                      & 1-19                                                    & 20-50                                                    & 51+                                                       \\ \hline
+\begin{tabular}[c]{@{}c@{}}1\\ 2-5\\ 6+\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Low\\ Avg\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Avg\\ High\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg\\ High\\ High\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+<!--- External outputs and inquiries -->
+\begin{table}[H]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|}
+\hline
+                                                       & \multicolumn{3}{c|}{Data Elements}                                                                                                                                             \\ \hline
+File Types                                             & 1-5                                                     & 6-19                                                     & 20+                                                       \\ \hline
+\begin{tabular}[c]{@{}c@{}}0-1\\ 2-3\\ 4+\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Low\\ Avg\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Avg\\ High\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg\\ High\\ High\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+<!--- External Input table-->
+\begin{table}[H]
+\centering
+\caption{External Input}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|}
+\hline
+                                                       & \multicolumn{3}{c|}{Data Elements}                                                                                                                                             \\ \hline
+File Types                                             & 1-4                                                     & 5-15                                                     & 16+                                                       \\ \hline
+\begin{tabular}[c]{@{}c@{}}0-1\\ 2-3\\ 4+\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Low\\ Avg\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Avg\\ High\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg\\ High\\ High\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+<!--- Function points table-->
+\begin{table}[H]
+\centering
+\caption{Function Points}
+\label{my-label}
+\begin{tabular}{|c|c|c|c|}
+\hline
+                                                                                                                                              & \multicolumn{3}{c|}{Complexity Weight}                                                                                                                                               \\ \hline
+Function Type                                                                                                                                 & Low                                                       & Average                                                    & High                                                        \\ \hline
+\begin{tabular}[c]{@{}c@{}}Internal Logic Files\\ External Logic Files\\ External Inputs\\ External Outputs\\ External Inquiries\end{tabular} & \begin{tabular}[c]{@{}c@{}}7\\ 5\\ 3\\ 4\\ 3\end{tabular} & \begin{tabular}[c]{@{}c@{}}10\\ 7\\ 4\\ 5\\ 4\end{tabular} & \begin{tabular}[c]{@{}c@{}}15\\ 10\\ 6\\ 7\\ 6\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
 ### 2.1.1 Internal Logic Files (ILFs)
+
+In this section we are going to analyze the complexity of our ILFs, we are going to refer to this simplified version of the model of the internal representation of our data (some attributes of the classes in the pictures are obviously not persistent but representative of the complexity of the informations related with the single entity):
+
+![](./images/Model.png){#id .class width=100% height=100%}\
+
+
+* Users:
+    - **Estimated complexity**: Average
+
+        The first type of internal data our system will have to deal with are the user related ones. The handling of the user data will include not so trivial operations:  password retrieval, driving license and PayPal account checks and profile personalization functionalities (profile image).
+
+* Rides:
+    - **Estimated complexity**: Low
+
+        The rides data handling will be straight forward with the creation of the entity at the start of a ride and the update of the main fields when the ride is ended. The only dynamic aspect of the ride is the "paid" field that has to be updated when the payment is obtained.
+
+* Bookings:
+    - **Estimated complexity**: Low
+
+        The information about cars bookings are static and easy to manage.
+
+* Cars:
+    - **Estimated complexity**: High
+
+        The status of the cars are is the most critical type of data that our system will have to handle, informations about the cars dynamic and complex to retrieve.
+
+* Assistance requests:
+    - **Estimated complexity**: Low
+
+      Easy informations to handle, static once generated(only the status changes only once).
+
+* SafeAreas/Fares/PriceVariations:
+    - **Estimated complexity**: Low
+
+    Static informations that can be updated by the management system, easy to handle and maintain.
+
+* RechargingArea:
+    - **Estimated complexity**: Low
+
+    Static information about the position and dynamic updated to the number of plugs available, quite straightforward to handle.
+
+<!--- ILF table -->
+\begin{table}[H]
+\centering
+\caption{ILF}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+ILF                                                                                                                                                                & Complexity                                                                           & FPs                                                                 \\ \hline
+\begin{tabular}[c]{@{}c@{}}Users Data\\ Rides Data\\ Bookings Data\\ Cars Data\\ Assistance Requests Data\\ System parameters\\ Recharging Areas Data\end{tabular} & \begin{tabular}[c]{@{}c@{}}Average\\ Low\\ Low\\ High\\ Low\\ Low\\ Low\end{tabular} & \begin{tabular}[c]{@{}c@{}}10\\ 7\\ 7\\ 15\\ 7\\ 7\\ 7\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                               & 60                                                                  \\ \hline
+\end{tabular}
+\end{table}
+<!----->
 
 ### 2.1.2 External Logic Files (ELFs)
 
