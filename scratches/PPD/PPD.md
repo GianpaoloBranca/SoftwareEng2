@@ -28,7 +28,7 @@ header-includes:
 # 2 Project size, cost and effort estimation
 
 In this section we will use well known approaches to project planning to estimate di dimension and the cost in time and money that our project will have.
-We will use the Function Points approach for the size estimation and than COCOMO for the cost and effort estimation.
+We will use the Function Points approach for the size estimation and than COCOMO for the cost and effort estimation and we will not consider, for the most part, the presentation layer.
 
 
 ## 2.1 Size estimation: function points
@@ -200,6 +200,7 @@ From the operator:
   * Get car overview: complex operation of data retrieval. High complexity.
   * Assistance request: not so complex operation that generates a request form to be sent to the legacy system. Average complexity.
   * Insertion/delation of safe or recharging areas: they are crucial parameters for the system. Both high complexity.
+  * Overall view: overall view of all the cars and their position. High complexity.
   * Parameters modification: simple modification but they have to be notified to the users. Average complexity.
 
 <!--- EIS -->
@@ -210,17 +211,80 @@ From the operator:
 \begin{tabular}{|c|c|c|}
 \hline
 EIs                                                                                                                                                                                                                                                          & Complexity                                                                                                                                       & FPs                                                                                               \\ \hline
-\begin{tabular}[c]{@{}c@{}}Login/Logout\\ Registration\\ Qr-code check-in\\ Car locking/unlocking\\ Search for a car\\ Book/unbook\\ Payment\\ MSO\\ Ride data\\ Car overview\\ Assistance request\\ Insert/delete SA\\ Parameters modification\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Average\\ Average\\ Average\\ High\\ Average\\ Low\\ High\\ High\\ High\\ Average\\ High\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}2*3\\ 4\\ 4\\ 2*4\\ 6\\ 2*4\\ 3\\ 6\\ 6\\ 6\\ 4\\ 2*6\\ 4\end{tabular} \\ \hline
-\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                                                                                                                                                                                     & 77                                                                                                \\ \hline
+\begin{tabular}[c]{@{}c@{}}Login/Logout\\ Registration\\ Qr-code check-in\\ Car locking/unlocking\\ Search for a car\\ Book/unbook\\ Payment\\ MSO\\ Ride data\\ Overall view\\ Car overview\\ Assistance request\\ Insert/delete SA\\ Parameters modification\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Average\\ Average\\ Average\\ High\\ Average\\ Low\\ High\\ High\\ High\\ High\\ Average\\ High\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}2*3\\ 4\\ 4\\ 2*4\\ 6\\ 2*4\\ 3\\ 6\\ 6\\ 6\\ 6\\ 4\\ 2*6\\ 4\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                                                                                                                                                                                     & 83                                                                                                \\ \hline
 \end{tabular}
 \end{table}
 <!----->
 
 ### 2.1.4 External Inquiries (EQs)
+The main operations of simple data retrieval are:
+
+* User profile: operation of average complexity.
+* System parameters and safe area: both operation of average complexity.
+* Payment history: low complexity operation, simple interaction with PayPal.
+* Ride history: low complexity operation.
+
+<!--- eqs table -->
+\begin{table}[H]
+\centering
+\caption{EQ}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+EIs                                                                                                              & Complexity                                                            & FPs                                                     \\ \hline
+\begin{tabular}[c]{@{}c@{}}User Profile\\ Payment history\\ Ride history\\ System parameters and SA\end{tabular} & \begin{tabular}[c]{@{}c@{}}Average\\ Low\\ Low\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}4\\ 3\\ 3\\ 2*4\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                              & 18                                                      \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
 
 ### 2.1.5 External Outputs (EOs)
 
+The external output that our system produce are the mainly correlated with the notification system that we estimate having a cost of 12 function points. The other output is the assistance request sent to the legacy system, operation that has an average complexity.
+
+<!--- eos table -->
+\begin{table}[H]
+\centering
+\caption{EOS}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+Eos                                                                              & Complexity                                            & FPs                                            \\ \hline
+\begin{tabular}[c]{@{}c@{}}Notification system\\ Assistance request\end{tabular} & \begin{tabular}[c]{@{}c@{}}---\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}12\\ 5\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                              & 17                                             \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
 ### 2.1.6 Overall Estimation
+
+Our analysis has produced the following data:
+
+<!--- overall table-->
+\begin{table}[H]
+\centering
+\caption{Total function points}
+\label{my-label}
+\begin{tabular}{|c|c|}
+\hline
+Function Type                                                                                                                                 & Value                                                          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Internal Logic Files\\ External Logic Files\\ External Inputs\\ External Inquiries\\ External Outputs\end{tabular} & \begin{tabular}[c]{@{}c@{}}63\\ 22\\ 83\\ 18\\ 17\end{tabular} \\ \hline
+\multicolumn{1}{|l|}{Total}                                                                                                                   & 203                                                            \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+With Java Enterprise edition as development platform and without considering in depth the aspects of the development of the mobile and web applications, we end up with the following results:
+
+Average estimation: SLOC = 46 * 203 = **9338**
+
+High estimation: SLOC = 67 * 203 = **13601**
+
+(Function point language table from [_www.qsm.com_](http://www.qsm.com) )
+
+
 
 ## 2.2 Cost and effort estimation: COCOMO II
 
