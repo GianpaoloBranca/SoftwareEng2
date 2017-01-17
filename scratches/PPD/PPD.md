@@ -20,6 +20,8 @@ header-includes:
 * Data element type (DET): a unique user recognizable, non recursive, field.
 * Record element type (RET): Record elements type, a user recognizable subgroup of data elements.
 * File types referenced (FRT): files updated or referenced in a transaction.
+* MSO: Money saving option.
+* SA: Safe Areas.
 
 ## 1.3 Reference documents
 
@@ -120,15 +122,15 @@ In this section we are going to analyze the complexity of our ILFs, we are going
 
       Easy informations to handle, static once generated(only the status changes only once).
 
-* SafeAreas/Fares/PriceVariations:
+* Fares/PriceVariations:
     - **Estimated complexity**: Low
 
     Static informations that can be updated by the management system, easy to handle and maintain.
 
-* RechargingArea:
-    - **Estimated complexity**: Low
+* Safe and RechargingArea:
+    - **Estimated complexity**: Average
 
-    Static information about the position and dynamic updated to the number of plugs available, quite straightforward to handle.
+    Static information about the position of safe areas and dynamic updated to the number of plugs available, average complexity (high complexity only for the creation of the objects)
 
 <!--- ILF table -->
 \begin{table}[H]
@@ -138,15 +140,81 @@ In this section we are going to analyze the complexity of our ILFs, we are going
 \begin{tabular}{|c|c|c|}
 \hline
 ILF                                                                                                                                                                & Complexity                                                                           & FPs                                                                 \\ \hline
-\begin{tabular}[c]{@{}c@{}}Users Data\\ Rides Data\\ Bookings Data\\ Cars Data\\ Assistance Requests Data\\ System parameters\\ Recharging Areas Data\end{tabular} & \begin{tabular}[c]{@{}c@{}}Average\\ Low\\ Low\\ High\\ Low\\ Low\\ Low\end{tabular} & \begin{tabular}[c]{@{}c@{}}10\\ 7\\ 7\\ 15\\ 7\\ 7\\ 7\end{tabular} \\ \hline
-\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                               & 60                                                                  \\ \hline
+\begin{tabular}[c]{@{}c@{}}Users Data\\ Rides Data\\ Bookings Data\\ Cars Data\\ Assistance Requests Data\\ System parameters\\ Areas Data\end{tabular} & \begin{tabular}[c]{@{}c@{}}Average\\ Low\\ Low\\ High\\ Low\\ Low\\ Low\end{tabular} & \begin{tabular}[c]{@{}c@{}}10\\ 7\\ 7\\ 15\\ 7\\ 7\\ 10\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                               & 63                                                                  \\ \hline
 \end{tabular}
 \end{table}
 <!----->
 
 ### 2.1.2 External Logic Files (ELFs)
 
+The external data sources we rely on are PayPal, for the payments handling and GoogleMaps for the maps and navigation related services.
+
+* PayPal:
+    - **Estimated complexity**: Low
+
+      Simple files containing payment informations.
+
+* GoogleMaps:
+    - **Estimated complexity**: High
+
+      WE heavily rely on the files produced by the GoogleMaps service, for both the navigation and the maps functionalities, we consider that both of this elements have to be considered to have an high complexity.
+
+<!--- elfs  table-->
+\begin{table}[H]
+\centering
+\caption{ELF}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+ELF                                                                                & Complexity                                                      & FPs                                                 \\ \hline
+\begin{tabular}[c]{@{}c@{}}Payment info\\ Navigation Data\\ Maps Data\end{tabular} & \begin{tabular}[c]{@{}c@{}}(Very)Low\\ High\\ High\end{tabular} & \begin{tabular}[c]{@{}c@{}}2\\ 10\\ 10\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                          & 22                                                  \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
 ### 2.1.3 External Inputs (EIs)
+We report here the component interfaces diagrams that will become handy in the next sections.
+
+![](./images/components_interfaces.png){#id .class width=100% height=100%}\
+
+Our system will have to deal mainly with the following kinds of inputs:
+
+  * Login/logout of operators and users: simple operations. Both low complexity.
+
+From the users:
+
+  * Login/logout operation: simple operations with simple operations of validations on data. Both operations have a low complexity.
+  * Registration: operation of an average complexity, it requires only a small amount of checks.
+  * QR-code check-in: simple operation but that requires some components to be handled. Average complexity.
+  * car locking/unlocking: simple operations that involve a good number of components. Both average complexity.
+  * Search for car: complex operation that needs the collaboration of a good number of components. High complexity.
+  * Book/un-book a car: simple operations but that change the status of car. Both average complexity.
+  * Payment: simple operation. Low complexity.
+  * Money saving option: a complex operation that involves multiple components. High complexity.
+  * Ride data: data that the system receive during the ride. Hard to handle, high complexity.
+
+From the operator:
+
+  * Get car overview: complex operation of data retrieval. High complexity.
+  * Assistance request: not so complex operation that generates a request form to be sent to the legacy system. Average complexity.
+  * Insertion/delation of safe or recharging areas: they are crucial parameters for the system. Both high complexity.
+  * Parameters modification: simple modification but they have to be notified to the users. Average complexity.
+
+<!--- EIS -->
+\begin{table}[H]
+\centering
+\caption{EIS}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+EIs                                                                                                                                                                                                                                                          & Complexity                                                                                                                                       & FPs                                                                                               \\ \hline
+\begin{tabular}[c]{@{}c@{}}Login/Logout\\ Registration\\ Qr-code check-in\\ Car locking/unlocking\\ Search for a car\\ Book/unbook\\ Payment\\ MSO\\ Ride data\\ Car overview\\ Assistance request\\ Insert/delete SA\\ Parameters modification\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Average\\ Average\\ Average\\ High\\ Average\\ Low\\ High\\ High\\ High\\ Average\\ High\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}2*3\\ 4\\ 4\\ 2*4\\ 6\\ 2*4\\ 3\\ 6\\ 6\\ 6\\ 4\\ 2*6\\ 4\end{tabular} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                                                                                                                                                                                     & 77                                                                                                \\ \hline
+\end{tabular}
+\end{table}
+<!----->
 
 ### 2.1.4 External Inquiries (EQs)
 
