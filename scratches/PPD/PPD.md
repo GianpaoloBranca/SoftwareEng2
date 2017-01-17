@@ -288,9 +288,106 @@ High estimation: SLOC = 67 * 203 = **13601**
 
 ## 2.2 Cost and effort estimation: COCOMO II
 
+In this section we are going to use the COCOMO II model to estimate the cost and effort needed for our project.
+
 ### 2.2.1 Scale drivers
 
+<!--- COCOMO scale factors table-->
+\begin{table}[]
+\centering
+\caption{Scale factors values}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Scale Factors                                            & Very Low                                                                        & Low                                                                             & Nominal                                                                                & High                                                                    & Very High                                                              & Extra high                                                                \\ \hline
+\begin{tabular}[c]{@{}l@{}}PREC\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}thoroughly\\ unprecedented\\ \\ 6.20\end{tabular}    & \begin{tabular}[c]{@{}l@{}}largely\\ unprecedented\\ \\ 4.96\end{tabular}       & \begin{tabular}[c]{@{}l@{}}somewhat\\ unprecedented\\ \\ 3.72\end{tabular}             & \begin{tabular}[c]{@{}l@{}}generally \\ familiar\\ \\ 2.48\end{tabular} & \begin{tabular}[c]{@{}l@{}}largely\\ familiar\\ \\ 1.24\end{tabular}   & \begin{tabular}[c]{@{}l@{}}thoroughly\\ familiar\\ \\ 0.00\end{tabular}   \\ \hline
+\begin{tabular}[c]{@{}l@{}}FLEX\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}rigorous\\ \\ \\ 5.07\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}occasional\\ relaxation\\ \\ 4.05\end{tabular}       & \begin{tabular}[c]{@{}l@{}}some \\ relaxation\\ \\ 3.04\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}general\\ conformity\\ \\ 2.03\end{tabular}  & \begin{tabular}[c]{@{}l@{}}some\\ conformity\\ \\ 1.01\end{tabular}    & \begin{tabular}[c]{@{}l@{}}general\\ goals\\ \\ 0.00\end{tabular}         \\ \hline
+\begin{tabular}[c]{@{}l@{}}TEAM\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}very difficult\\ interactions\\ \\ 5.48\end{tabular} & \begin{tabular}[c]{@{}l@{}}some difficult\\ interactions\\ \\ 4.38\end{tabular} & \begin{tabular}[c]{@{}l@{}}basically \\ cooperative\\ interactions\\ 3.29\end{tabular} & \begin{tabular}[c]{@{}l@{}}largely\\ cooperative\\ \\ 2.19\end{tabular} & \begin{tabular}[c]{@{}l@{}}highly\\ cooperative\\ \\ 1.10\end{tabular} & \begin{tabular}[c]{@{}l@{}}seamless\\ interactions\\ \\ 0.00\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}RESL\\ \\ \\ Sfj\end{tabular} & \begin{tabular}[c]{@{}l@{}}little\\ (20\%)\\ \\ 7.07\end{tabular}               & \begin{tabular}[c]{@{}l@{}}some\\ (40\%)\\ \\ 5.65\end{tabular}                 & \begin{tabular}[c]{@{}l@{}}oftes\\ (60\%)\\ \\ 4.24\end{tabular}                       & \begin{tabular}[c]{@{}l@{}}generally\\ (75\%)\\ \\ 2.83\end{tabular}    & \begin{tabular}[c]{@{}l@{}}mostly\\ (90\%)\\ \\ 1.41\end{tabular}      & \begin{tabular}[c]{@{}l@{}}full\\ (100\%)\\ \\ 0.00\end{tabular}          \\ \hline
+\begin{tabular}[c]{@{}l@{}}PMAT\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}Level 1\\ Lower\\ \\ 7.80\end{tabular}               & \begin{tabular}[c]{@{}l@{}}Level 1\\ Upper\\ \\ 6.24\end{tabular}               & \begin{tabular}[c]{@{}l@{}}Level 2\\ \\ \\ 4.68\end{tabular}                           & \begin{tabular}[c]{@{}l@{}}Level 3\\ \\ \\ 3.12\end{tabular}            & \begin{tabular}[c]{@{}l@{}}Level 4\\ \\ \\ 1.56\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Level 5\\ \\ \\ 0.00\end{tabular}              \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+Brief description of the Scale Factors and motivation for our choices:
+
+* **Precedentedness**: reflects the experience of the development team in similar projects. Since our team has no experience in developing large web applications in our case will be low.
+
+* **Flex**: reflects the degree of freedom in the development process in relation to constraints in requirements and external interfaces to use. In our case the requirements are quite strict, but we have a good degree of choice from an implementation point and in some functionalities. We think Nominal it's the correct value.
+
+* **Team**:  reflects the level of cooperation between the team members.
+In our case the correct value is high.
+
+* **Risk resolution**: reflects how good the architecture as been defined and if risks has been taken into account. Since we are not expert in designing systems like this one, even if we have a good risk plan, to be conservative, we think that Nominal is the right value.
+
+* **Process maturity**: after problems faced during the the first phases of the project have been overcome, we are q confident of our team capabilities even if we are unexperienced, but it's better to be conservative even in this case. The correct value is Nominal.
+
+<!--- Cost and effort -->
+\begin{table}[H]
+\centering
+\caption{Scale drivers values}
+\label{my-label}
+\begin{tabular}{|l|c|l|}
+\hline
+Scale Driver                                                                                                                                                              & Factor                                                                                & Value                                                                                         \\ \hline
+\begin{tabular}[c]{@{}l@{}}Precedentedness (PREC)\\ Development flexibility (FLEX)\\ Team cohesion (TEAM)\\ Risk resolution (RESL)\\ Process maturity (PMAT)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Very low\\ Nominal\\ High\\ Nominal\\ Nominal\end{tabular} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}6.20\\ 3.04\\ 2.19\\ 4.24\\ 4.68\end{tabular}} \\ \hline
+\multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                                       & 20.35                                                                                         \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
+
 ### 2.2.2 Cost drivers
+
+* Required Software reliability
+
+    Reliability issues in our system could lead to the loss of resources, but as long as we are quick in detecting the issues relying on a assistance service provided by the legacy system could mitigate the losses. The correct value for the RELY cost driver is Nominal.
+
+* Database size:
+
+    We expect the effective size of out database to be remarkably high in relation to the expected SLOC. A Vary High value is the most sensible choice.
+
+* Required reusability:
+
+    The software produced in our project could be reusable for a car sharing service of a larger scale. The right RUSE cost driver is high.
+
+* Documentation match to life-cycle needs
+
+    The documentation in our project covers the life.cycle need of the system with care. The value is set to Nominal.
+
+* Execution time constraint:
+
+    Since the data flow from the cars and the system is constant we expect and high usage of the CPU with respect to our system computational capabilities. TIME is set to Very High.
+
+* Storage constraint:
+
+    Even if our system will have to deal with a reasonable amount of data, we do not expect problems related to the storage availability. STOR is set to Low.
+
+* Platform Volatility:
+
+    We do not expect the system to be under constant evolution. Nominal is the right value for the PVOL cost driver.
+
+* Analyst Capability:
+
+    We are confident to have done a good work in analyzing the domain of our system. The ACAP driver is set to High.
+
+* Programmer Capability:
+
+* Application experience:
+
+* Platform Experience:
+
+* Language and Tool experience:
+
+* Personnel continuity:
+
+* Usage of Software Tools:
+
+* Multisite development:
+
+* Required development schedule:
+
+* Product complexity:
 
 ### 2.2.3 Effort equation
 
