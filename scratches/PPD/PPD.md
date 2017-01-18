@@ -343,9 +343,26 @@ Scale Driver                                                                    
 
     Reliability issues in our system could lead to the loss of resources, but as long as we are quick in detecting the issues relying on a assistance service provided by the legacy system could mitigate the losses. The correct value for the RELY cost driver is Nominal.
 
+<!----->
+\begin{table}[H]
+\centering
+\caption{RELY}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\multicolumn{7}{|c|}{RELY Cost Driver}                                                                                                                                                                                                                                                                                                                                                                                                                                       \\ \hline
+\begin{tabular}[c]{@{}l@{}}RELY\\ Descriptors\end{tabular}   & \begin{tabular}[c]{@{}l@{}}slightly\\ inconvenience\end{tabular} & \begin{tabular}[c]{@{}l@{}}easily\\ recoverable\\ losses\end{tabular} & \begin{tabular}[c]{@{}l@{}}moderate\\ recoverable\\ losses\end{tabular} & \begin{tabular}[c]{@{}l@{}}High \\ financial\\ loss\end{tabular} & \begin{tabular}[c]{@{}l@{}}risk to\\ human\\ life\end{tabular} &                                                      \\ \hline
+Rating level                                                 & Very low                                                         & Low                                                                   & Nominal                                                                 & High                                                             & Very High                                                      & \begin{tabular}[c]{@{}l@{}}Extra\\ high\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Effort\\ multipliers\end{tabular} & 0.82                                                             & 0.92                                                                  & 1.00                                                                    & 1.10                                                             & 1.26                                                           & n/a                                                  \\ \hline
+\end{tabular}
+\end{table}
+<!----->
+
 * Database size:
 
     We expect the effective size of out database to be remarkably high in relation to the expected SLOC. A Vary High value is the most sensible choice.
+
+
 
 * Required reusability:
 
