@@ -4,25 +4,44 @@
  Andrea Cini
 %![](polimi.png)\newpage
 
-#Introduction
+#1 Introduction
 
-#Classes
+#2 Classes
 
-###PersistedServiceJob
+###2.1 PersistedServiceJob
 __Namespace:__ org.apache.ofbiz.service.job  
 __Extends:__ GenericServiceJob  
-__Implements:__ N/A
+__Implements:__ N/A  
 
-###JobPoller
+__Methods:__  
+
+###2.2 JobPoller
 __Namespace:__ org.apache.ofbiz.service.job  
 __Extends:__ N/A  
-__Implements:__ ServiceConfigListener
+__Implements:__ ServiceConfigListener  
 
-#Functional role
+__Methods:__
+    * Line 59: getInstance()
+    * Line 63: createThreadPoolExecutor()
+    * Line 75: pollWaitTime()
+    * Line 91: registerJobManager(JobManager jm)
+    * Line 114: getPoolState()
+    * Line 145: onServiceConfigChange(ServiceConfig serviceConfig)
+    * Line 154: pollEnabled()
+    * Line 168: queueNow(Job job)
+    * Line 181: stop()
 
-#Issues list found by applying the checklist
+#3 Functional role
 
-##PersistedServiceJob
+###3.1 PersistedServiceJob
+
+PersistedServiceJob -> GenericServiceJob -> AbstractJob -> Job -> Runnable
+
+###3.2 JobPoller
+
+#4 Issues list found by applying the checklist
+
+##4.1 PersistedServiceJob
 
 ###Naming convention
 * Method _longValue_ should start with a verb
@@ -54,7 +73,8 @@ __Implements:__ ServiceConfigListener
 * Everything ok
 
 ###Comments
-* Everything ok
+* In the JavaDoc of PersistedServiceJob class "JobSandbox" refers to the entity jobValue and should be renamed
+(see line 96 to 100 for an example). No class named JobSandbox exists in the project.
 
 ###Java source file
 * Everything ok
@@ -78,7 +98,25 @@ __Implements:__ ServiceConfigListener
 * _next_ not declared at the beginning of block at line 251
 * _count_ not declared at the beginning of block at line 321 __?__
 
-------
+###Method calls
+
+###Arrays
+
+###Object comparison
+
+###Output format
+
+###Computation, Comparisons and Assignments
+
+###Exceptions
+* Everything ok
+
+###Flow of Control
+* Everything ok, no switches and no loops
+
+###Files
+* Everything ok, no files
+---
 
 ##JobPoller
 
@@ -122,8 +160,29 @@ __Implements:__ ServiceConfigListener
 
 ###Initialization and declaration
 * _serviceName_ not declared at the beginning of block at line 131
-* _queueCandidates_ not declared at the beginning of block at line 231
-* _addingJobs_ not declared at the beginning of block at line 232
+* _queueCandidates_ not declared at the beginning of block at line 231 __?__
+* _addingJobs_ not declared at the beginning of block at line 232 __?__
+
+###Method calls
+
+###Arrays
+
+###Object comparison
+
+###Output format
+
+###Computation, Comparisons and Assignments
+
+###Exceptions
+* Catch block at line 172 should log the exception.
+* Line 192?
+* Catch block at line 254 should log the exception.
+
+###Flow of Control
+* Everything ok, no switches
+
+###Files
+* Everything ok, no files
 
 #Other problems
 
