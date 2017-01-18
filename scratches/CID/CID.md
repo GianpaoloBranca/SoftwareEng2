@@ -39,6 +39,8 @@ PersistedServiceJob -> GenericServiceJob -> AbstractJob -> Job -> Runnable
 
 ###3.2 JobPoller
 
+The JobPoller is a singleton class created to handle the execution of the Jobs contained into various JobManagers creating a queue that balances the Jobs ordering so that they're executed from a wide range of JobManagers. As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured, using the _createThreadPoolExecutor_ method at line 63, by taking information about the service configuration parameters from the ServiceConfigUtil class. The JobPoller itself contains an instance of a private class that extends Thread, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, whose execution is then managed from the ThreadPoolExecutor. The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method at line 114, and also about the waiting time of the poll, with the _pollWaitTime_ method at line 75. Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, and one to directly put a Job into the ThreadPoolExecutor queue, which is _queueNow_, the former at line 91 and the latter at line 168. In the end there's a method to enable the JobPoller and one to stop it. Taken into account all these informations, results clear that the role of this class is the one stated at the beginning of this paragraph.
+
 #4 Issues list found by applying the checklist
 
 ##4.1 PersistedServiceJob
@@ -164,14 +166,19 @@ PersistedServiceJob -> GenericServiceJob -> AbstractJob -> Job -> Runnable
 * _addingJobs_ not declared at the beginning of block at line 232 __?__
 
 ###Method calls
+* Everything ok
 
 ###Arrays
+* Everything ok
 
 ###Object comparison
+* At line 213 "!=" is used instead of **!LEFT_PART.equals(RIGHT_PART)**.
 
 ###Output format
+* At line 192 there's no message for a generic Exception.
 
 ###Computation, Comparisons and Assignments
+* At line 191 the catch clause catches a general Exception instead of an InvalidJobException.  
 
 ###Exceptions
 * Catch block at line 172 should log the exception.
