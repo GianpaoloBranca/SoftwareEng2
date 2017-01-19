@@ -13,29 +13,30 @@ __Namespace:__ org.apache.ofbiz.service.job
 __Extends:__ GenericServiceJob  
 __Implements:__ N/A  
 
-__Methods:__  
+__Methods:__
 
 ###2.2 JobPoller
 __Namespace:__ org.apache.ofbiz.service.job  
 __Extends:__ N/A  
 __Implements:__ ServiceConfigListener  
 
-__Methods:__
-    * Line 59: getInstance()
-    * Line 63: createThreadPoolExecutor()
-    * Line 75: pollWaitTime()
-    * Line 91: registerJobManager(JobManager jm)
-    * Line 114: getPoolState()
-    * Line 145: onServiceConfigChange(ServiceConfig serviceConfig)
-    * Line 154: pollEnabled()
-    * Line 168: queueNow(Job job)
-    * Line 181: stop()
+__Methods:__  
+
+* Line 59: getInstance()
+* Line 63: createThreadPoolExecutor()
+* Line 75: pollWaitTime()
+* Line 91: registerJobManager(JobManager jm)
+* Line 114: getPoolState()
+* Line 145: onServiceConfigChange(ServiceConfig serviceConfig)
+* Line 154: pollEnabled()
+* Line 168: queueNow(Job job)
+* Line 181: stop()
 
 #3 Functional role
 
 ###3.1 PersistedServiceJob
 
-PersistedServiceJob -> GenericServiceJob -> AbstractJob -> Job -> Runnable
+PersistedServiceJob ext-> GenericServiceJob ext-> AbstractJob impl-> Job impl-> Runnable
 
 ###3.2 JobPoller
 
@@ -52,6 +53,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * Method _infoOn_ used at line 224 should start with a verb and has an ambiguous name
 * Variable _next_ at line 179 should have a more meaningful name
 * Variable _next_ at line 251 should have a more meaningful name
+* Vaiable _jobValue_ at line 68 should be named _jobSandBox_ or similar, for consistency with comments, log outputs and javadoc.
 
 ###Indention
 * Everything is ok
@@ -75,8 +77,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * Everything ok
 
 ###Comments
-* In the JavaDoc of PersistedServiceJob class "JobSandbox" refers to the entity jobValue and should be renamed
-(see line 96 to 100 for an example). No class named JobSandbox exists in the project.
+* Everything ok
 
 ###Java source file
 * Everything ok
@@ -86,6 +87,8 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 
 ###Class and interface declaration
 * Method _deQueue_ should be grouped with _queue_
+* Method _init_ should be grouped with the other protected overridden methods
+
 
 ###Initialization and declaration
 * _cancelTime_ not declared at the beginning of block at line 104 __?__
@@ -101,14 +104,19 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * _count_ not declared at the beginning of block at line 321 __?__
 
 ###Method calls
+* Everything ok
 
 ###Arrays
+* Everything ok, no arrays
 
 ###Object comparison
+* Everything ok
 
 ###Output format
+* Everything ok
 
 ###Computation, Comparisons and Assignments
+* Everything ok
 
 ###Exceptions
 * Everything ok
@@ -159,6 +167,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 
 ###Class and interface declaration
 * Variable _jobManagerPollerThread_ declared ad line 98 should be declared after the static variables
+*
 
 ###Initialization and declaration
 * _serviceName_ not declared at the beginning of block at line 131
@@ -175,14 +184,14 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * At line 213 "!=" is used instead of **!LEFT_PART.equals(RIGHT_PART)**.
 
 ###Output format
-* At line 192 there's no message for a generic Exception.
+* Everything ok
 
 ###Computation, Comparisons and Assignments
 * At line 191 the catch clause catches a general Exception instead of an InvalidJobException.  
 
 ###Exceptions
 * Catch block at line 172 should log the exception.
-* Line 192?
+* Catch block at line 192 contains no message for a generic Exception.
 * Catch block at line 254 should log the exception.
 
 ###Flow of Control
@@ -192,5 +201,6 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * Everything ok, no files
 
 #Other problems
+* getLong(..) should return a long instead of a Long object.
 
 #Effort spent
