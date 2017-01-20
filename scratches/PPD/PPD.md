@@ -160,7 +160,7 @@ The external data sources we rely on are PayPal, for the payments handling and G
 * GoogleMaps:
     - **Estimated complexity**: High
 
-      WE heavily rely on the files produced by the GoogleMaps service, for both the navigation and the maps functionalities, we consider that both of this elements have to be considered to have an high complexity.
+      We heavily rely on the files produced by the GoogleMaps service, for both the navigation and the maps functionalities, we consider that both of this elements have to be considered to have an high complexity.
 
 <!--- elfs  table-->
 \begin{table}[H]
@@ -306,7 +306,7 @@ SFs                                            & Very Low                       
 \begin{tabular}[c]{@{}l@{}}PREC\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}thoroughly\\ unprecedented\\ \\ 6.20\end{tabular}    & \begin{tabular}[c]{@{}l@{}}largely\\ unprecedented\\ \\ 4.96\end{tabular}       & \begin{tabular}[c]{@{}l@{}}somewhat\\ unprecedented\\ \\ 3.72\end{tabular}             & \begin{tabular}[c]{@{}l@{}}generally \\ familiar\\ \\ 2.48\end{tabular} & \begin{tabular}[c]{@{}l@{}}largely\\ familiar\\ \\ 1.24\end{tabular}   & \begin{tabular}[c]{@{}l@{}}thoroughly\\ familiar\\ \\ 0.00\end{tabular}   \\ \hline
 \begin{tabular}[c]{@{}l@{}}FLEX\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}rigorous\\ \\ \\ 5.07\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}occasional\\ relaxation\\ \\ 4.05\end{tabular}       & \begin{tabular}[c]{@{}l@{}}some \\ relaxation\\ \\ 3.04\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}general\\ conformity\\ \\ 2.03\end{tabular}  & \begin{tabular}[c]{@{}l@{}}some\\ conformity\\ \\ 1.01\end{tabular}    & \begin{tabular}[c]{@{}l@{}}general\\ goals\\ \\ 0.00\end{tabular}         \\ \hline
 \begin{tabular}[c]{@{}l@{}}TEAM\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}very difficult\\ interactions\\ \\ 5.48\end{tabular} & \begin{tabular}[c]{@{}l@{}}some difficult\\ interactions\\ \\ 4.38\end{tabular} & \begin{tabular}[c]{@{}l@{}}basically \\ cooperative\\ interactions\\ 3.29\end{tabular} & \begin{tabular}[c]{@{}l@{}}largely\\ cooperative\\ \\ 2.19\end{tabular} & \begin{tabular}[c]{@{}l@{}}highly\\ cooperative\\ \\ 1.10\end{tabular} & \begin{tabular}[c]{@{}l@{}}seamless\\ interactions\\ \\ 0.00\end{tabular} \\ \hline
-\begin{tabular}[c]{@{}l@{}}RESL\\ \\ \\ Sfj\end{tabular} & \begin{tabular}[c]{@{}l@{}}little\\ (20\%)\\ \\ 7.07\end{tabular}               & \begin{tabular}[c]{@{}l@{}}some\\ (40\%)\\ \\ 5.65\end{tabular}                 & \begin{tabular}[c]{@{}l@{}}oftes\\ (60\%)\\ \\ 4.24\end{tabular}                       & \begin{tabular}[c]{@{}l@{}}generally\\ (75\%)\\ \\ 2.83\end{tabular}    & \begin{tabular}[c]{@{}l@{}}mostly\\ (90\%)\\ \\ 1.41\end{tabular}      & \begin{tabular}[c]{@{}l@{}}full\\ (100\%)\\ \\ 0.00\end{tabular}          \\ \hline
+\begin{tabular}[c]{@{}l@{}}RESL\\ \\ \\ Sfj\end{tabular} & \begin{tabular}[c]{@{}l@{}}little\\ (20\%)\\ \\ 7.07\end{tabular}               & \begin{tabular}[c]{@{}l@{}}some\\ (40\%)\\ \\ 5.65\end{tabular}                 & \begin{tabular}[c]{@{}l@{}}often\\ (60\%)\\ \\ 4.24\end{tabular}                       & \begin{tabular}[c]{@{}l@{}}generally\\ (75\%)\\ \\ 2.83\end{tabular}    & \begin{tabular}[c]{@{}l@{}}mostly\\ (90\%)\\ \\ 1.41\end{tabular}      & \begin{tabular}[c]{@{}l@{}}full\\ (100\%)\\ \\ 0.00\end{tabular}          \\ \hline
 \begin{tabular}[c]{@{}l@{}}PMAT\\ \\ \\ SFj\end{tabular} & \begin{tabular}[c]{@{}l@{}}Level 1\\ Lower\\ \\ 7.80\end{tabular}               & \begin{tabular}[c]{@{}l@{}}Level 1\\ Upper\\ \\ 6.24\end{tabular}               & \begin{tabular}[c]{@{}l@{}}Level 2\\ \\ \\ 4.68\end{tabular}                           & \begin{tabular}[c]{@{}l@{}}Level 3\\ \\ \\ 3.12\end{tabular}            & \begin{tabular}[c]{@{}l@{}}Level 4\\ \\ \\ 1.56\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Level 5\\ \\ \\ 0.00\end{tabular}              \\ \hline
 \end{tabular}
 \end{table}
@@ -363,7 +363,7 @@ Rating level                                                 & Very low         
 
 * Database size:
 
-    We expect the effective size of out database to be remarkably high in relation to the expected SLOC. A Vary High value is the most sensible choice.
+    We expect the effective size of out database to be remarkably high in relation to the expected SLOC. A Very High value is the most sensible choice.
 
 <!----->
 \begin{table}[H]
@@ -403,7 +403,7 @@ Rating level                                                 & Ver Low & Low  & 
 
 * Documentation match to life-cycle needs
 
-    The documentation in our project covers the life.cycle need of the system with care. The value is set to Nominal.
+    The documentation in our project covers the life cycle need of the system with care. The value is set to Nominal.
 
 <!----->
 \begin{table}[H]
@@ -422,7 +422,7 @@ Rating level                                                 & Ver Low          
 
 * Execution time constraint:
 
-    Since the data flow from the cars and the system is constant we expect and high usage of the CPU with respect to our system computational capabilities. TIME is set to Very High.
+    Since the data flow from the cars and the system is constant we expect an high usage of the CPU with respect to our system computational capabilities. TIME is set to Very High.
 <!----->
 \begin{table}[H]
 \centering
