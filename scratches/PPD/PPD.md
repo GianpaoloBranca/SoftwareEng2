@@ -102,7 +102,7 @@ In this section we are going to analyze the complexity of our ILFs, we are going
 * Users:
     - **Estimated complexity**: Average
 
-        The first type of internal data our system will have to deal with are the user related ones. The handling of the user data will include not so trivial operations:  password retrieval, driving license and PayPal account checks and profile personalization functionalities (profile image).
+        The first type of internal data our system will have to deal with are the user related ones. The handling of the user data, even if well standardized, requires a lot of care and because of the personalization functionality of the user's profile and periodic checks to be performed on driving licenses and PayPal accounts they will not be entirely static.
 
 * Rides:
     - **Estimated complexity**: Low
@@ -122,17 +122,17 @@ In this section we are going to analyze the complexity of our ILFs, we are going
 * Assistance requests:
     - **Estimated complexity**: Low
 
-      Easy informations to handle, static once generated(only the status changes only once).
+        Easy informations to handle, static once generated(only the status changes only once).
 
 * Fares/PriceVariations:
     - **Estimated complexity**: Low
 
-    Static informations that can be updated by the management system, easy to handle and maintain.
+        Static informations that can be updated by the management system, easy to handle and maintain.
 
 * Safe and RechargingArea:
     - **Estimated complexity**: Average
 
-    Static information about the position of safe areas and dynamic updated to the number of plugs available, average complexity (high complexity only for the creation of the objects)
+        Static information about the position of safe areas and dynamic updated to the number of plugs available, average complexity (high complexity only for the creation of the objects)
 
 <!--- ILF table -->
 \begin{table}[H]
@@ -314,12 +314,12 @@ SFs                                            & Very Low                       
 
 Brief description of the Scale Factors and motivation for our choices:
 
-* **Precedentedness**: reflects the experience of the development team in similar projects. Since our team has no experience in developing large web applications in our case will be low.
+* **Precedentedness**: reflects the experience of the development team in similar projects. Since our team has no experience in developing large web applications in our case will be Low.
 
 * **Flex**: reflects the degree of freedom in the development process in relation to constraints in requirements and external interfaces to use. In our case the requirements are quite strict, but we have a good degree of choice from an implementation point and in some functionalities. We think Nominal it's the correct value.
 
 * **Team**:  reflects the level of cooperation between the team members.
-In our case the correct value is high.
+In our case the correct value is High.
 
 * **Risk resolution**: reflects how good the architecture as been defined and if risks has been taken into account. Since we are not expert in designing systems like this one, even if we have a good risk plan, to be conservative, we think that Nominal is the right value.
 
@@ -363,7 +363,7 @@ Rating level                                                 & Very low         
 
 * Database size:
 
-    We expect the effective size of out database to be remarkably high in relation to the expected SLOC. A Very High value is the most sensible choice.
+    We expect the effective size of out database to be high in relation to the expected SLOC. An High value is probably the most sensible choice.
 
 <!----->
 \begin{table}[H]
@@ -384,7 +384,7 @@ Rating level                                                 & Ver Low & Low    
 
 * Required reusability:
 
-    The software produced in our project could be reusable for a car sharing service of a larger scale. The right RUSE cost driver is high.
+    The software produced in our project could be reusable for a car sharing service of a larger scale. The right RUSE cost driver is High.
 
 <!----->
 \begin{table}[H]
@@ -422,7 +422,8 @@ Rating level                                                 & Ver Low          
 
 * Execution time constraint:
 
-    Since the data flow from the cars and the system is constant we expect an high usage of the CPU with respect to our system computational capabilities. TIME is set to Very High.
+    Since we will have part of the logic distributed over cars, the workload of the system should not be too heavy. TIME is set to Nominal.
+
 <!----->
 \begin{table}[H]
 \centering
@@ -631,7 +632,7 @@ Rating level                                                                & Ve
 
 * Required development schedule:
 
-    The schedule for our project was not particularly stretched out.  SCED is set to NOMINAL
+    The schedule for our project was not particularly stretched out.  SCED is set to Nominal.
 
 <!----->
 \begin{table}[H]
@@ -675,8 +676,8 @@ Overall results:
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Cost Driver}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            & Factor                                                                                                                                                                                             & Value                                                                                                                                                                             \\ \hline
-\begin{tabular}[c]{@{}l@{}}Required Software Reliability (RELY)\\ Database size (DATA)\\ Required Reusability (RUSE)\\ Documentation match to life-cycle needs (DOCU)\\ Execution Time Constraint (TIME)\\ Main storage constraint (STOR)\\ Platform volatility (PVOL)\\ Analyst capability (ACAP)\\ Programmer capability (PCAP)\\ Application Experience (APEX)\\ Platform Experience (PLEX)\\ Language and Tool Experience (LTEX)\\ Personnel continuity (PCON)\\ Usage of Software Tools (TOOL)\\ Multisite development schedule (SITE)\\ Required development schedule (SCED)\\ Product complexity (CPLEX)\end{tabular} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Nominal\\ High\\ High\\ Nominal\\ Very High\\ Nominal\\ Nominal\\ High\\ High\\ Low\\ Low\\ Low\\ High\\ High\\ High\\ Nominal\\ High\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1.00\\ 1.14\\ 1.07\\ 1.00\\ 1.29\\ 1.00\\ 1.00\\ 0.85\\ 0.88\\ 1.15\\ 1.09\\ 1.09\\ 0.90\\ 0.90\\ 0.93\\ 1.00\\ 1.17\end{tabular}} \\ \hline
-\multicolumn{2}{|l|}{Total (Product)}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             & 1,41737                                                                                                                                                                           \\ \hline
+\begin{tabular}[c]{@{}l@{}}Required Software Reliability (RELY)\\ Database size (DATA)\\ Required Reusability (RUSE)\\ Documentation match to life-cycle needs (DOCU)\\ Execution Time Constraint (TIME)\\ Main storage constraint (STOR)\\ Platform volatility (PVOL)\\ Analyst capability (ACAP)\\ Programmer capability (PCAP)\\ Application Experience (APEX)\\ Platform Experience (PLEX)\\ Language and Tool Experience (LTEX)\\ Personnel continuity (PCON)\\ Usage of Software Tools (TOOL)\\ Multisite development schedule (SITE)\\ Required development schedule (SCED)\\ Product complexity (CPLEX)\end{tabular} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Nominal\\ High\\ High\\ Nominal\\ Nominal\\ Nominal\\ Nominal\\ High\\ High\\ Low\\ Low\\ Low\\ High\\ High\\ High\\ Nominal\\ High\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}1.00\\ 1.14\\ 1.07\\ 1.00\\ 1.00\\ 1.00\\ 1.00\\ 0.85\\ 0.88\\ 1.15\\ 1.09\\ 1.09\\ 0.90\\ 0.90\\ 0.93\\ 1.00\\ 1.17\end{tabular}} \\ \hline
+\multicolumn{2}{|l|}{Total (Product)}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             & 1.09874                                                                                                                                                                           \\ \hline
 \end{tabular}
 \end{table}
 <!----->
@@ -686,7 +687,7 @@ Overall results:
 Finally we can use the values produced by our analysis to get the final estimation in PM (Person Months). (Simple calculations in Python)
 ```python
   A = 2.94
-  EAF = 1.41737
+  EAF = 1.09874
   SF = [6.20, 3.04,  2.19, 4.24, 4.68]
   KSLOC_avg = 9890.0 / 1000.0
   KSLOC_max = 14405.0 / 1000.0
@@ -702,9 +703,10 @@ With results:
 
 ```python
   >>>effort_avg
-  53.45417576793934
+  41.43748003927392
+
   >>>effort_max
-  81.25219172083412
+  62.9863995508225
 ```
 
 
@@ -723,9 +725,10 @@ With results:
 
 ```python
   >>>duration_avg
-  14.255885602518472
+  13.070074457743738
+
   >>>duration_max
-  16.44429729890852
+  15.076453059081716
 ```
 
 We will use these values in the next sections to produce a proper schedule for our project.
