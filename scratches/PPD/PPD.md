@@ -26,6 +26,11 @@ header-includes:
 * SA: Safe Areas.
 
 ## 1.3 Reference documents
+* The specification document.
+* The RASD.
+* The DD.
+* The TP.  
+* Project Plane document sample on the Beep platform.
 
 # 2 Project size, cost and effort estimation
 
