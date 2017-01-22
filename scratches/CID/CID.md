@@ -16,9 +16,9 @@ __Implements:__ N/A
 __Methods:__
 
 ###2.2 JobPoller
-__Namespace:__ org.apache.ofbiz.service.job  
+__Namespace:__ org.apache.ofbiz.service.job.JobPoller  
 __Extends:__ N/A  
-__Implements:__ ServiceConfigListener  
+__Implements:__ org.apache.ofbiz.service.config.ServiceConfigListener  
 
 __Methods:__  
 
@@ -39,6 +39,8 @@ __Methods:__
 PersistedServiceJob ext-> GenericServiceJob ext-> AbstractJob impl-> Job impl-> Runnable
 
 ###3.2 JobPoller
+
+![](./images/JobPoller_dep.png){#id .class width=50% height=50%}\
 
 The JobPoller is a singleton class created to handle the execution of the Jobs contained into various JobManagers creating a queue that balances the Jobs ordering so that they're executed from a wide range of JobManagers. As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured, using the _createThreadPoolExecutor_ method at line 63, by taking information about the service configuration parameters from the ServiceConfigUtil class. The JobPoller itself contains an instance of a private class that extends Thread, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, whose execution is then managed from the ThreadPoolExecutor. The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method at line 114, and also about the waiting time of the poll, with the _pollWaitTime_ method at line 75. Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, and one to directly put a Job into the ThreadPoolExecutor queue, which is _queueNow_, the former at line 91 and the latter at line 168. In the end there's a method to enable the JobPoller and one to stop it. Taken into account all these informations, results clear that the role of this class is the one stated at the beginning of this paragraph.
 

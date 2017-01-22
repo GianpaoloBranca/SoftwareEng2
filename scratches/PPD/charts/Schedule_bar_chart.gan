@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-08-01" view-index="1" gantt-divider-location="518" resource-divider-location="300" version="2.8.1" locale="it_IT">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-09-01" view-index="0" gantt-divider-location="367" resource-divider-location="372" version="2.8.1" locale="it">
     <description/>
-    <view zooming-state="default:11" id="gantt-chart">
-        <field id="tpd3" name="Nome" width="370" order="0"/>
-        <field id="tpd4" name="Data d'inizio" width="73" order="1"/>
-        <field id="tpd5" name="Data di fine" width="69" order="2"/>
+    <view zooming-state="default:10" id="gantt-chart">
+        <field id="tpd3" name="Nome" width="316" order="0"/>
+        <field id="tpd4" name="Data d'inizio" width="15" order="1"/>
+        <field id="tpd5" name="Data di fine" width="15" order="2"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Nome" width="209" order="0"/>
-        <field id="1" name="Ruolo predefinito" width="85" order="1"/>
+        <field id="0" name="Nome" width="336" order="0"/>
+        <field id="1" name="Ruolo predefinito" width="15" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -33,7 +33,7 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="RASD" color="#8cb6ce" meeting="false" start="2016-10-03" duration="59" complete="0" expand="false">
+        <task id="0" name="RASD" color="#8cb6ce" meeting="false" start="2016-10-03" duration="59" complete="0" expand="true">
             <task id="4" name="Meeting with the company" color="#8cb6ce" meeting="false" start="2016-10-03" duration="1" complete="0" expand="true"/>
             <task id="6" name="Identification of the current company situation" color="#8cb6ce" meeting="false" start="2016-10-03" duration="1" complete="0" expand="true"/>
             <task id="7" name="Initial goals identification" color="#8cb6ce" meeting="false" start="2016-10-04" duration="2" complete="0" expand="true"/>
@@ -67,7 +67,7 @@
             <task id="62" name="Meeting with the company" color="#8cb6ce" meeting="false" start="2016-11-27" duration="1" complete="0" expand="true"/>
             <task id="63" name="Final refinements" color="#8cb6ce" meeting="false" start="2016-11-28" duration="3" complete="0" expand="true"/>
         </task>
-        <task id="67" name="DD" meeting="false" start="2016-12-01" duration="46" complete="0" expand="false">
+        <task id="67" name="DD" meeting="false" start="2016-12-01" duration="46" complete="0" expand="true">
             <task id="68" name="General high level architectural choices" color="#8cb6ce" meeting="false" start="2016-12-01" duration="2" complete="0" expand="true"/>
             <task id="69" name="Identification of main components" color="#8cb6ce" meeting="false" start="2016-12-03" duration="3" complete="0" expand="true"/>
             <task id="70" name="Meeting with the company" color="#8cb6ce" meeting="false" start="2016-12-06" duration="1" complete="0" expand="true"/>
@@ -96,50 +96,50 @@
             <task id="96" name="Meeting with the company" color="#8cb6ce" meeting="false" start="2017-01-11" duration="1" complete="0" expand="true"/>
             <task id="97" name="Final refinements" color="#8cb6ce" meeting="false" start="2017-01-12" duration="4" complete="0" expand="true"/>
         </task>
-        <task id="100" name="Development" meeting="false" start="2017-01-16" duration="563" complete="0" expand="false">
-            <task id="102" name="Development of subcomponents" color="#8cb6ce" meeting="false" start="2017-01-16" duration="182" complete="0" expand="true"/>
+        <task id="100" name="Development" meeting="false" start="2017-01-16" duration="298" complete="0" expand="true">
+            <task id="102" name="Development of subcomponents" color="#8cb6ce" meeting="false" start="2017-01-16" duration="121" complete="0" expand="true"/>
             <task id="103" name="External components study" color="#8cb6ce" meeting="false" start="2017-01-16" duration="32" complete="0" expand="true"/>
-            <task id="105" name="Code inspection" color="#8cb6ce" meeting="false" start="2017-02-01" duration="151" complete="0" expand="true"/>
-            <task id="106" name="Subcomponents unit tests" color="#8cb6ce" meeting="false" start="2017-02-16" duration="182" complete="0" expand="true"/>
-            <task id="107" name="Subcomponent integration" color="#8cb6ce" meeting="false" start="2017-08-01" duration="93" complete="0" expand="true"/>
-            <task id="108" name="Subcomponents Integration testing" color="#8cb6ce" meeting="false" start="2017-10-01" duration="47" complete="0" expand="true"/>
-            <task id="109" name="Components development" color="#8cb6ce" meeting="false" start="2017-11-01" duration="93" complete="0" expand="true"/>
-            <task id="110" name="External components integration" color="#8cb6ce" meeting="false" start="2017-12-16" duration="32" complete="0" expand="true"/>
-            <task id="111" name="Components unit tests" color="#8cb6ce" meeting="false" start="2018-01-01" duration="47" complete="0" expand="true"/>
-            <task id="112" name="Components integration" color="#8cb6ce" meeting="false" start="2018-02-16" duration="45" complete="0" expand="true"/>
-            <task id="113" name="Components integration tests" color="#8cb6ce" meeting="false" start="2018-03-16" duration="62" complete="0" expand="true"/>
-            <task id="114" name="System tests" color="#8cb6ce" meeting="false" start="2018-04-01" duration="122" complete="0" expand="true"/>
-            <task id="115" name="First internal demonstration" color="#8cb6ce" meeting="false" start="2018-02-16" duration="1" complete="0" expand="true"/>
-            <task id="116" name="Refinements" color="#8cb6ce" meeting="false" start="2018-02-17" duration="11" complete="0" expand="true"/>
-            <task id="117" name="Mobile Application development" color="#8cb6ce" meeting="false" start="2018-02-16" duration="60" complete="0" expand="true"/>
-            <task id="118" name="Web Application development" color="#8cb6ce" meeting="false" start="2018-02-16" duration="60" complete="0" expand="true"/>
-            <task id="120" name="Applications unit tests" color="#8cb6ce" meeting="false" start="2018-03-16" duration="47" complete="0" expand="true"/>
-            <task id="121" name="Second internal demonstration" color="#8cb6ce" meeting="false" start="2018-05-01" duration="1" complete="0" expand="true"/>
-            <task id="122" name="First demonstration to company" color="#8cb6ce" meeting="false" start="2018-05-03" duration="1" complete="0" expand="true"/>
-            <task id="123" name="Refinements" color="#8cb6ce" meeting="false" start="2018-05-04" duration="11" complete="0" expand="true"/>
-            <task id="124" name="Third internal demonstration" color="#8cb6ce" meeting="false" start="2018-06-01" duration="1" complete="0" expand="true"/>
-            <task id="125" name="Second demonstration to company" color="#8cb6ce" meeting="false" start="2018-06-03" duration="1" complete="0" expand="true"/>
-            <task id="126" name="Refinements" color="#8cb6ce" meeting="false" start="2018-06-04" duration="11" complete="0" expand="true"/>
-            <task id="127" name="Document deep revision" color="#8cb6ce" meeting="false" start="2018-06-15" duration="6" complete="0" expand="true"/>
-            <task id="128" name="Final presentation to company" color="#8cb6ce" meeting="false" start="2018-07-10" duration="1" complete="0" expand="true"/>
-            <task id="129" name="Final refinements" color="#8cb6ce" meeting="false" start="2018-07-11" duration="11" complete="0" expand="true"/>
-            <task id="131" name="Final internal presentation" color="#8cb6ce" meeting="false" start="2018-07-22" duration="1" complete="0" expand="true"/>
-            <task id="132" name="User manual writing" color="#8cb6ce" meeting="false" start="2018-07-23" duration="9" complete="0" expand="true"/>
-            <task id="133" name="Release" color="#8cb6ce" meeting="false" start="2018-08-01" duration="1" complete="0" expand="true"/>
+            <task id="105" name="Code inspection" color="#8cb6ce" meeting="false" start="2017-02-01" duration="90" complete="0" expand="true"/>
+            <task id="106" name="Subcomponents unit tests" color="#8cb6ce" meeting="false" start="2017-02-16" duration="106" complete="0" expand="true"/>
+            <task id="107" name="Subcomponent integration" color="#8cb6ce" meeting="false" start="2017-04-16" duration="63" complete="0" expand="true"/>
+            <task id="108" name="Subcomponents Integration testing" color="#8cb6ce" meeting="false" start="2017-05-16" duration="47" complete="0" expand="true"/>
+            <task id="109" name="Components development" color="#8cb6ce" meeting="false" start="2017-06-18" duration="63" complete="0" expand="true"/>
+            <task id="110" name="External components integration" color="#8cb6ce" meeting="false" start="2017-04-16" duration="32" complete="0" expand="true"/>
+            <task id="111" name="Components unit tests" color="#8cb6ce" meeting="false" start="2017-07-18" duration="44" complete="0" expand="true"/>
+            <task id="112" name="Components integration" color="#8cb6ce" meeting="false" start="2017-08-01" duration="45" complete="0" expand="true"/>
+            <task id="113" name="Components integration tests" color="#8cb6ce" meeting="false" start="2017-09-01" duration="31" complete="0" expand="true"/>
+            <task id="114" name="System tests" color="#8cb6ce" meeting="false" start="2017-06-18" duration="143" complete="0" expand="true"/>
+            <task id="115" name="First internal demonstration" color="#8cb6ce" meeting="false" start="2017-05-01" duration="1" complete="0" expand="true"/>
+            <task id="116" name="Refinements" color="#8cb6ce" meeting="false" start="2017-05-02" duration="21" complete="0" expand="true"/>
+            <task id="117" name="Mobile Application development" color="#8cb6ce" meeting="false" start="2017-06-18" duration="60" complete="0" expand="true"/>
+            <task id="118" name="Web Application development" color="#8cb6ce" meeting="false" start="2017-06-18" duration="60" complete="0" expand="true"/>
+            <task id="120" name="Applications unit tests" color="#8cb6ce" meeting="false" start="2017-07-18" duration="47" complete="0" expand="true"/>
+            <task id="121" name="Second internal demonstration" color="#8cb6ce" meeting="false" start="2017-08-18" duration="1" complete="0" expand="true"/>
+            <task id="122" name="First demonstration to company" color="#8cb6ce" meeting="false" start="2017-08-20" duration="1" complete="0" expand="true"/>
+            <task id="123" name="Refinements" color="#8cb6ce" meeting="false" start="2017-08-21" duration="21" complete="0" expand="true"/>
+            <task id="124" name="Third internal demonstration" color="#8cb6ce" meeting="false" start="2017-09-16" duration="1" complete="0" expand="true"/>
+            <task id="125" name="Second demonstration to company" color="#8cb6ce" meeting="false" start="2017-09-18" duration="1" complete="0" expand="true"/>
+            <task id="126" name="Refinements" color="#8cb6ce" meeting="false" start="2017-09-19" duration="32" complete="0" expand="true"/>
+            <task id="127" name="Document deep revision" color="#8cb6ce" meeting="false" start="2017-10-20" duration="6" complete="0" expand="true"/>
+            <task id="128" name="Final presentation to company" color="#8cb6ce" meeting="false" start="2017-10-26" duration="1" complete="0" expand="true"/>
+            <task id="129" name="Final refinements" color="#8cb6ce" meeting="false" start="2017-10-27" duration="11" complete="0" expand="true"/>
+            <task id="132" name="User manual writing" color="#8cb6ce" meeting="false" start="2017-10-27" duration="11" complete="0" expand="true"/>
+            <task id="131" name="Final internal presentation" color="#8cb6ce" meeting="false" start="2017-11-08" duration="1" complete="0" expand="true"/>
+            <task id="133" name="Release" color="#8cb6ce" meeting="false" start="2017-11-09" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="134" name="Deployment" meeting="false" start="2018-08-01" duration="32" complete="0" expand="false">
-            <task id="135" name="System deployment" color="#8cb6ce" meeting="false" start="2018-08-01" duration="32" complete="0" expand="true"/>
-            <task id="136" name="Teaching meeting with administrators" color="#8cb6ce" meeting="false" start="2018-08-01" duration="8" complete="0" expand="true"/>
-            <task id="137" name="Cars distribution" meeting="false" start="2018-08-01" duration="15" complete="0" expand="true"/>
-            <task id="138" name="Stations installment" meeting="false" start="2018-08-01" duration="32" complete="0" expand="true"/>
-            <task id="139" name="Teaching meeting with company operators" color="#8cb6ce" meeting="false" start="2018-08-09" duration="7" complete="0" expand="true"/>
-            <task id="140" name="Final meetings" color="#8cb6ce" meeting="false" start="2018-08-16" duration="8" complete="0" expand="true"/>
-            <task id="141" name="Final preparations" color="#8cb6ce" meeting="false" start="2018-08-16" duration="17" complete="0" expand="true"/>
+        <task id="134" name="Deployment" color="#000000" meeting="false" start="2017-11-09" duration="23" complete="0" expand="true">
+            <task id="135" name="System deployment" color="#8cb6ce" meeting="false" start="2017-11-09" duration="23" complete="0" expand="true"/>
+            <task id="136" name="Teaching meeting with administrators" color="#8cb6ce" meeting="false" start="2017-11-09" duration="8" complete="0" expand="true"/>
+            <task id="139" name="Teaching meeting with company operators" color="#8cb6ce" meeting="false" start="2017-11-09" duration="8" complete="0" expand="true"/>
+            <task id="137" name="Cars distribution" meeting="false" start="2017-11-09" duration="16" complete="0" expand="true"/>
+            <task id="138" name="Stations installment" meeting="false" start="2017-11-09" duration="16" complete="0" expand="true"/>
+            <task id="140" name="Final meetings" color="#8cb6ce" meeting="false" start="2017-11-25" duration="3" complete="0" expand="true"/>
+            <task id="141" name="Final preparations" color="#8cb6ce" meeting="false" start="2017-11-28" duration="4" complete="0" expand="true"/>
         </task>
-        <task id="142" name="Start-up" meeting="false" start="2018-09-01" duration="62" complete="0" expand="false">
-            <task id="143" name="System first start" color="#8cb6ce" meeting="false" start="2018-09-01" duration="1" complete="0" expand="true"/>
-            <task id="144" name="Real life simulation" color="#8cb6ce" meeting="false" start="2018-09-01" duration="31" complete="0" expand="true"/>
-            <task id="148" name="Main updates and checks" color="#8cb6ce" meeting="false" start="2018-09-01" duration="62" complete="0" expand="true"/>
+        <task id="142" name="Start-up" meeting="false" start="2017-12-01" duration="31" complete="0" expand="true">
+            <task id="143" name="System first start" color="#8cb6ce" meeting="false" start="2017-12-01" duration="1" complete="0" expand="true"/>
+            <task id="144" name="Real life simulation" color="#8cb6ce" meeting="false" start="2017-12-01" duration="31" complete="0" expand="true"/>
+            <task id="148" name="Main updates and checks" color="#8cb6ce" meeting="false" start="2017-12-01" duration="31" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources>
@@ -210,7 +210,6 @@
         <allocation task-id="133" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="135" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="136" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="139" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="140" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="141" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="143" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
@@ -279,12 +278,11 @@
         <allocation task-id="132" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="133" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="135" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="136" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="139" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="140" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="141" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="143" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="144" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="139" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="4" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="6" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="7" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
@@ -349,12 +347,11 @@
         <allocation task-id="131" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="133" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="135" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="136" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="139" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="140" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="141" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="143" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="148" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="136" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
