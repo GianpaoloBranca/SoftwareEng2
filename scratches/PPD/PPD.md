@@ -17,6 +17,10 @@ header-includes:
 
 ## 1.1 Purpose and Scope
 
+The purpose of this document is to provide an effective plan for the the realization of the PowerENjoy service.
+We will perform a function points analysis to estimate the size of the project and then use the COCOMO II approach to produce a conservative estimation of the the cost and the effort the the project will require. We will then use the results of the analysis to produce a schedule compatible with the project size.
+Finally we will analyze the risks and the problems that could occur during the development cycles.
+
 ## 1.2 Definitions, Acronyms, Abbreviations
 
 * Data element type (DET): a unique user recognizable, non recursive, field.
@@ -26,11 +30,11 @@ header-includes:
 * SA: Safe Areas.
 
 ## 1.3 Reference documents
+
 * The specification document.
-* The RASD.
-* The DD.
-* The TP.  
 * Project Plane document sample on the Beep platform.
+* COCOMO II tables from : [_sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html_](http://sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html)
+* Function points reference:[_www.functionpointmodeler.com/fpm-infocenter/index.jsp_](http://www.functionpointmodeler.com/fpm-infocenter/index.jsp)
 
 # 2 Project size, cost and effort estimation
 
@@ -740,16 +744,29 @@ We will use these values in the next sections to produce a proper schedule for o
 
 # 3 Schedule
 
-In this section an initial high level schedule is presented in the form of a bar chart. The schedule will likely be updated, as the project goes on, to better fit the situations that may occur. We provided a schedule containing also phases that aren't actually part of this project due to its didactical purpose, for example we aren't going to perform any development, but we found practical and useful to show how an actual scheduling (in a real situation) would have been for a project of this size.
+In this section an initial high level schedule is presented in the form of a bar chart. The schedule will likely be updated, as the project goes on, to better fit the situations that may occur. We provided a schedule containing also phases that aren't actually part of this project due to its didactical purpose, for example we aren't going to perform any development, but we found practical and useful to show how an actual scheduling (in a real situation) would have been for a project of this size.ù
 
-![](./images/Schedule_bar_chart.png){#id .class width=100% height=100%}\
+(Full size image here [_https://raw.githubusercontent.com/GianpaoloBranca/SoftwareEng2/
+  master/scratches/PPD/images/Schedule_bar_chart.png_](https://raw.githubusercontent.com/GianpaoloBranca/SoftwareEng2/
+  master/scratches/PPD/images/Schedule_bar_chart.png))
+
+![](./images/Schedule_bar_chart.png)\
+
 
 # 4 Resource allocation
 
 In this section we split the tasks, defined in the previous scheduling section, among the different components of the project team. As previously stated, the Resource allocation bar chart is likely to be updated as the project progresses, also to better define the granularity of tasks division among team members. We are aware that, specially in the development section of the chart, tasks are not too much divided among members, this due, firstly, to the low number of "workers" involved in this project, that clearly doesn't fit a development process for such a system, secondly, to the height of this chart in terms of abstraction levels.
 
-![](./images/Resources_bar_chart.png){#id .class width=100% height=100%}\
+(Full image here [_https://raw.githubusercontent.com/GianpaoloBranca/SoftwareEng2/
+  master/scratches/PPD/images/Resources_bar_chart.png_](https://raw.githubusercontent.com/GianpaoloBranca/SoftwareEng2/master/scratches/PPD/images/Resources_bar_chart.png))\
+
+![](./images/Resources_bar_chart.png)\
+
 
 # 5 Risk management
 
-In this section risks for our system development are taken into account, along with some possible strategies to tackle them effectively. Problems at a management level are not so likely to happen since the project was commissioned by a company and there are contractual duties to satisfy even in case of a changes in the high spheres, anyway the high number of meetings should always keep our employers with an eye inside the process, so that they will consider the importance of the project itself for the company's future. Along with managements problems are budget problems, they're mostly unpredictable and rather serious when they occur, the only strategy here is to check in advantage the financial situation of the company, in our case, since we work for a public transportation company, it's not likely that this kind of problems will occur. For what concerns risks of requirements misunderstandings we tackle them in advance via the many encounters with the company managers, so that at various levels in the development process their correctness is checked. Even risks about external components are at a minimum, for the system can rely on solid ones that are not likely to exit the market or change in short time. For what concerns the actual salability of the service, we are by no mean worried, the city in which the service will be implemented is a metropolis, therefore is unlikely that such a system will not get many users; a secondary problem may be the concurrency of similar services, but the system will tackle such a problem thanks to its flexibility in fares. Some problems, which are more likely to happen over a 2 year course, are illness in the personal, especially if this cases take place during important milestones in the project or meetings, to address this kind of problems is useful to keep cohesion among team members at the level of comprehension of teammates work and to always have groups of people working at each task, so that the absence of one doesn't block the developing process. The problems regarding the staff can be many and different, in case of high specialization members, for example, their absence can seriously damage the project, therefore is safer to hire people with a wide range of skills, for the system we're going to develop doesn't advice the need for any particularly high specialized professional. In any case, as a matter of precaution, the time for the various tasks in the scheduling bar chart, is slightly overestimated, so that in case of shifts in the project progress we're covered.
+In this section risks for our system development are taken into account, along with some possible strategies to tackle them effectively. Problems at a management level are not so likely to happen since the project was commissioned by a company and there are contractual duties to satisfy even in case of a changes in the high spheres, anyway the high number of meetings should always keep our employers with an eye inside the process, so that they will consider the importance of the project itself for the company's future. Along with managements problems are budget problems, they're mostly unpredictable and rather serious when they occur, the only strategy here is to check in advantage the financial situation of the company, in our case, since we work for a transportation company with an already solid bases, it's not likely that this kind of problems will occur. For what concerns risks of requirements misunderstandings we tackle them in advance via the many encounters with the company managers, so that at various levels in the development process their correctness is checked. Even risks about external components are at a minimum, for the system can rely on solid ones that are not likely to exit the market or change in short time. For what concerns the actual salability of the service, we are by no mean worried, the city in which the service will be implemented is a metropolis, therefore is unlikely that such a system will not get many users; a secondary problem may be the concurrency of similar services, but the system will tackle such a problem thanks to its flexibility in fares. Some problems, which are more likely to happen over a 2 year course, are illness in the personal, especially if this cases take place during important milestones in the project or meetings, to address this kind of problems is useful to keep cohesion among team members at the level of comprehension of teammates work and to always have groups of people working at each task, so that the absence of one doesn't block the developing process. The problems regarding the staff can be many and different, in case of high specialization members, for example, their absence can seriously damage the project, therefore is safer to hire people with a wide range of skills, for the system we're going to develop doesn't advice the need for any particularly high specialized professional. In any case, as a matter of precaution, the time for the various tasks in the scheduling bar chart, is slightly overestimated, so that in case of shifts in the project progress we're covered.
+
+# 6 Effort spent
+
+Each group member has spent around 10 hours working on this document.
