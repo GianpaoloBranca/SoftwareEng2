@@ -17,7 +17,7 @@ header-includes:
 
 ## 1.1 Purpose and Scope
 
-The purpose of this document is to provide an effective plan for the the realization of the PowerENjoy service.
+The purpose of this document is to provide an effective plan for the the realization of the PowerEnjoy service.
 We will perform a function points analysis to estimate the size of the project and then use the COCOMO II approach to produce a conservative estimation of the the cost and the effort the the project will require. We will then use the results of the analysis to produce a schedule compatible with the project size.
 Finally we will analyze the risks and the problems that could occur during the development cycles.
 
@@ -33,12 +33,12 @@ Finally we will analyze the risks and the problems that could occur during the d
 
 * The specification document.
 * Project Plane document sample on the Beep platform.
-* COCOMO II tables from : [_sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html_](http://sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html)
-* Function points reference:[_www.functionpointmodeler.com/fpm-infocenter/index.jsp_](http://www.functionpointmodeler.com/fpm-infocenter/index.jsp)
+* COCOMO II tables from: [_sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html_](http://sunset.usc.edu/research/COCOMOII/expert_cocomo/drivers.html)
+* Function points reference: [_www.functionpointmodeler.com/fpm-infocenter/index.jsp_](http://www.functionpointmodeler.com/fpm-infocenter/index.jsp)
 
 # 2 Project size, cost and effort estimation
 
-In this section we will use well known approaches to project planning to estimate di dimension and the cost in time and money that our project will have.
+In this section we will use well known approaches to project planning to estimate the dimension and the cost in time and money that our project will have.
 We will use the Function Points approach for the size estimation and than COCOMO for the cost and effort estimation and we will not consider, for the most part, the presentation layer.
 
 
@@ -223,7 +223,7 @@ From the operator:
 \begin{tabular}{|c|c|c|}
 \hline
 EIs                                                                                                                                                                                                                                                          & Complexity                                                                                                                                       & FPs                                                                                               \\ \hline
-\begin{tabular}[c]{@{}c@{}}Login/Logout\\ Registration\\ Qr-code check-in\\ Car locking/unlocking\\ Search for a car\\ Book/unbook\\ Payment\\ MSO\\ Ride data\\ Overall view\\ Car overview\\ Assistance request\\ Insert/delete SA\\ Insert/delete car\\ Parameters modification\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Average\\ Average\\ Average\\ High\\ Average\\ Low\\ High\\ High\\ High\\ High\\ Average\\ High\\ High\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}2*3\\ 4\\ 4\\ 2*4\\ 6\\ 2*4\\ 3\\ 6\\ 6\\ 6\\ 6\\ 4\\ 2*6\\ 2*6\\ 4\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}c@{}}Login/Logout\\ Registration\\ Qr-code check-in\\ Car locking/unlocking\\ Search for a car\\ Book/cancel\\ Payment\\ MSO\\ Ride data\\ Overall view\\ Car overview\\ Assistance request\\ Insert/delete SA\\ Insert/delete car\\ Parameters modification\end{tabular} & \begin{tabular}[c]{@{}c@{}}Low\\ Average\\ Average\\ Average\\ High\\ Average\\ Low\\ High\\ High\\ High\\ High\\ Average\\ High\\ High\\ Average\end{tabular} & \begin{tabular}[c]{@{}c@{}}2*3\\ 4\\ 4\\ 2*4\\ 6\\ 2*4\\ 3\\ 6\\ 6\\ 6\\ 6\\ 4\\ 2*6\\ 2*6\\ 4\end{tabular} \\ \hline
 \multicolumn{2}{|l|}{Total}                                                                                                                                                                                                                                                                                                                                                                                     & 95                                                                                                \\ \hline
 \end{tabular}
 \end{table}
@@ -508,7 +508,7 @@ Rating level                                                 & Ver Low          
 
 * Programmer Capability:
 
-    We confident in our team ability in programming. PCAP is set to high.
+    We are confident in our team ability in programming. PCAP is set to high.
 
 <!----->
 \begin{table}[H]
@@ -631,7 +631,7 @@ Rating level                                                 & Ver Low          
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 \multicolumn{7}{|c|}{SITE Cost Driver}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 \\ \hline
-\begin{tabular}[c]{@{}l@{}}SITE \\Collocation\\ Descriptors\end{tabular}      & International                                              & \begin{tabular}[c]{@{}l@{}}Multi-city\\ or multi-\\company\end{tabular} & \begin{tabular}[c]{@{}l@{}}Multi-city\\ or multi-\\company\end{tabular} & \begin{tabular}[c]{@{}l@{}}Same city\\ or metro\\ area\end{tabular}             & \begin{tabular}[c]{@{}l@{}}Same \\building\\ or complex\end{tabular}                       & Fullycollocated                                                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}SITE \\Collocation\\ Descriptors\end{tabular}      & International                                              & \begin{tabular}[c]{@{}l@{}}Multi-city\\ or multi-\\company\end{tabular} & \begin{tabular}[c]{@{}l@{}}Multi-city\\ or multi-\\company\end{tabular} & \begin{tabular}[c]{@{}l@{}}Same city\\ or metro\\ area\end{tabular}             & \begin{tabular}[c]{@{}l@{}}Same \\building\\ or complex\end{tabular}                       & Fully collocated                                                  \\ \hline
 \begin{tabular}[c]{@{}l@{}}SITE\\ Communications\\ Descriptors\end{tabular} & \begin{tabular}[c]{@{}l@{}}Some phone,\\ mail\end{tabular} & \begin{tabular}[c]{@{}l@{}}Individual\\ phone,\\ fax\end{tabular}     & \begin{tabular}[c]{@{}l@{}}Narrow\\ band\\ email\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Wideband\\ electronic\\ comm.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Wideband\\ electr. \\comm.,\\ occasional \\video conf.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Interactive\\ multimedia\end{tabular} \\ \hline
 Rating level                                                                & Ver Low                                                    & Low                                                                   & Nominal                                                               & High                                                                          & Very High                                                                                & \begin{tabular}[c]{@{}l@{}}Extra\\ high\end{tabular}             \\ \hline
 \begin{tabular}[c]{@{}l@{}}Effort\\ multipliers\end{tabular}                & 1.22                                                       & 1.09                                                                  & 1.00                                                                  & 0.93                                                                          & 0.86                                                                                     & 0.80                                                             \\ \hline
@@ -765,7 +765,19 @@ In this section we split the tasks, defined in the previous scheduling section, 
 
 # 5 Risk management
 
-In this section risks for our system development are taken into account, along with some possible strategies to tackle them effectively. Problems at a management level are not so likely to happen since the project was commissioned by a company and there are contractual duties to satisfy even in case of a changes in the high spheres, anyway the high number of meetings should always keep our employers with an eye inside the process, so that they will consider the importance of the project itself for the company's future. Along with managements problems are budget problems, they're mostly unpredictable and rather serious when they occur, the only strategy here is to check in advantage the financial situation of the company, in our case, since we work for a transportation company with an already solid bases, it's not likely that this kind of problems will occur. For what concerns risks of requirements misunderstandings we tackle them in advance via the many encounters with the company managers, so that at various levels in the development process their correctness is checked. Even risks about external components are at a minimum, for the system can rely on solid ones that are not likely to exit the market or change in short time. For what concerns the actual salability of the service, we are by no mean worried, the city in which the service will be implemented is a metropolis, therefore is unlikely that such a system will not get many users; a secondary problem may be the concurrency of similar services, but the system will tackle such a problem thanks to its flexibility in fares. Some problems, which are more likely to happen over a 2 year course, are illness in the personal, especially if this cases take place during important milestones in the project or meetings, to address this kind of problems is useful to keep cohesion among team members at the level of comprehension of teammates work and to always have groups of people working at each task, so that the absence of one doesn't block the developing process. The problems regarding the staff can be many and different, in case of high specialization members, for example, their absence can seriously damage the project, therefore is safer to hire people with a wide range of skills, for the system we're going to develop doesn't advice the need for any particularly high specialized professional. In any case, as a matter of precaution, the time for the various tasks in the scheduling bar chart, is slightly overestimated, so that in case of shifts in the project progress we're covered.
+In this section, risks for our system development are taken into account, along with some possible strategies to tackle them effectively.  
+
+Problems at a management level are not so likely to happen since the project was commissioned by a company and there are contractual duties to satisfy even in case of a changes in the high spheres. Anyway, the high number of meetings should always keep our employers with an eye inside the process, so that they will consider the importance of the project itself for the company's future.  
+
+Along with managements problems are budget problems, they're mostly unpredictable and rather serious when they occur, the only strategy here is to check in advantage the financial situation of the company. In our case, since we work for a transportation company with an already solid bases, it's not likely that this kind of problems will occur.  
+
+For what concerns risks of requirements misunderstandings we tackle them in advance via the many encounters with the company managers, so that at various levels in the development process their correctness is checked. Even risks about external components are at a minimum, for the system can rely on solid ones that are not likely to exit the market or change in short time.  
+
+For what concerns the actual salability of the service, we are by no mean worried, the city in which the service will be implemented is a metropolis, therefore is unlikely that such a system will not get many users; a secondary problem may be the concurrency of similar services, but the system will tackle such a problem thanks to its flexibility in fares.  
+
+Some problems, which are more likely to happen over a 2 year course, are illness in the personal, especially if this cases take place during important milestones in the project or meetings, to address this kind of problems is useful to keep cohesion among team members at the level of comprehension of teammates work and to always have groups of people working at each task, so that the absence of one doesn't block the developing process. The problems regarding the staff can be many and different, in case of high specialization members, for example, their absence can seriously damage the project, therefore is safer to hire people with a wide range of skills, for the system we're going to develop doesn't advice the need for any particularly high specialized professional.  
+
+In any case, as a matter of precaution, the time for the various tasks in the scheduling bar chart, is slightly overestimated, so that in case of shifts in the project progress we're covered.
 
 # 6 Effort spent
 

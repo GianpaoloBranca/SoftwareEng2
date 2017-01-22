@@ -204,5 +204,6 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 
 #Other problems
 * getLong(..) should return a long instead of a Long object.
+* GenericValue class should have a more meaningful name, since it is used often in the inspected code for non trivial operation. According to the Javadoc it "Handles persistence for any defined entity". His name should reflect the offered functionalities.
 
 #Effort spent
