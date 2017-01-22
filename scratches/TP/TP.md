@@ -816,6 +816,16 @@ All these test cases have as an environmental need the MobileApp driver.
 **Environmental needs:** PayPal service stub  
 **Description:** Like in other test cases here we have a situation in which the RequestDispatcher talks to the PaymentHandler only for an information retrieval purpose, in particular in case the MobileApp requests data about the payment history of the user. As in many of the previous cases we want to make sure that those informations are correctly transferred among the components, so we must test that data received from the requester match data effectively contained in the system.
 
+### NOTI Tests
+
+These test cases are not explicitly stated in the integration graphs for simplicity reasons. The PWEService.NotificationManager interacts with almost every component contained in the PWEService itself, but performs, in any case, the same, simple, type of operations, either it forwards some kind of message from a PWEService component to the outside world, or from the outside world to a PWEService component. Therefore all these tests are grouped here and explained under a generalization of said test cases.
+
+#### Test case NOTIx
+
+**Test items:** NotificationManager <-> PWEService.*  
+**Environmental needs:** Stub of CarSystem, Stub of MobileApp (of course the effective need depends on the specific component that is being tested)  
+**Description:** The NotificationManager interacts with other components for notifications forwarding purposes, either from outside to inside and from inside to outside. Therefore in these test cases we want to make sure that every kind of notification is forwarded correctly, maintaining consistency in the informations between what the NotificationManager received and what it is sending out. Of course we also want to make sure that the redirection of notifications happens towards the right components such that the notification triggers the correct sequence of events.
+
 ## 3.2 Subsystem integration sequence
 
 ##Subsystem integration sequence
