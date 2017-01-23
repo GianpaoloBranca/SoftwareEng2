@@ -49,6 +49,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 ##4.1 PersistedServiceJob
 
 ###Naming convention
+* Constant variable _module_ should be all uppercase
 * Method _longValue_ should start with a verb
 * Method _verboseOn_ used at line 116 should start with a verb (hint: _isVerbose_)
 * Method _nowTimestamp_ used at line 137 should start with a verb (hint: _getNowTimestamp_)
@@ -61,6 +62,8 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * Everything is ok
 
 ###Braces
+* Single statement _if_ without braces at line 187
+* Single statement _if_ without braces at line 191
 * Single statement _if_ without braces at line 212
 
 ###File organization
@@ -133,6 +136,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 ##JobPoller
 
 ###Naming convention
+* Constant variable _module_ should be all uppercase
 * Method _pollEnabled_ declared at line 154 should start with a verb
 * Method _onServiceConfigChange_ declared at line 145 should start with a verb
 * Method _remainingCapacity_ used at line 217 should start with a verb (hint: _getRemainingCapacity_)
@@ -169,7 +173,7 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 
 ###Class and interface declaration
 * Variable _jobManagerPollerThread_ declared ad line 98 should be declared after the static variables
-*
+* Constructor _JobPoller_ at line 100 should be declared after the variables.
 
 ###Initialization and declaration
 * _serviceName_ not declared at the beginning of block at line 131
@@ -203,7 +207,31 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 * Everything ok, no files
 
 #Other problems
+We managed to analyze the project with Sonarqube, founding the following extra issues:
+
 * getLong(..) should return a long instead of a Long object.
 * GenericValue class should have a more meaningful name, since it is used often in the inspected code for non trivial operation. According to the Javadoc it "Handles persistence for any defined entity". His name should reflect the offered functionalities.
+
+##PersistedServiceJob
+* “jobID” literal duplicated 4 times, should be replaced by a constant.
+* “currentRecurrenceCount” literal duplicated 3 times, should be replaced by a constant.
+* “currentRetryCount” literal duplicated 3 times, should be replaced by a constant.
+* “runByInstanceID” literal duplicated 4 times, should be replaced by a constant.
+* “statusId” literal duplicated 7 times, should be replaced by a constant.
+* “startDateTime” literal duplicated 4 times, should be replaced by a constant.
+* “parentJobId” literal duplicated 4 times, should be replaced by a constant.
+* “startTime” variable at line 105 should be renamed since hides the field declared at line 69.
+* Method init should be refactored since it have too high cognitive and cyclomatic complexity.
+* “Long” constructor at line 206 should be removed.
+* “Long” constructor at line 208 should be removed.
+* Useless Assignment at line 222
+* _if_ statement at line 309 always evaluated to false.
+
+##JobPoller
+* _pollWaitTime_ method should be moved into JobManagerPoller class
+* Useless Assignment at line 125
+* Method _newThread_ at line 200 should have the @Override notation
+* Method _run_ at line 210 should have the @Override notation, and it should be refactored since it is too complex (it contains several if/for/while/switch/try statements nested).
+* Nested _try_ block at line 245 should be extracted into a separate method
 
 #Effort spent
