@@ -33,16 +33,36 @@ __Methods:__
 * Line 181: stop()
 
 #3 Functional role
+Note: The ofbiz project is very poorly documented and many aspect are not self explained.
 
 ###3.1 PersistedServiceJob
 
-PersistedServiceJob ext-> GenericServiceJob ext-> AbstractJob impl-> Job impl-> Runnable
+####Role
+According to the Javadoc a __PersistedServiceJob__ is A Job that is backed by the entity engine, and his data are stored in the JobSandbox entity.  
+The JobSandbox entity is an instance of GenericValue called JobValue, with a bad naming. Note that the class __JobSandbox__ does not exist in the entire project.
+
+PersistedServiceJob extends __GenericServiceJob__, an async-service job and the main realization of a Job. Itself extend __AbstractServiceJob__, and this last implements the interface __Job__.  
+
+According to the JavaDoc:  
+A job starts out in the created state. When the job is queued for execution, it transitions to the queued state. While the job is executing it is in the running state. When the job execution ends, it transitions to the finished or failed state - depending on the outcome of the task that was performed.
+
+A PersistedServiceJob works as a GenericServiceJob, it can be queued, dequeued, executed and finish, but every overrided method also store the time, the status and the result of the job in the __JobSandBox__ . It can also fail, but differently to its superclass it can retry a certain number of time, decided by the JobSandBox.  
+
+####Usages
+Importing the project with eclipse we managed to scan the entire project for the usages of this class.
+It is used only once in the JobManager class, in the _poll(int)_ method, at line 225.
+According to the documentation:  
+this method scans the JobSandbox entity and returns a list of jobs that are due to run. Returns an empty list if there are no jobs due to run.
+This method is called by the __JobPoller__ polling thread.    
+A PersistedServiceJob is created whenever there is a job to run, added to the poll and returned to the JobPoller. The JobPoller class is explained in the next section.
 
 ###3.2 JobPoller
 
 ![](./images/JobPoller_dep.png){#id .class width=50% height=50%}\
 
-The JobPoller is a singleton class created to handle the execution of the Jobs contained into various JobManagers creating a queue that balances the Jobs ordering so that they're executed from a wide range of JobManagers. As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured, using the _createThreadPoolExecutor_ method at line 63, by taking information about the service configuration parameters from the ServiceConfigUtil class. The JobPoller itself contains an instance of a private class that extends Thread, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, whose execution is then managed from the ThreadPoolExecutor. The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method at line 114, and also about the waiting time of the poll, with the _pollWaitTime_ method at line 75. Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, and one to directly put a Job into the ThreadPoolExecutor queue, which is _queueNow_, the former at line 91 and the latter at line 168. In the end there's a method to enable the JobPoller and one to stop it. Taken into account all these informations, results clear that the role of this class is the one stated at the beginning of this paragraph.
+The JobPoller is a singleton class created to handle the execution of the Jobs contained into various JobManagers creating a queue that balances the Jobs ordering so that they're executed from a wide range of JobManagers.
+
+As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured, using the _createThreadPoolExecutor_ method at line 63, by taking information about the service configuration parameters from the ServiceConfigUtil class. The JobPoller itself contains an instance of a private class that extends Thread, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, whose execution is then managed from the ThreadPoolExecutor. The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method at line 114, and also about the waiting time of the poll, with the _pollWaitTime_ method at line 75. Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, and one to directly put a Job into the ThreadPoolExecutor queue, which is _queueNow_, the former at line 91 and the latter at line 168. In the end there's a method to enable the JobPoller and one to stop it. Taken into account all these informations, results clear that the role of this class is the one stated at the beginning of this paragraph.
 
 #4 Issues list found by applying the checklist
 
@@ -131,7 +151,6 @@ The JobPoller is a singleton class created to handle the execution of the Jobs c
 
 ###Files
 * Everything ok, no files
----
 
 ##JobPoller
 
