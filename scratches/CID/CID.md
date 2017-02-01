@@ -6,6 +6,12 @@
 
 #1 Introduction
 
+##1.1 Purpose
+The purpose of this document is to analyze two assigned classes which are part of a specific release of the Apache OFBiz Project, an open source software dedicated to the automation of enterprise processes. The analysis method that will be used is called Code Inspection and consists in a series of systematic verifications of the quality of the code based on a checklist. The aim of this analysis is two sided, first it helps the improvement of the code, providing to the developers a set of probable imperfections or errors in the code to be verified; but on the other side allows the inspector to deeply analyze the code becoming more and more skilled in finding possible mistakes even in the case he's the coder.
+
+##1.2 Scope
+Apache OFBiz is implemented using different standards, mainly Java, JEE and XML. The version assigned to us for inspection has been downloaded from the provide mirror and since the project was developed in Eclipse we used it to further lookup some points on the checklist through sonar.
+
 #2 Classes
 
 ###2.1 PersistedServiceJob
@@ -60,10 +66,25 @@ A PersistedServiceJob is created whenever there is a job to run, added to the po
 
 ![](./images/JobPoller_dep.png){#id .class width=50% height=50%}\
 
-The JobPoller is a singleton class created to handle the execution of the Jobs contained into various JobManagers creating a queue that balances the Jobs ordering so that they're executed from a wide range of JobManagers.
+####Role
+The JobPoller is a singleton class created to handle the execution of the Jobs contained into different JobManagers creating a queue that balances the Jobs execution ordering to ensure that the execution time is well spread among the JobManagers.
 
-As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured, using the _createThreadPoolExecutor_ method at line 63, by taking information about the service configuration parameters from the ServiceConfigUtil class. The JobPoller itself contains an instance of a private class that extends Thread, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, whose execution is then managed from the ThreadPoolExecutor. The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method at line 114, and also about the waiting time of the poll, with the _pollWaitTime_ method at line 75. Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, and one to directly put a Job into the ThreadPoolExecutor queue, which is _queueNow_, the former at line 91 and the latter at line 168. In the end there's a method to enable the JobPoller and one to stop it. Taken into account all these informations, results clear that the role of this class is the one stated at the beginning of this paragraph.
+As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured by taking information about the service configuration parameters from the ServiceConfigUtil class, this is achieved using the _createThreadPoolExecutor_ method.
+The JobPoller, itself, contains an instance of an extension of the Thread class, which is the JobManagerPoller; this class is the main thread that manages the queueing of the Jobs, relying on the ThreadPoolExecutor.
+The JobPoller also offers the access to informations about the Jobs he handles with the _getPoolState_ method, and also about the waiting time of the poll, with the _pollWaitTime_ method.
+Along with these, the JobPoller contains a method to register a JobManager to the JobPoller, which of course is _registerJobManager_, this method clarifies the fact that the JobPoller operates as a "subscription service" and handles automatically only the execution of the Jobs related to subscripted JobManagers.
+Furthermore one method allows the direct insertion of a Job into the ThreadPoolExecutor queue, the said method is _queueNow_.
+In the end there's a method to enable the JobPoller and one to stop it.
 
+Taken into account all these informations, it should result clear that the role of this class is the one stated at the beginning of this paragraph. The services offered by the JobPoller class, and the tasks that he carries out, clearly identify it as a manager created with the purpose of storing and organizing the Jobs and their execution along with relevant informations that can be retrieved upon necessity.
+
+####Usages
+The JobPoller class is used only by the JobManager class, to be specific in four different points in the code of the class, at lines 98, 109, 136, 367, following this order we'll explain the purpose of each usage case.
+The first usage is in the _getInstance_ method which is basically used to retrieve a JobManager associated to a specific __Delegator__ or a new one if there's no existing. In the latter case a boolean value defines if the _registerJobManager_ method of the JobPoller must be called to perform the subscription of the newly created JobManager.
+The second usage case is pretty straightforward, happens inside the _shutDown_ method, which is called upon the closing of OFBiz. This method calls the _getInstance_ method of the JobPoller and sequentially its _stop_ method which correctly shuts the JobPoller before proceeding to close the rest of the system.
+The third usage case is also a pretty simple one, in fact it just involves the _getPoolState_ method which, after getting the JobPoller instance, calls its homonym method to retrieve the pool state Map to use as return value.
+The fourth and last interaction instead is fairly interesting since it underlies one of the principal methods of the JobManager. The _runJob(Job)_ method is, in fact, used to directly insert a Job into execution queue, and relies on the _queueNow(Job)_ method of the JobPoller, which functionality has been already stated in the related Role paragraph.
+ 
 #4 Issues list found by applying the checklist
 
 ##4.1 PersistedServiceJob
