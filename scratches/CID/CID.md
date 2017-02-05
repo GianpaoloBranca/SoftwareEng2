@@ -4,46 +4,42 @@
  Andrea Cini
 %![](polimi.png)\newpage
 
+
+\newpage
+
 #1 Introduction
 
 ##1.1 Purpose
 The purpose of this document is to analyze two assigned classes which are part of a specific release of the Apache OFBiz Project, an open source software dedicated to the automation of enterprise processes. The analysis method that will be used is called Code Inspection and consists in a series of systematic verifications of the quality of the code based on a checklist. The aim of this analysis is two sided, first it helps the improvement of the code, providing to the developers a set of probable imperfections or errors in the code to be verified; but on the other side allows the inspector to deeply analyze the code becoming more and more skilled in finding possible mistakes even in the case he's the coder.
 
 ##1.2 Scope
-Apache OFBiz is implemented using different standards, mainly Java, JEE and XML. The version assigned to us for inspection has been downloaded from the provide mirror and since the project was developed in Eclipse we used it to further lookup some points on the checklist through sonar.
+Apache OFBiz is implemented using different standards, mainly Java, JEE and XML. The version assigned to us for inspection has been downloaded from the provided mirror and since the project was developed in Eclipse we used it to further lookup some points on the checklist. We also analyzed the project with Sonarqube.
 
 #2 Classes
 
-###2.1 PersistedServiceJob
+##2.1 PersistedServiceJob
 __Namespace:__ org.apache.ofbiz.service.job  
 __Extends:__ GenericServiceJob  
 __Implements:__ N/A  
 
-__Methods:__
-
-###2.2 JobPoller
+##2.2 JobPoller
 __Namespace:__ org.apache.ofbiz.service.job.JobPoller  
 __Extends:__ N/A  
 __Implements:__ org.apache.ofbiz.service.config.ServiceConfigListener  
 
-__Methods:__  
-
-* Line 59: getInstance()
-* Line 63: createThreadPoolExecutor()
-* Line 75: pollWaitTime()
-* Line 91: registerJobManager(JobManager jm)
-* Line 114: getPoolState()
-* Line 145: onServiceConfigChange(ServiceConfig serviceConfig)
-* Line 154: pollEnabled()
-* Line 168: queueNow(Job job)
-* Line 181: stop()
+\newpage
 
 #3 Functional role
-Note: The ofbiz project is very poorly documented and many aspect are not self explained.
+Note: The ofbiz project is very poorly documented and many aspect are not self explained.  
+For the usages sections, importing the project with eclipse we managed to scan the entire project for the usages of these classes.
 
-###3.1 PersistedServiceJob
 
-####Role
+##3.1 PersistedServiceJob
+
+![](./images/PSJdep.png){#id .class width=75% height=75%}\
+
+
+###Role
 According to the Javadoc a __PersistedServiceJob__ is A Job that is backed by the entity engine, and his data are stored in the JobSandbox entity.  
 The JobSandbox entity is an instance of GenericValue called JobValue, with a bad naming. Note that the class __JobSandbox__ does not exist in the entire project.
 
@@ -52,21 +48,21 @@ PersistedServiceJob extends __GenericServiceJob__, an async-service job and the 
 According to the JavaDoc:  
 A job starts out in the created state. When the job is queued for execution, it transitions to the queued state. While the job is executing it is in the running state. When the job execution ends, it transitions to the finished or failed state - depending on the outcome of the task that was performed.
 
-A PersistedServiceJob works as a GenericServiceJob, it can be queued, dequeued, executed and finish, but every overrided method also store the time, the status and the result of the job in the __JobSandBox__ . It can also fail, but differently to its superclass it can retry a certain number of time, decided by the JobSandBox.  
+A PersistedServiceJob works as a GenericServiceJob, it can be queued, dequeued, executed and finish, but every overridden method also store the time, the status and the result of the job in the __JobSandBox__. It can also fail, but differently to its superclass it can retry a certain number of time, decided by the JobSandBox.  
 
-####Usages
-Importing the project with eclipse we managed to scan the entire project for the usages of this class.
+###Usages
 It is used only once in the JobManager class, in the _poll(int)_ method, at line 225.
 According to the documentation:  
 this method scans the JobSandbox entity and returns a list of jobs that are due to run. Returns an empty list if there are no jobs due to run.
 This method is called by the __JobPoller__ polling thread.    
 A PersistedServiceJob is created whenever there is a job to run, added to the poll and returned to the JobPoller. The JobPoller class is explained in the next section.
 
-###3.2 JobPoller
+##3.2 JobPoller
 
 ![](./images/JobPoller_dep.png){#id .class width=50% height=50%}\
 
-####Role
+
+###Role
 The JobPoller is a singleton class created to handle the execution of the Jobs contained into different JobManagers creating a queue that balances the Jobs execution ordering to ensure that the execution time is well spread among the JobManagers.
 
 As one can see, the JobPoller relies on a ThreadPoolExecutor which is properly configured by taking information about the service configuration parameters from the ServiceConfigUtil class, this is achieved using the _createThreadPoolExecutor_ method.
@@ -78,13 +74,17 @@ In the end there's a method to enable the JobPoller and one to stop it.
 
 Taken into account all these informations, it should result clear that the role of this class is the one stated at the beginning of this paragraph. The services offered by the JobPoller class, and the tasks that he carries out, clearly identify it as a manager created with the purpose of storing and organizing the Jobs and their execution along with relevant informations that can be retrieved upon necessity.
 
-####Usages
+###Usages
 The JobPoller class is used only by the JobManager class, to be specific in four different points in the code of the class, at lines 98, 109, 136, 367, following this order we'll explain the purpose of each usage case.
+
 The first usage is in the _getInstance_ method which is basically used to retrieve a JobManager associated to a specific __Delegator__ or a new one if there's no existing. In the latter case a boolean value defines if the _registerJobManager_ method of the JobPoller must be called to perform the subscription of the newly created JobManager.
+
 The second usage case is pretty straightforward, happens inside the _shutDown_ method, which is called upon the closing of OFBiz. This method calls the _getInstance_ method of the JobPoller and sequentially its _stop_ method which correctly shuts the JobPoller before proceeding to close the rest of the system.
+
 The third usage case is also a pretty simple one, in fact it just involves the _getPoolState_ method which, after getting the JobPoller instance, calls its homonym method to retrieve the pool state Map to use as return value.
+
 The fourth and last interaction instead is fairly interesting since it underlies one of the principal methods of the JobManager. The _runJob(Job)_ method is, in fact, used to directly insert a Job into execution queue, and relies on the _queueNow(Job)_ method of the JobPoller, which functionality has been already stated in the related Role paragraph.
- 
+
 #4 Issues list found by applying the checklist
 
 ##4.1 PersistedServiceJob
@@ -97,7 +97,7 @@ The fourth and last interaction instead is fairly interesting since it underlies
 * Method _infoOn_ used at line 224 should start with a verb and has an ambiguous name
 * Variable _next_ at line 179 should have a more meaningful name
 * Variable _next_ at line 251 should have a more meaningful name
-* Vaiable _jobValue_ at line 68 should be named _jobSandBox_ or similar, for consistency with comments, log outputs and javadoc.
+* Variable _jobValue_ at line 68 should be named _jobSandBox_ or similar, for consistency with comments, log outputs and javadoc.
 
 ###Indention
 * Everything is ok
@@ -137,17 +137,17 @@ The fourth and last interaction instead is fairly interesting since it underlies
 
 
 ###Initialization and declaration
-* _cancelTime_ not declared at the beginning of block at line 104 __?__
-* _startTime_ not declared at the beginning of block at line 105 __?__
-* _maxRecurrenceCount_ not declared at the beginning of block at line 148 __?__
-* _currentRecurrenceCount_ not declared at the beginning of block at line 149 __?__
-* _expr_ not declared at the beginning of block at line 150 __?__
-* _recurrence_ not declared at the beginning of block at line 151 __?__
+* _cancelTime_ not declared at the beginning of block at line 104
+* _startTime_ not declared at the beginning of block at line 105
+* _maxRecurrenceCount_ not declared at the beginning of block at line 148
+* _currentRecurrenceCount_ not declared at the beginning of block at line 149
+* _expr_ not declared at the beginning of block at line 150
+* _recurrence_ not declared at the beginning of block at line 151
 * _next_ not declared at the beginning of block at line 179
 * _newJob_ not declared at the beginning of block at line 197
 * _jobResult_ not declared at the beginning of block at line 222
 * _next_ not declared at the beginning of block at line 251
-* _count_ not declared at the beginning of block at line 321 __?__
+* _count_ not declared at the beginning of block at line 321
 
 ###Method calls
 * Everything ok
@@ -173,7 +173,7 @@ The fourth and last interaction instead is fairly interesting since it underlies
 ###Files
 * Everything ok, no files
 
-##JobPoller
+##4.2 JobPoller
 
 ###Naming convention
 * Constant variable _module_ should be all uppercase
@@ -186,8 +186,8 @@ The fourth and last interaction instead is fairly interesting since it underlies
 * Variable _created_ at line 51 should have a more meaningful name
 
 ###Indention
-* Line 67 starts with a mismatching number of spaces ?
-* Line 71 starts with a mismatching number of spaces ?
+* Line 67 starts with a mismatching number of spaces
+* Line 71 starts with a mismatching number of spaces
 
 ###Braces
 * Single statement _if_ without braces at line 224
@@ -217,8 +217,8 @@ The fourth and last interaction instead is fairly interesting since it underlies
 
 ###Initialization and declaration
 * _serviceName_ not declared at the beginning of block at line 131
-* _queueCandidates_ not declared at the beginning of block at line 231 __?__
-* _addingJobs_ not declared at the beginning of block at line 232 __?__
+* _queueCandidates_ not declared at the beginning of block at line 231
+* _addingJobs_ not declared at the beginning of block at line 232
 
 ###Method calls
 * Everything ok
@@ -246,13 +246,13 @@ The fourth and last interaction instead is fairly interesting since it underlies
 ###Files
 * Everything ok, no files
 
-#Other problems
+#5 Other problems
+
+GenericValue class should have a more meaningful name, since it is used often in the inspected code for non trivial operation. According to the Javadoc it "Handles persistence for any defined entity". Its name should reflect the offered functionalities.  
+
 We managed to analyze the project with Sonarqube, founding the following extra issues:
 
-* getLong(..) should return a long instead of a Long object.
-* GenericValue class should have a more meaningful name, since it is used often in the inspected code for non trivial operation. According to the Javadoc it "Handles persistence for any defined entity". His name should reflect the offered functionalities.
-
-##PersistedServiceJob
+##5.1 PersistedServiceJob
 * “jobID” literal duplicated 4 times, should be replaced by a constant.
 * “currentRecurrenceCount” literal duplicated 3 times, should be replaced by a constant.
 * “currentRetryCount” literal duplicated 3 times, should be replaced by a constant.
@@ -267,11 +267,12 @@ We managed to analyze the project with Sonarqube, founding the following extra i
 * Useless Assignment at line 222
 * _if_ statement at line 309 always evaluated to false.
 
-##JobPoller
+##5.2 JobPoller
 * _pollWaitTime_ method should be moved into JobManagerPoller class
 * Useless Assignment at line 125
 * Method _newThread_ at line 200 should have the @Override notation
 * Method _run_ at line 210 should have the @Override notation, and it should be refactored since it is too complex (it contains several if/for/while/switch/try statements nested).
 * Nested _try_ block at line 245 should be extracted into a separate method
 
-#Effort spent
+#6 Effort spent
+Every member of the group spent about 15 hours working on this assignment
