@@ -1,10 +1,18 @@
-% **Integration test document - v1.0**
+% **Integration test document - v1.1**
 %Gianpaolo Branca
  Luca Butera
  Andrea Cini
 %![](polimi.png)\newpage
 
 \newpage
+
+## History of changes
+
+* **1.0**:
+    * Initial release.                                                            
+* **1.1**:
+    * Added a note about the notification manager testing in paragraph 3.1.
+
 # 1 Introduction
 
 ## 1.1 Purpose
@@ -903,6 +911,7 @@ __Description:__ This integration test is crucial since it involves what will be
 |                     | the action is logged.         |
 +---------------------+-------------------------------+
 
+\newpage
 
 ####SearchCar(position, radius)
 
